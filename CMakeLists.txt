@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
-include(FRCDeploy)
-
 project(frc_ascent)
+
+include(FRCDeploy.cmake)
+
 find_package(WPILib)
-include-directories(${WPILib_INCLUDE_DIRS})
+include_directories(${WPILib_INCLUDE_DIRS})
 
 file(GLOB_RECURSE SOURCE_CODE *.cpp)
 
