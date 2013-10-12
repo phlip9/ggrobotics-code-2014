@@ -15,8 +15,8 @@ public:
 		stick2(2)
 	{
 		myRobot.SetExpiration(0.1);
-		myRobot.SetInvertedMotor(myRobot.kFrontLeftMotor, true);
-		myRobot.SetInvertedMotor(myRobot.kRearLeftMotor, true);
+		//myRobot.SetInvertedMotor(myRobot.kFrontLeftMotor, true);
+		//myRobot.SetInvertedMotor(myRobot.kRearLeftMotor, true);
 
 		//create objects
 		ds_lcd = DriverStationLCD::GetInstance();
