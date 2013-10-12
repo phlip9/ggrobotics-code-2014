@@ -2,23 +2,20 @@
 
 class Robot : public SimpleRobot
 {
-	RobotDrive myRobot; // robot drive system
-	Joystick stick; //only joystick
+	RobotDrive myRobot;
+	Joystick stick;
 	Joystick stick2;
 
 	DriverStationLCD *ds_lcd;
 
 public:
 	Robot(void):
-		myRobot(1, 2, 3, 4),	// these must be initialized in the same order as they are declared above.
+		myRobot(1, 2, 3, 4),
 		stick(1),
 		stick2(2)
 	{
 		myRobot.SetExpiration(0.1);
-		//myRobot.SetInvertedMotor(myRobot.kFrontLeftMotor, true);
-		//myRobot.SetInvertedMotor(myRobot.kRearLeftMotor, true);
 
-		//create objects
 		ds_lcd = DriverStationLCD::GetInstance();
 	}
 
@@ -35,12 +32,13 @@ public:
 
 		while (IsOperatorControl())
 		{
-			//Read Joystick 1 Values
 			x = stick.GetX();
 			y = stick.GetY();
 
-			myRobot.MecanumDrive_Cartesian(x, y, 0); // drive with Mechn0m weels (use right stick)
-			Wait(0.005);  // wait for a motor update time
+            ds_lcd->PrintLine(DriverStationLCD::kUser_Line1, "Joystick X: %f, Y: %f", x, y);
+
+			myRobot.MecanumDrive_Cartesian(x, y, 0);
+			Wait(0.005);
 
 			ds_lcd->UpdateLCD();
 		}
