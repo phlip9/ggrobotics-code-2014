@@ -35,7 +35,7 @@ public:
 			x = stick.GetX();
 			y = stick.GetY();
 
-            ds_lcd->PrintfLine(DriverStationLCD::kUser_Line1, "Joystick X: %f, Y: %f", x, y);
+            ds_lcd->PrintfLine(DriverStationLCD::kUser_Line1, "J1X: %.3f J1Y: %.3f", x, y);
 
 			myRobot.MecanumDrive_Cartesian(x, y, 0);
 			Wait(0.005);
