@@ -6,13 +6,24 @@ class Robot : public SimpleRobot
 	Joystick stick;
 	Joystick stick2;
 
+    JoystickButton *solenoid_up;
+    JoystickButton *solenoid_down;
+
+    DoubleSolenoid *left_solenoid;
+    DoubleSolenoid *right_solenoid;
+
 	DriverStationLCD *ds_lcd;
 
 public:
 	Robot(void):
 		myRobot(1, 2, 3, 4),
 		stick(1),
-		stick2(2)
+		stick2(2),
+        solenoid_up(stick, 3),
+        solenoid_down(stick, 2),
+        left_solenoid(),
+        right_solenoid()
+
 	{
 		myRobot.SetExpiration(0.1);
 
