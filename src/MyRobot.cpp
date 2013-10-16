@@ -40,15 +40,15 @@ public:
 	void OperatorControl(void)
 	{
 		myRobot.SetSafetyEnabled(true);
-
-		float x, y;
-        bool solenoid_up, solenoid_down;
+		
+		float x, y, twist;
+ 	       bool solenoid_up, solenoid_down;
 
 		while (IsOperatorControl())
 		{
 			x = stick.GetX();
 			y = stick.GetY();
-
+			twist = stick.GetTwist();
             solenoid_up = solenoid_up_button.Get();
             solenoid_down = solenoid_down_button.Get();
 
@@ -60,7 +60,7 @@ public:
             ds_lcd->PrintfLine(DriverStationLCD::kUser_Line3, "solenoid_down: %s",
                     solenoid_down ? "On" : "Off");
 
-			myRobot.MecanumDrive_Cartesian(x, y, 0);
+			myRobot.MecanumDrive_Cartesian(x, y, twist);
 
             if (solenoid_up && !solenoid_down) {
                 left_solenoid.Set(DoubleSolenoid::kForward);
