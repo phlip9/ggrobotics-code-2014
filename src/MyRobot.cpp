@@ -8,6 +8,9 @@ class Robot : public SimpleRobot {
   JoystickButton solenoid_up_button;
   JoystickButton solenoid_down_button;
 
+  JoystickButton turn_left_button;
+  JoystickButton turn_right_button;
+
   DoubleSolenoid left_solenoid;
   DoubleSolenoid right_solenoid;
 
