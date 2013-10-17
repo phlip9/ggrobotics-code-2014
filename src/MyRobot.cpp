@@ -11,7 +11,7 @@ class Robot : public SimpleRobot {
   DoubleSolenoid left_solenoid;
   DoubleSolenoid right_solenoid;
 
-  //Compressor compressor;
+  // Compressor compressor;
 
   DriverStationLCD *ds_lcd;
 
@@ -22,6 +22,8 @@ class Robot : public SimpleRobot {
       stick2(2),
       solenoid_up_button(&stick, 3),
       solenoid_down_button(&stick, 2),
+      turn_left_button(&stick, 4),
+      turn_right_button(&stick, 5),
       left_solenoid(1, 4, 2),
       right_solenoid(2, 2, 4) {
       //compressor() //TODO: add constructor parameters
@@ -39,13 +41,23 @@ class Robot : public SimpleRobot {
     myRobot.SetSafetyEnabled(true);
 
     float x, y, twist;
-    bool solenoid_up, solenoid_down;
+    bool solenoid_up, solenoid_down, left, right;
 
     while (IsOperatorControl()) {
       x = stick.GetX();
       y = stick.GetY();
+     
+       
+      left = turn_left_button.Get();
+      right = turn_right_button.Get();
 
-      twist = stick.GetTwist();
+      if (left) {
+        twist = -1;
+      } else if (right) {
+        twist = 1;
+      } else if (right && left) {
+        twist = 0;
+      }
 
       solenoid_up = solenoid_up_button.Get();
       solenoid_down = solenoid_down_button.Get();
