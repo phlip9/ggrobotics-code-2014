@@ -1,10 +1,16 @@
 #include "WPILib.h"
 
+namespace {
+  // turning rate for robot.  from 0 (no turning) -> 1 (crazy turning)
+  const float TURNING_RATE = 0.75f;
+} // unnamed namespace, holds constants
+
 class Robot : public SimpleRobot {
   RobotDrive myRobot;
+
   Joystick stick;
   Joystick stick2;
-  float turning_rate;
+
   JoystickButton solenoid_up_button;
   JoystickButton solenoid_down_button;
 
@@ -14,7 +20,7 @@ class Robot : public SimpleRobot {
   DoubleSolenoid left_solenoid;
   DoubleSolenoid right_solenoid;
 
-  // Compressor compressor;
+  //Compressor compressor;
 
   DriverStationLCD *ds_lcd;
 
@@ -32,9 +38,7 @@ class Robot : public SimpleRobot {
       //compressor() //TODO: add constructor parameters
 
     myRobot.SetExpiration(0.1);
-    
-    // turning rate for robot.  from 0 (no turning) -> 1 (crazy turning)
-    turning_rate = 0.75;
+
     ds_lcd = DriverStationLCD::GetInstance();
   }
 
@@ -51,21 +55,21 @@ class Robot : public SimpleRobot {
     while (IsOperatorControl()) {
       x = stick.GetX();
       y = stick.GetY();
-     
+
       if (stick.GetRawButton(4)) {
-	twist = -1 * turning_rate;
+        twist = -1 * TURNING_RATE;
       }
 
       if (stick.GetRawButton(5)) {
- 	twist = 1 * turning_rate;
-      } 
+        twist = 1 * TURNING_RATE;
+      }
 
       if (stick.GetRawButton(4) && stick.GetRawButton(5)) {
-	twist = 0;
+        twist = 0;
       } else if (!stick.GetRawButton(4) && !stick.GetRawButton(5)) {
-	twist = 0;
-      }  
- 
+        twist = 0;
+      }
+
       solenoid_up = solenoid_up_button.Get();
       solenoid_down = solenoid_down_button.Get();
 
@@ -77,13 +81,13 @@ class Robot : public SimpleRobot {
 
       ds_lcd->PrintfLine(DriverStationLCD::kUser_Line3, "solenoid_down: %s",
                          solenoid_down ? "On" : "Off");
-  
-      ds_lcd->PrintfLine(DriverStationLCD::kUser_Line4, "Turn Number: %s", twist);
+
+      ds_lcd->PrintfLine(DriverStationLCD::kUser_Line4,
+                         "Turn Number: %s", twist);
 
       myRobot.MecanumDrive_Cartesian(x, y, twist);
 
       if (solenoid_up && !solenoid_down) {
-	ds_lcd->PrintfLine(DriverStationLCD::kUser_Line5, "foo");
         left_solenoid.Set(DoubleSolenoid::kForward);
         right_solenoid.Set(DoubleSolenoid::kForward);
       }
