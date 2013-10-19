@@ -17,8 +17,8 @@ class Robot : public SimpleRobot {
   JoystickButton turn_left_button;
   JoystickButton turn_right_button;
 
-  DoubleSolenoid left_solenoid;
-  DoubleSolenoid right_solenoid;
+  Solenoid left_solenoid;
+  Solenoid right_solenoid;
 
   //Compressor compressor;
 
@@ -33,8 +33,8 @@ class Robot : public SimpleRobot {
       solenoid_down_button(&stick, 2),
       turn_left_button(&stick, 4),
       turn_right_button(&stick, 5),
-      left_solenoid(4, 2),
-      right_solenoid(4, 2) {
+      left_solenoid(1),
+      right_solenoid(8) {
       //compressor() //TODO: add constructor parameters
 
     myRobot.SetExpiration(0.1);
@@ -58,15 +58,15 @@ class Robot : public SimpleRobot {
       x = stick.GetX();
       y = stick.GetY();
 
-      //bool(eans) for if the buttons are pushed to indicate turning.  
+      //bool(eans) for if the buttons are pushed to indicate turning.
       left = turn_left_button.Get();
       right = turn_right_button.Get();
 
-      //if left turning button is pushed (default 4), set turning number between -1 -> 0 
+      //if left turning button is pushed (default 4), set turning number between -1 -> 0
       if (left) {
         twist = -1 * TURNING_RATE;
       }
-      
+
       //if right turning button is pushed (default 5), set turning number between 0 -> 1
       if (right) {
         twist = 1 * TURNING_RATE;
@@ -105,18 +105,13 @@ class Robot : public SimpleRobot {
 
       //Solenoid button if stack.  Moves solenoids if appropriate buttons are pushed.
       if (solenoid_up && !solenoid_down) {
-        left_solenoid.Set(DoubleSolenoid::kForward);
-        right_solenoid.Set(DoubleSolenoid::kForward);
+        left_solenoid.Set(true);
+        right_solenoid.Set(true);
       }
 
       if (solenoid_down && !solenoid_up) {
-        left_solenoid.Set(DoubleSolenoid::kReverse);
-        right_solenoid.Set(DoubleSolenoid::kReverse);
-      }
-
-      if (!solenoid_up && !solenoid_down) {
-        left_solenoid.Set(DoubleSolenoid::kOff);
-        right_solenoid.Set(DoubleSolenoid::kOff);
+        left_solenoid.Set(false);
+        right_solenoid.Set(false);
       }
 
       Wait(0.005);
