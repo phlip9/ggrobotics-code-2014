@@ -14,6 +14,8 @@ class OI {
   OI();
   ~OI();
 
+  void Init();
+
  private:
   // Joysticks
   Joystick drive_stick;

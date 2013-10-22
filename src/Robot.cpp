@@ -14,6 +14,8 @@ Robot::Robot()
       autonomous_command(),
       teleop_command() {
   hardware_map.AddToLiveWindow();
+  oi.Init();
+
   live_window = LiveWindow::GetInstance();
 }
 
