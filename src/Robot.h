@@ -1,6 +1,4 @@
 /*
- * Singleton Robot Class. Logically, there should be one and *only one* Robot
- * instance.
  * This class holds the hardware map, operator interface, and robot subsystems.
  * It also manages the different robot state logic, e.g. autonomous vs teleop vs
  * test mode.
@@ -20,8 +18,6 @@
 class Robot : public IterativeRobot {
 
  public:
-  static const Robot& GetInstance();
-
   void RobotInit() override;
 
   void AutonomousInit() override;
@@ -31,6 +27,10 @@ class Robot : public IterativeRobot {
   void TeleopPeriodic() override;
 
   void TestPeriodic() override;
+
+  Subsystem* RegisterSubsystem(std::string, Subsystem*);
+  Subsystem* GetSubsystem(std::string);
+  void RemoveSubsystem(std::string);
 
  private:
   Robot();
@@ -45,31 +45,14 @@ class Robot : public IterativeRobot {
   // Operator Interface
   OI oi;
 
-  // Subsystems
-  Drive drive;
-  Hook hook;
-
-  LiveWindow *live_window;
+  // Subsystem map
+  std::unordered_map<std::string, Subsystem*> subsystems;
 
   Command autonomous_command;
   Command teleop_command;
 
 }
 
-// START_ROBOT_CLASS(Robot);
-
-// Override the START_ROBOT_CLASS macro and instead return a reference to the
-// singleton instance.
-RobotBase *FRC_userClassFactory() {
-  return &GetInstance();
-}
-
-// Set the entry point to the program (a function pointer to the above method)
-extern "C" {
-  INT32 FRC_UserProgram_StartupLibraryInit() {
-    RobotBase::startRobotTask((FUNCPTR) FRC_userClassFactory);
-    return 0;
-  }
-}
+START_ROBOT_CLASS(Robot);
 
 #endif

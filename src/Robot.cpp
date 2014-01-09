@@ -15,15 +15,6 @@ Robot::Robot()
       teleop_command() {
   hardware_map.AddToLiveWindow();
   oi.Init();
-
-  live_window = LiveWindow::GetInstance();
-}
-
-// Lazy evaluated singleton
-const Robot& Robot::GetInstance() {
-  // Instanciated on first GetInstance call.
-  static const Robot instance;
-  return instance;
 }
 
 void Robot::AutonomousInit() {
@@ -45,5 +36,22 @@ void Robot::TeleopPeriodic() {
 }
 
 void Robot::TestPeriodic() {
-  live_window->Run();
+  LiveWindow::GetInstance()->Run();
+}
+
+Subsystem* RegisterSubsystem(std::string name, Subsystem* subsystem) {
+  // Erase the current registered subsystem if it exists.
+  if (subsystems.find(name) == subsystems.end) {
+    RemoveSubsystem(name);
+  }
+  subsystems[name] = subsystem;
+}
+
+Subsystem* GetSubsystem(std::string name) {
+  return subsystems.at(name);
+}
+
+void RemoveSubsystem(std::string name) {
+  // Can't tell if I need to delete here...
+  subsystems.erase(name);
 }

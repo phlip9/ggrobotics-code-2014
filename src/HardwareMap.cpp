@@ -4,13 +4,7 @@
 #include "LiveWindow/LiveWindow.h"
 
 HardwareMap::HardwareMap()
-    : front_left_motor(1),
-      rear_left_motor(2),
-      front_right_motor(3),
-      rear_right_motor(4),
-      drivetrain(&front_left_motor, &rear_left_motor,
-                 &front_right_motor, &rear_right_motor),
-      hang_solenoid_left(1),
+    :       hang_solenoid_left(1),
       hang_solenoid_right(8) {
 
   drivetrain.setExpiration(0.1);
