@@ -4,10 +4,12 @@
  * test mode.
  */
 
-#ifndef _ROBOT_H
-#define _ROBOT_H
+#ifndef _ROBOT_H_
+#define _ROBOT_H_
 
-#include "WPILib.h"
+#include "RobotBase.h"
+#include "IterativeRobot.h"
+#include "Commands/Command.h"
 
 #include "HardwareMap.h"
 #include "OI.h"
@@ -33,17 +35,17 @@ class Robot : public IterativeRobot {
   void TestInit() override;
   void TestPeriodic() override;
 
- private:
-  Robot();
-
-  Command autonomous_command;
-  Command teleop_command;
-
   // Maps hardware modules to software objects.
   HardwareMap hardware_map;
 
   // Operator Interface
   OI oi;
+
+ private:
+  Robot();
+
+  Command autonomous_command;
+  Command teleop_command;
 
 }
 
