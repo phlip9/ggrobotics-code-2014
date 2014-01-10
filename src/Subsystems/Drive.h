@@ -1,23 +1,26 @@
-// Robot drivetrain subsystem
+// Robot drive subsystem
 
-#ifndef _DRIVE_H
-#define _DRIVE_H
+#ifndef _SUBSYSTEMS_DRIVE_H_
+#define _SUBSYSTEMS_DRIVE_H_
 
 #include "Commands/Subsystem.h"
-#include "WPILib.h"
-#include "../Robot.h"
+
+#include "RobotDrive.h"
+
+#include "HardwareMap.h"
 
 class Drive : public Subsystem {
- private:
-  RobotDrive robot_drive;
 
  public:
-  Drive();
+  explicit Drive(const HardwareMap &hardware_map);
   ~Drive();
 
   void InitDefaultCommand() override;
 
   void mecanum_drive(float x, float y, float rotation, float gyro_angle = 0.0);
+
+ private:
+  RobotDrive robot_drive;
 
 }
 
