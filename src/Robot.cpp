@@ -5,32 +5,37 @@
 
 #include "Robot.h"
 
-void Robot::RobotInit() {
-  hardware_map = new HardwareMap();
-  oi = new OI();
+Robot::Robot()
+  : hardware_map()
+    oi()
+    autonomous_command(),
+    teleop_command() {
 
+}
+
+void Robot::RobotInit() {
   hardware_map.init();
   oi.init();
 }
 
 void Robot::AutonomousInit() {
-  autonomous_command->Start();
+  autonomous_command.Start();
 }
 
 void Robot::AutonomousPeriodic() {
-  Scheduler::GetInstance()->Run();
+  Scheduler::GetInstance().Run();
 }
 
 void Robot::TeleopInit() {
-  autonomous_command->Cancel();
+  autonomous_command.Cancel();
 
-  teleop_command->Start();
+  teleop_command.Start();
 }
 
 void Robot::TeleopPeriodic() {
-  Scheduler::GetInstance()->Run();
+  Scheduler::GetInstance().Run();
 }
 
 void Robot::TestPeriodic() {
-  LiveWindow::GetInstance()->Run();
+  LiveWindow::GetInstance().Run();
 }

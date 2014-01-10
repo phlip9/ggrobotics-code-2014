@@ -15,7 +15,14 @@
 class Robot : public IterativeRobot {
 
  public:
+  ~Robot() override;
+
+  static Robot &instance() { static Robot instance; return instance; }
+
   void RobotInit() override;
+
+  void DisabledInit() override;
+  void DisabledPeriodic() override;
 
   void AutonomousInit() override;
   void AutonomousPeriodic() override;
@@ -23,20 +30,32 @@ class Robot : public IterativeRobot {
   void TeleopInit() override;
   void TeleopPeriodic() override;
 
+  void TestInit() override;
   void TestPeriodic() override;
 
  private:
-  Command *autonomous_command;
-  Command *teleop_command;
+  Robot();
+
+  Command autonomous_command;
+  Command teleop_command;
 
   // Maps hardware modules to software objects.
-  static HardwareMap *hardware_map;
+  HardwareMap hardware_map;
 
   // Operator Interface
-  static OI *oi;
+  OI oi;
 
 }
 
-START_ROBOT_CLASS(Robot);
+RobotBase *FRC_userClassFactory() {
+  return &Robot::instance();
+}
+
+extern "C" {
+  INT32 FRC_UserProgram_StartupLibraryInit() {
+    RobotBase::startRobotTask((FUNCPTR) FRC_userClassFactory);
+    return 0;
+  }
+}
 
 #endif
