@@ -5,20 +5,16 @@
 
 #include "Robot.h"
 
+void Robot::RobotInit() {
+  hardware_map = new HardwareMap();
+  oi = new OI();
 
-Robot::Robot()
-    : hardware_map(),
-      drive(),
-      hook(),
-      oi(),
-      autonomous_command(),
-      teleop_command() {
-  hardware_map.AddToLiveWindow();
-  oi.Init();
+  hardware_map.init();
+  oi.init();
 }
 
 void Robot::AutonomousInit() {
-  autonomous_command.Start();
+  autonomous_command->Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -26,9 +22,9 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-  autonomous_command.Cancel();
+  autonomous_command->Cancel();
 
-  teleop_command.Start();
+  teleop_command->Start();
 }
 
 void Robot::TeleopPeriodic() {
@@ -37,21 +33,4 @@ void Robot::TeleopPeriodic() {
 
 void Robot::TestPeriodic() {
   LiveWindow::GetInstance()->Run();
-}
-
-Subsystem* RegisterSubsystem(std::string name, Subsystem* subsystem) {
-  // Erase the current registered subsystem if it exists.
-  if (subsystems.find(name) == subsystems.end) {
-    RemoveSubsystem(name);
-  }
-  subsystems[name] = subsystem;
-}
-
-Subsystem* GetSubsystem(std::string name) {
-  return subsystems.at(name);
-}
-
-void RemoveSubsystem(std::string name) {
-  // Can't tell if I need to delete here...
-  subsystems.erase(name);
 }

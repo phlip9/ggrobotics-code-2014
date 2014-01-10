@@ -4,30 +4,21 @@
 
 #include "OI.h"
 
-// Commands
-#include "Commands/HookUp.h"
-#include "Commands/HookDown.h"
+#include "Config.h"
 
 #include "Commands/TurnLeft.h"
 #include "Commands/TurnRight.h"
 
 OI::OI()
-    : drive_stick(1),
-      solenoid_up_button(&drive_stick, 3),
-      solenoid_down_button(&drive_stick, 2),
-      turn_left_button(&drive_stick, 4),
-      turn_right_button(&drive_stick, 5) {
+    : drive_stick(CONFIG::JOYSTICK_DRIVE),
+      turn_left_button(&drive_stick, CONFIG::BUTTON_TURN_LEFT),
+      turn_right_button(&drive_stick, CONFIG::BUTTON_TURN_RIGHT) {
 
 }
 
 // Wires the buttons, joysticks, and SmartDashboard controls to their
 // respective commands.
-void OI::Init() {
-  // Ughh memory leaks... should probably free these Command objects somewhere.
-  // But, I guess this class won't be deconstructed until the robot dies, so I
-  // don't really care.
-  solenoid_up_button.WhileHeld(new HookUp());
-  solenoid_down_button.WhileHeld(new HookDown());
+void OI::init() {
 
   turn_left_button.WhileHeld(new TurnLeft());
   turn_right_button.WhileHeld(new TurnRight());

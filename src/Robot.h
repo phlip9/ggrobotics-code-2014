@@ -9,11 +9,8 @@
 
 #include "WPILib.h"
 
-#include "OI.h"
 #include "HardwareMap.h"
-
-#include "Subsystems/Drive.h"
-#include "Subsystems/Hook.h"
+#include "OI.h"
 
 class Robot : public IterativeRobot {
 
@@ -28,28 +25,15 @@ class Robot : public IterativeRobot {
 
   void TestPeriodic() override;
 
-  Subsystem* RegisterSubsystem(std::string, Subsystem*);
-  Subsystem* GetSubsystem(std::string);
-  void RemoveSubsystem(std::string);
-
  private:
-  Robot();
-  ~Robot() override;
-
-  Robot(const Robot&); // Leave this unimplemented.
-  void operator=(const Robot&); // This one too.
+  Command *autonomous_command;
+  Command *teleop_command;
 
   // Maps hardware modules to software objects.
-  HardwareMap hardware_map;
+  static HardwareMap *hardware_map;
 
   // Operator Interface
-  OI oi;
-
-  // Subsystem map
-  std::unordered_map<std::string, Subsystem*> subsystems;
-
-  Command autonomous_command;
-  Command teleop_command;
+  static OI *oi;
 
 }
 

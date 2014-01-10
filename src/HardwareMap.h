@@ -10,14 +10,15 @@
 class HardwareMap {
 
  public:
-
-  Solenoid hang_solenoid_left;
-  Solenoid hang_solenoid_right;
-
   HardwareMap();
   ~HardwareMap();
 
-  void AddToLiveWindow();
+  void init();
+
+  Jaguar front_left_motor;
+  Jaguar front_right_motor;
+  Jaguar rear_left_motor;
+  Jaguar rear_right_motor;
 
 }
 

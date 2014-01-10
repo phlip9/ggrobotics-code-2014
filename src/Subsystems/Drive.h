@@ -3,20 +3,21 @@
 #ifndef _DRIVE_H
 #define _DRIVE_H
 
+#include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "../Robot.h"
 
 class Drive : public Subsystem {
+ private:
+  RobotDrive robot_drive;
+
  public:
   Drive();
   ~Drive();
 
- private:
-  RobotDrive robotdrive;
+  void InitDefaultCommand() override;
 
-  Jaguar front_left_motor;
-  Jaguar front_right_motor;
-  Jaguar rear_left_motor;
-  Jaguar rear_right_motor;
+  void mecanum_drive(float x, float y, float rotation, float gyro_angle = 0.0);
 
 }
 
