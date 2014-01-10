@@ -5,6 +5,9 @@
 
 #include "Robot.h"
 
+#include "Commands/Scheduler.h"
+#include "LiveWindow/LiveWindow.h"
+
 Robot::Robot()
   : hardware_map()
     oi()
