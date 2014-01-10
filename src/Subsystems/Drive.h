@@ -17,7 +17,7 @@ class Drive : public Subsystem {
 
   void InitDefaultCommand() override;
 
-  void mecanum_drive(float x, float y, float rotation, float gyro_angle = 0.0);
+  void mecanum_drive(const Joystick &drive_stick);
 
  private:
   RobotDrive robot_drive;
