@@ -14,12 +14,12 @@ class OI {
   OI();
   ~OI();
 
+  void init();
+
   Joystick drive_stick;
 
   JoystickButton turn_left_button;
   JoystickButton turn_right_button;
-
-  void init();
 
 };
 
