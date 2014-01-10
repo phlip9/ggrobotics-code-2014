@@ -2,12 +2,21 @@
 // are running in that subsystem.
 // BackgroundDrive first polls the drive joystick and the drives the robot.
 
-#ifndef _BACKGROUND_DRIVE_H
-#define _BACKGROUND_DRIVE_H
+#ifndef _COMMANDS_BACKGROUND_DRIVE_H_
+#define _COMMANDS_BACKGROUND_DRIVE_H_
 
-#import "Commands/Command.h"
+#include "Commands/Command.h"
 
 class BackgroundDrive : public Command {
+  public:
+   BackgroundDrive();
+   ~BackgroundDrive();
+
+   void Initialize() override;
+   void Execute() override;
+   void IsFinished() override;
+   void End() override;
+   void Interrupted() override;
 
 }
 
