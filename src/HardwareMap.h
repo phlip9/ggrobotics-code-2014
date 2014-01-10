@@ -2,10 +2,10 @@
  * Maps hardware sensors, motors, solenoids, etc... to software objects.
  */
 
-#ifndef _HARDWARE_MAP_H
-#define _HARDWARE_MAP_H
+#ifndef _HARDWARE_MAP_H_
+#define _HARDWARE_MAP_H_
 
-#include "WPILib.h"
+#include "Jaguar.h"
 
 class HardwareMap {
 

@@ -2,8 +2,8 @@
  * Wires commands to operator inputs.
  */
 
-#ifndef _OI_H
-#define _OI_H
+#ifndef _OI_H_
+#define _OI_H_
 
 #include "Joystick.h"
 #include "Buttons/JoystickButton.h"

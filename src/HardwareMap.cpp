@@ -1,8 +1,10 @@
 // Hardware to software map.
 
 #include "HardwareMap.h"
-#include "Config.h"
+
 #include "LiveWindow/LiveWindow.h"
+
+#include "Config.h"
 
 HardwareMap::HardwareMap()
     : front_left_motor(CONFIG::FRONT_LEFT_DRIVE),
