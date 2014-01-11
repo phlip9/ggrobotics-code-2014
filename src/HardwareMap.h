@@ -20,6 +20,6 @@ class HardwareMap {
   Jaguar rear_left_motor;
   Jaguar rear_right_motor;
 
-}
+};
 
 #endif
