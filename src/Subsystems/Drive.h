@@ -6,6 +6,7 @@
 #include "Commands/Subsystem.h"
 
 #include "RobotDrive.h"
+#include "Joystick.h"
 
 #include "../HardwareMap.h"
 
@@ -17,7 +18,7 @@ class Drive : public Subsystem {
 
   void InitDefaultCommand() override;
 
-  void mecanum_drive(const Joystick& drive_stick);
+  void mecanum_drive(Joystick& drive_stick);
 
  private:
   RobotDrive robot_drive;
