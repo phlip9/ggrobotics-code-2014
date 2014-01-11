@@ -8,8 +8,7 @@
 BackgroundDrive::BackgroundDrive()
   : Command("BackgroundDrive") {
 
-  // TODO: Add Requires(Drive subsystem)
-  // Requires(Robot::instance().drive)
+  Requires(&Robot::instance().drive);
 }
 
 BackgroundDrive::Initialize() {
@@ -17,7 +16,8 @@ BackgroundDrive::Initialize() {
 }
 
 BackgroundDrive::Execute() {
-
+  Robot* robot = &Robot::instance();
+  robot->drive.mecanum_drive(robot->oi.drive_stick);
 }
 
 BackgroundDrive::IsFinished() {
