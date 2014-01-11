@@ -6,7 +6,7 @@ include(FRCDeploy.cmake)
 find_package(WPILib)
 include_directories(${WPILib_INCLUDE_DIRS})
 
-file(GLOB_RECURSE SOURCE_CODE *.cpp)
+file(GLOB_RECURSE SOURCE_CODE src/*.cpp src/*.h)
 
 add_executable(frc_code ${SOURCE_CODE})
 target_link_libraries(frc_code ${WPILib_LIBRARY})
