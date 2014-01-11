@@ -14,10 +14,10 @@ class BackgroundDrive : public Command {
 
    void Initialize() override;
    void Execute() override;
-   void IsFinished() override;
+   bool IsFinished() override;
    void End() override;
    void Interrupted() override;
 
-}
+};
 
 #endif

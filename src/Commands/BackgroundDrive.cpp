@@ -1,9 +1,9 @@
 // Drives robot
 
-#include "Commands/BackgroundDrive.h"
+#include "BackgroundDrive.h"
 
-#include "Robot.h"
-#include "Subsystems/Drive.h"
+#include "../Robot.h"
+#include "../Subsystems/Drive.h"
 
 BackgroundDrive::BackgroundDrive()
   : Command("BackgroundDrive") {
@@ -11,23 +11,23 @@ BackgroundDrive::BackgroundDrive()
   Requires(&Robot::instance().drive);
 }
 
-BackgroundDrive::Initialize() {
+void BackgroundDrive::Initialize() {
 
 }
 
-BackgroundDrive::Execute() {
+void BackgroundDrive::Execute() {
   Robot* robot = &Robot::instance();
   robot->drive.mecanum_drive(robot->oi.drive_stick);
 }
 
-BackgroundDrive::IsFinished() {
+bool BackgroundDrive::IsFinished() {
   return false;
 }
 
-BackgroundDrive::End() {
+void BackgroundDrive::End() {
 
 }
 
-BackgroundDrive::Interrupted() {
+void BackgroundDrive::Interrupted() {
 
 }
