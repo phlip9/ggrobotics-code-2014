@@ -6,7 +6,7 @@
 
 #include "Commands/BackgroundDrive.h"
 
-Drive::Drive(const HardwareMap &hardware_map)
+Drive::Drive(const HardwareMap& hardware_map)
     : Subsystem("Drive"),
       robot_drive(hardware_map.front_left_motor,
                   hardware_map.rear_left_motor,
@@ -22,7 +22,7 @@ void Drive::InitDefaultCommand() {
   SetDefaultCommand(new BackgroundDrive());
 }
 
-void Drive::mecanum_drive(const Joystick &drive_stick) {
+void Drive::mecanum_drive(const Joystick& drive_stick) {
   float magnitude, direction, rotation;
   magnitude = drive_stick.GetMagnitude();
   direction = drive_stick.GetDirectionDegrees();

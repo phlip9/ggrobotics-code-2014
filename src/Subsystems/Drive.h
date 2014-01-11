@@ -12,12 +12,12 @@
 class Drive : public Subsystem {
 
  public:
-  explicit Drive(const HardwareMap &hardware_map);
+  explicit Drive(const HardwareMap& hardware_map);
   ~Drive();
 
   void InitDefaultCommand() override;
 
-  void mecanum_drive(const Joystick &drive_stick);
+  void mecanum_drive(const Joystick& drive_stick);
 
  private:
   RobotDrive robot_drive;
