@@ -13,6 +13,7 @@
 
 #include "HardwareMap.h"
 #include "OI.h"
+#include "Subsystems/Drive.h"
 
 class Robot : public IterativeRobot {
 
@@ -40,6 +41,9 @@ class Robot : public IterativeRobot {
 
   // Operator Interface
   OI oi;
+
+  // Drivetrain subsystem
+  Drive drive;
 
  private:
   Robot();
