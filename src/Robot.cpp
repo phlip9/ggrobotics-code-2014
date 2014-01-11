@@ -18,14 +18,10 @@ HardwareMap *Robot::hardware_map = 0;
 OI *Robot::oi = 0;
 Drive *Robot::drive = 0;
 
-Robot::Robot() {
-  Robot::GetWatchdog().SetEnabled(false);
-}
-
-Robot::~Robot() { }
-
 void Robot::RobotInit() {
-  printf("RobotInit()");
+  printf("RobotInit()\n");
+
+  GetWatchdog().SetEnabled(false);
 
   hardware_map = new HardwareMap();
   oi = new OI();
@@ -39,29 +35,31 @@ void Robot::RobotInit() {
 
   ds_lcd = DriverStationLCD::GetInstance();
 
+  autonomous_command = new PrintCommand("AutonomousCommand");
+  teleop_command = new PrintCommand("TeleopCommand");
 }
 
 void Robot::DisabledInit() {
-  printf("DisabledInit()");
+  printf("DisabledInit()\n");
 }
 
 void Robot::DisabledPeriodic() {
-  printf("DisabledPeriodic()");
+  //printf("DisabledPeriodic()\n");
 }
 
 void Robot::AutonomousInit() {
-  printf("AutonomousInit()");
+  printf("AutonomousInit()\n");
   if (autonomous_command)
     autonomous_command->Start();
 }
 
 void Robot::AutonomousPeriodic() {
-  printf("AutonomousPeriodic()");
+  printf("AutonomousPeriodic()\n");
   Scheduler::GetInstance()->Run();
 }
 
 void Robot::TeleopInit() {
-  printf("TeleopInit()");
+  //printf("TeleopInit()\n");
   if (autonomous_command)
     autonomous_command->Cancel();
 
@@ -70,17 +68,17 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-  printf("TeleopPeriodic()");
+  //printf("TeleopPeriodic()\n");
   Scheduler::GetInstance()->Run();
   ds_lcd->UpdateLCD();
 }
 
 void Robot::TestInit() {
-  printf("TestInit()");
+  printf("TestInit()\n");
 }
 
 void Robot::TestPeriodic() {
-  printf("TestPeriodic()");
+  printf("TestPeriodic()\n");
   LiveWindow::GetInstance()->Run();
 }
 
