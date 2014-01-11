@@ -9,12 +9,15 @@
 #include "LiveWindow/LiveWindow.h"
 
 Robot::Robot()
-  : hardware_map()
-    oi()
+  : hardware_map(),
+    oi(),
+    drive(hardware_map),
     autonomous_command(),
     teleop_command() {
 
 }
+
+Robot::~Robot() { }
 
 void Robot::RobotInit() {
   hardware_map.init();
