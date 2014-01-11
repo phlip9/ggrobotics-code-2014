@@ -8,10 +8,10 @@
 
 Drive::Drive(const HardwareMap& hardware_map)
     : Subsystem("Drive"),
-      robot_drive(hardware_map.front_left_motor,
-                  hardware_map.rear_left_motor,
-                  hardware_map.front_right_motor,
-                  hardware_map.rear_right_motor) {
+      robot_drive(&hardware_map.front_left_motor,
+                  &hardware_map.rear_left_motor,
+                  &hardware_map.front_right_motor,
+                  &hardware_map.rear_right_motor) {
 
   robot_drive.setExpiration(0.1);
 }
