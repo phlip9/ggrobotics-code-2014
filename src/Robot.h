@@ -51,7 +51,7 @@ class Robot : public IterativeRobot {
   Command autonomous_command;
   Command teleop_command;
 
-}
+};
 
 RobotBase *FRC_userClassFactory() {
   return &Robot::instance();

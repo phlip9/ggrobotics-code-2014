@@ -1,10 +1,10 @@
 // Robot drive subsystem
 
-#include "Subsystems/Drive.h"
+#include "Drive.h"
 
 #include "Joystick.h"
 
-#include "Commands/BackgroundDrive.h"
+#include "../Commands/BackgroundDrive.h"
 
 Drive::Drive(const HardwareMap& hardware_map)
     : Subsystem("Drive"),

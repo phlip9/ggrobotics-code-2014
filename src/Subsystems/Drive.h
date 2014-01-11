@@ -7,7 +7,7 @@
 
 #include "RobotDrive.h"
 
-#include "HardwareMap.h"
+#include "../HardwareMap.h"
 
 class Drive : public Subsystem {
 
@@ -22,6 +22,6 @@ class Drive : public Subsystem {
  private:
   RobotDrive robot_drive;
 
-}
+};
 
 #endif
