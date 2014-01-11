@@ -8,8 +8,6 @@
 #include "RobotDrive.h"
 #include "Joystick.h"
 
-#include "../HardwareMap.h"
-
 class Drive : public Subsystem {
 
  public:
@@ -24,5 +22,11 @@ class Drive : public Subsystem {
   RobotDrive robot_drive;
 
 };
+
+// Clamp a value between min and max
+float clamp(float in, float min, float max);
+
+// Threshold a value if it's between thresh_max and thresh_min
+float threshold(float in, float thresh_min, float thresh_max, float out = 0.0);
 
 #endif
