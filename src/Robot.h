@@ -7,6 +7,10 @@
 #ifndef _ROBOT_H_
 #define _ROBOT_H_
 
+class DriverStationLCD;
+
+#include "WPILib.h"
+
 #include "RobotBase.h"
 #include "IterativeRobot.h"
 #include "Commands/Command.h"
@@ -18,23 +22,23 @@
 class Robot : public IterativeRobot {
 
  public:
-  ~Robot() override;
+  // Returns the Robot singleton instance
+  static Robot& instance() { return (Robot&) RobotBase::getInstance(); };
+  //static Robot& instance() { static Robot robot; return robot; }
 
-  static Robot &instance() { static Robot instance; return instance; }
+  virtual void RobotInit() override;
 
-  void RobotInit() override;
+  virtual void DisabledInit() override;
+  virtual void DisabledPeriodic() override;
 
-  void DisabledInit() override;
-  void DisabledPeriodic() override;
+  virtual void AutonomousInit() override;
+  virtual void AutonomousPeriodic() override;
 
-  void AutonomousInit() override;
-  void AutonomousPeriodic() override;
+  virtual void TeleopInit() override;
+  virtual void TeleopPeriodic() override;
 
-  void TeleopInit() override;
-  void TeleopPeriodic() override;
-
-  void TestInit() override;
-  void TestPeriodic() override;
+  virtual void TestInit() override;
+  virtual void TestPeriodic() override;
 
   // Maps hardware modules to software objects.
   HardwareMap hardware_map;
@@ -46,22 +50,20 @@ class Robot : public IterativeRobot {
   Drive drive;
 
  private:
+  // Don't want anyone instanciating this
   Robot();
 
-  Command autonomous_command;
-  Command teleop_command;
+  // Don't want anyone deleting this either
+  ~Robot() override;
+
+  // Allow construction of the singleton by the WPILib Framework
+  friend RobotBase* FRC_userClassFactory();
+
+  DriverStationLCD *ds_lcd;
+
+  Command *autonomous_command;
+  Command *teleop_command;
 
 };
-
-RobotBase *FRC_userClassFactory() {
-  return &Robot::instance();
-}
-
-extern "C" {
-  INT32 FRC_UserProgram_StartupLibraryInit() {
-    RobotBase::startRobotTask((FUNCPTR) FRC_userClassFactory);
-    return 0;
-  }
-}
 
 #endif
