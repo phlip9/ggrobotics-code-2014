@@ -1,18 +1,15 @@
 /*
  * This class holds the hardware map, operator interface, and robot subsystems.
- * It also manages the different robot state logic, e.g. autonomous vs teleop vs
+ * It also manages the different robot state logic, e.g., autonomous vs teleop vs
  * test mode.
  */
 
 #ifndef _ROBOT_H_
 #define _ROBOT_H_
 
-class DriverStationLCD;
-
-#include "WPILib.h"
-
 #include "RobotBase.h"
 #include "IterativeRobot.h"
+#include "DriverStationLCD.h"
 #include "Commands/Command.h"
 
 #include "HardwareMap.h"
@@ -22,9 +19,6 @@ class DriverStationLCD;
 class Robot : public IterativeRobot {
 
  public:
-  Robot();
-  ~Robot() override;
-
   void RobotInit() override;
 
   void DisabledInit() override;
@@ -49,9 +43,6 @@ class Robot : public IterativeRobot {
   static Drive *drive;
 
  private:
-  // Allow construction of the singleton by the WPILib Framework
-  friend RobotBase* FRC_userClassFactory();
-
   DriverStationLCD *ds_lcd;
 
   Command *autonomous_command;
