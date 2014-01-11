@@ -5,7 +5,7 @@
 #ifndef _HARDWARE_MAP_H_
 #define _HARDWARE_MAP_H_
 
-#include "SpeedController.h"
+class SpeedController;
 
 class HardwareMap {
 

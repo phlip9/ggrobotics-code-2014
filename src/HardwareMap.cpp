@@ -2,6 +2,7 @@
 
 #include "HardwareMap.h"
 
+#include "SpeedController.h"
 #include "Jaguar.h"
 #include "LiveWindow/LiveWindow.h"
 

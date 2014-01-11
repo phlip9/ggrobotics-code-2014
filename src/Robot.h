@@ -22,40 +22,33 @@ class DriverStationLCD;
 class Robot : public IterativeRobot {
 
  public:
-  // Returns the Robot singleton instance
-  static Robot& instance() { return (Robot&) RobotBase::getInstance(); };
-  //static Robot& instance() { static Robot robot; return robot; }
-
-  virtual void RobotInit() override;
-
-  virtual void DisabledInit() override;
-  virtual void DisabledPeriodic() override;
-
-  virtual void AutonomousInit() override;
-  virtual void AutonomousPeriodic() override;
-
-  virtual void TeleopInit() override;
-  virtual void TeleopPeriodic() override;
-
-  virtual void TestInit() override;
-  virtual void TestPeriodic() override;
-
-  // Maps hardware modules to software objects.
-  HardwareMap hardware_map;
-
-  // Operator Interface
-  OI oi;
-
-  // Drivetrain subsystem
-  Drive drive;
-
- private:
-  // Don't want anyone instanciating this
   Robot();
-
-  // Don't want anyone deleting this either
   ~Robot() override;
 
+  void RobotInit() override;
+
+  void DisabledInit() override;
+  void DisabledPeriodic() override;
+
+  void AutonomousInit() override;
+  void AutonomousPeriodic() override;
+
+  void TeleopInit() override;
+  void TeleopPeriodic() override;
+
+  void TestInit() override;
+  void TestPeriodic() override;
+
+  // Maps hardware modules to software objects.
+  static HardwareMap *hardware_map;
+
+  // Operator Interface
+  static OI *oi;
+
+  // Drivetrain subsystem
+  static Drive *drive;
+
+ private:
   // Allow construction of the singleton by the WPILib Framework
   friend RobotBase* FRC_userClassFactory();
 

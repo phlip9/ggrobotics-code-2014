@@ -12,24 +12,33 @@
 #include "DriverStationLCD.h"
 #include "Commands/PrintCommand.h"
 
-Robot::Robot()
-  : hardware_map(),
-    oi(),
-    drive(hardware_map),
-    ds_lcd(DriverStationLCD::GetInstance()),
-    autonomous_command(new PrintCommand("AutonomousCommand()")),
-    teleop_command(new PrintCommand("TeleopCommand()")) {
+// Allocate space for the static pointers
 
+HardwareMap *Robot::hardware_map = 0;
+OI *Robot::oi = 0;
+Drive *Robot::drive = 0;
+
+Robot::Robot() {
+  Robot::GetWatchdog().SetEnabled(false);
 }
 
 Robot::~Robot() { }
 
 void Robot::RobotInit() {
   printf("RobotInit()");
-  hardware_map.init();
-  oi.init();
 
-  Robot::GetWatchdog().SetEnabled(false);
+  hardware_map = new HardwareMap();
+  oi = new OI();
+
+  // Init the things
+  hardware_map->init();
+  oi->init();
+
+  // Subsystems
+  drive = new Drive();
+
+  ds_lcd = DriverStationLCD::GetInstance();
+
 }
 
 void Robot::DisabledInit() {
@@ -42,7 +51,8 @@ void Robot::DisabledPeriodic() {
 
 void Robot::AutonomousInit() {
   printf("AutonomousInit()");
-  autonomous_command->Start();
+  if (autonomous_command)
+    autonomous_command->Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -52,9 +62,11 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
   printf("TeleopInit()");
-  autonomous_command->Cancel();
+  if (autonomous_command)
+    autonomous_command->Cancel();
 
-  teleop_command->Start();
+  if (teleop_command)
+    teleop_command->Start();
 }
 
 void Robot::TeleopPeriodic() {
