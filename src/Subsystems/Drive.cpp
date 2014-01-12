@@ -12,10 +12,10 @@
 
 Drive::Drive()
     : Subsystem("Drive"),
-      robot_drive((SpeedController*) Robot::hardware_map->front_left_motor,
-                  (SpeedController*) Robot::hardware_map->rear_left_motor,
-                  (SpeedController*) Robot::hardware_map->front_right_motor,
-                  (SpeedController*) Robot::hardware_map->rear_right_motor) {
+      robot_drive(Robot::hardware_map->front_left_motor,
+                  Robot::hardware_map->rear_left_motor,
+                  Robot::hardware_map->front_right_motor,
+                  Robot::hardware_map->rear_right_motor) {
 
   robot_drive.SetExpiration(0.1);
 }
