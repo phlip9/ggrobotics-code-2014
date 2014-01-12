@@ -11,9 +11,10 @@ compiled with the [FRC C++11 cross-compiling toolchain](http://firstforge.wpi.ed
 Detailed instrucitons on the
 [toolchain repository wiki](http://firstforge.wpi.edu/sf/wiki/do/viewPage/projects.c--11_toochain/wiki/ManualInstall).
 
-### Linux ###
 
-#### Binary Install #####
+## Linux ##
+
+### Binary Install ####
 
 Add the frc-c++11 repository.
 
@@ -33,7 +34,8 @@ Add WIND_BASE to your bash config.
         $ echo 'export WIND_BASE=/usr/powerpc-wrs-vxworks/wind_base' >> ~/.bashrc
         $ source ~/.bashrc
 
-#### Manual Install (get the latest, bleeding-edge toolchain version) ####
+
+### Manual Install (get the latest, bleeding-edge toolchain version) ###
 
 Install the essential build scripts.
 
@@ -41,21 +43,25 @@ Install the essential build scripts.
 
 `git clone` each of the following repositories.
 
-    * https://github.com/rbmj/wrs-headers-installer
-    * https://github.com/rbmj/ppc-vxworks-binutils
-    * https://github.com/rbmj/ppc-vxworks-gcc
-    * https://github.com/rbmj/frc-buildscripts
-    * https://github.com/rbmj/wpilib
+        $ git clone https://github.com/rbmj/wrs-headers-installer
+        $ git clone https://github.com/rbmj/ppc-vxworks-binutils
+        $ git clone https://github.com/rbmj/ppc-vxworks-gcc
+        $ git clone https://github.com/rbmj/frc-buildscripts
+        $ git clone https://github.com/rbmj/wpilib
 
 `cd` into each repository you just `git clone`ed, run the following (in the order that you cloned them).
 
+        $ cd <repo>
         $ ./debmake
         $ sudo dpkg -i build/*.deb
+        $ cd ..
 
 *Note:* Building the toolchain takes a good 30 min (compiling GCC takes for everr...).
 
-### Windows ###
+
+## Windows ##
 [Windows Installation](http://firstforge.wpi.edu/sf/wiki/do/viewPage/projects.c--11_toochain/wiki/BinaryInstall)
+
 
 ## Build ##
 
