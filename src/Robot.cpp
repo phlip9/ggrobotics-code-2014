@@ -11,6 +11,10 @@
 #include "LiveWindow/LiveWindow.h"
 #include "DriverStationLCD.h"
 #include "Commands/PrintCommand.h"
+#include "Preferences.h"
+#include "SmartDashboard/SmartDashboard.h"
+
+#include "Logging.h"
 
 // Allocate space for the static pointers
 
@@ -19,7 +23,9 @@ OI *Robot::oi = 0;
 Drive *Robot::drive = 0;
 
 void Robot::RobotInit() {
-  printf("RobotInit()\n");
+  log_info("RobotInit()");
+
+  SmartDashboard::init();
 
   GetWatchdog().SetEnabled(false);
 
@@ -40,26 +46,27 @@ void Robot::RobotInit() {
 }
 
 void Robot::DisabledInit() {
-  printf("DisabledInit()\n");
+  log_info("DisabledInit()");
+  Preferences::GetInstance()->Save();
 }
 
 void Robot::DisabledPeriodic() {
-  //printf("DisabledPeriodic()\n");
+  log_info("DisabledPeriodic()");
 }
 
 void Robot::AutonomousInit() {
-  printf("AutonomousInit()\n");
+  log_info("AutonomousInit()");
   if (autonomous_command)
     autonomous_command->Start();
 }
 
 void Robot::AutonomousPeriodic() {
-  printf("AutonomousPeriodic()\n");
+  log_info("AutonomousPeriodic()");
   Scheduler::GetInstance()->Run();
 }
 
 void Robot::TeleopInit() {
-  //printf("TeleopInit()\n");
+  log_info("TeleopInit()");
   if (autonomous_command)
     autonomous_command->Cancel();
 
@@ -68,17 +75,17 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-  //printf("TeleopPeriodic()\n");
+  log_info("TeleopPeriodic()");
   Scheduler::GetInstance()->Run();
   ds_lcd->UpdateLCD();
 }
 
 void Robot::TestInit() {
-  printf("TestInit()\n");
+  log_info("TestInit()");
 }
 
 void Robot::TestPeriodic() {
-  printf("TestPeriodic()\n");
+  log_info("TestPeriodic()");
   LiveWindow::GetInstance()->Run();
 }
 

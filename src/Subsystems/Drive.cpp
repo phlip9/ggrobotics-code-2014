@@ -4,15 +4,18 @@
 
 #include <stdio.h>
 
+#include "SpeedController.h"
+
 #include "../Robot.h"
 #include "../Commands/BackgroundDrive.h"
+#include "../Logging.h"
 
 Drive::Drive()
     : Subsystem("Drive"),
-      robot_drive(Robot::hardware_map->front_left_motor,
-                  Robot::hardware_map->rear_left_motor,
-                  Robot::hardware_map->front_right_motor,
-                  Robot::hardware_map->rear_right_motor) {
+      robot_drive((SpeedController*) Robot::hardware_map->front_left_motor,
+                  (SpeedController*) Robot::hardware_map->rear_left_motor,
+                  (SpeedController*) Robot::hardware_map->front_right_motor,
+                  (SpeedController*) Robot::hardware_map->rear_right_motor) {
 
   robot_drive.SetExpiration(0.1);
 }
@@ -29,13 +32,13 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   y = drive_stick.GetY();
 
   // WARNING: WTF INCOMING
-  // For some fuckign reason, wpilib has these swapped.
-  // yeah
+  // For some fuckign reason, the joystick has these swapped.
+  // yeah... real straightforward
   twist = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
-  //printf("Drive.mecanum_drive() -> IN: x: %lf, y: %lf, twist: %lf, throttle: %lf\n",
-         //x, y, twist, throttle);
+  log_debug("mecanum_drive() IN: x: %lf, y: %lf, twist: %lf, throttle: %lf",
+           x, y, twist, throttle);
 
   // Invert (because the throttle is backwards for no reason)
   // Add 1 to shift up (from [-1, 1] to [0, 2])
@@ -55,8 +58,8 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 
   twist = clamp(twist, -1.0, 1.0);
 
-  //printf("Drive.mecanum_drive() -> OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf\n",
-         //x, y, twist, throttle);
+  log_debug("mecanum_drive() OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf",
+           x, y, twist, throttle);
 
   robot_drive.MecanumDrive_Cartesian(x, y, twist);
 }
