@@ -13,7 +13,11 @@
 #include "Commands/PrintCommand.h"
 #include "Preferences.h"
 #include "SmartDashboard/SmartDashboard.h"
+#include "SmartDashboard/SendableChooser.h"
 
+#include "HardwareMap.h"
+#include "OI.h"
+#include "Subsystems/Drive.h"
 #include "Logging.h"
 
 // Allocate space for the static pointers
@@ -24,8 +28,6 @@ Drive *Robot::drive = 0;
 
 void Robot::RobotInit() {
   log_info("RobotInit()");
-
-  SmartDashboard::init();
 
   GetWatchdog().SetEnabled(false);
 
@@ -41,8 +43,8 @@ void Robot::RobotInit() {
 
   ds_lcd = DriverStationLCD::GetInstance();
 
-  autonomous_command = new PrintCommand("AutonomousCommand");
-  teleop_command = new PrintCommand("TeleopCommand");
+  chooser = new SendableChooser();
+  chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
 }
 
 void Robot::DisabledInit() {
@@ -55,6 +57,8 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+  autonomous_command = (Command*) chooser->GetSelected();
+
   log_info("AutonomousInit()");
   if (autonomous_command)
     autonomous_command->Start();

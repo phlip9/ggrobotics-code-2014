@@ -7,10 +7,12 @@
 #ifndef _ROBOT_H_
 #define _ROBOT_H_
 
-#include "RobotBase.h"
+// forward declarations
+class DriverStationLCD;
+class Command;
+class SendableChooser;
+
 #include "IterativeRobot.h"
-#include "DriverStationLCD.h"
-#include "Commands/Command.h"
 
 #include "HardwareMap.h"
 #include "OI.h"
@@ -47,6 +49,8 @@ class Robot : public IterativeRobot {
 
   Command *autonomous_command;
   Command *teleop_command;
+
+  SendableChooser *chooser;
 
 };
 
