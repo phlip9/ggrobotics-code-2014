@@ -5,7 +5,7 @@
 #ifndef _HARDWARE_MAP_H_
 #define _HARDWARE_MAP_H_
 
-class SpeedController;
+class Jaguar;
 
 class HardwareMap {
 
@@ -15,10 +15,10 @@ class HardwareMap {
 
   void init();
 
-  SpeedController* front_left_motor;
-  SpeedController* rear_left_motor;
-  SpeedController* front_right_motor;
-  SpeedController* rear_right_motor;
+  Jaguar* front_left_motor;
+  Jaguar* rear_left_motor;
+  Jaguar* front_right_motor;
+  Jaguar* rear_right_motor;
 
 };
 

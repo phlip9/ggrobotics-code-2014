@@ -25,11 +25,13 @@ HardwareMap::~HardwareMap() {
 }
 
 void HardwareMap::init() {
+  log_info("HardwareMap::init()");
+
   LiveWindow *live_window = LiveWindow::GetInstance();
 
   // Add Jaguar motors
-  live_window->AddActuator("Drive", "Front Left Motor", (Jaguar*) front_left_motor);
-  live_window->AddActuator("Drive", "Rear Left Motor", (Jaguar*) rear_left_motor);
-  live_window->AddActuator("Drive", "Front Right Motor", (Jaguar*) front_right_motor);
-  live_window->AddActuator("Drive", "Rear Right Motor", (Jaguar*) rear_right_motor);
+  live_window->AddActuator("Drive", "Front Left Motor", front_left_motor);
+  live_window->AddActuator("Drive", "Rear Left Motor", rear_left_motor);
+  live_window->AddActuator("Drive", "Front Right Motor", front_right_motor);
+  live_window->AddActuator("Drive", "Rear Right Motor", rear_right_motor);
 }
