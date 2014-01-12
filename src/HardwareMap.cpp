@@ -7,12 +7,13 @@
 #include "LiveWindow/LiveWindow.h"
 
 #include "Config.h"
+#include "Logging.h"
 
 HardwareMap::HardwareMap()
-  : front_left_motor(new Jaguar(CONFIG::FRONT_LEFT_DRIVE)),
-    rear_left_motor(new Jaguar(CONFIG::REAR_LEFT_DRIVE)),
-    front_right_motor(new Jaguar(CONFIG::FRONT_RIGHT_DRIVE)),
-    rear_right_motor(new Jaguar(CONFIG::REAR_RIGHT_DRIVE)) {
+  : front_left_motor(new Jaguar(CONFIG::MotorFrontLeftDrive())),
+    rear_left_motor(new Jaguar(CONFIG::MotorRearLeftDrive())),
+    front_right_motor(new Jaguar(CONFIG::MotorFrontRightDrive())),
+    rear_right_motor(new Jaguar(CONFIG::MotorRearRightDrive())) {
 
 }
 

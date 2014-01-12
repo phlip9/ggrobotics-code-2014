@@ -18,9 +18,6 @@ class OI {
 
   Joystick drive_stick;
 
-  JoystickButton turn_left_button;
-  JoystickButton turn_right_button;
-
 };
 
 #endif
