@@ -25,7 +25,7 @@ HardwareMap::~HardwareMap() {
 }
 
 void HardwareMap::init() {
-  log_info("HardwareMap::init()");
+  log_info("init()");
 
   LiveWindow *live_window = LiveWindow::GetInstance();
 

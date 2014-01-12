@@ -15,7 +15,7 @@ OI::OI()
 // Wires the buttons, joysticks, and SmartDashboard controls to their
 // respective commands.
 void OI::init() {
-  log_info("OI::init()");
+  log_info("init()");
   // TODO: Add SmartDashboard controls
 
 }
