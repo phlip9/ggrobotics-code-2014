@@ -21,6 +21,7 @@ class SendableChooser;
 class Robot : public IterativeRobot {
 
  public:
+  // Robot-wide initialization. Runs when the robot starts up.
   void RobotInit() override;
 
   void DisabledInit() override;
@@ -47,10 +48,16 @@ class Robot : public IterativeRobot {
  private:
   DriverStationLCD *ds_lcd;
 
+  // This command gets run when the robot enters autonomous mode.
   Command *autonomous_command;
+
+  // This command gets run when the robot enter teleop mode.
   Command *teleop_command;
 
-  SendableChooser *chooser;
+  // The autonomous_chooser shows up on the SmartDashboard as a radio button
+  // The user selects which command to run when the robot enters autonomous
+  // mode.
+  SendableChooser *autonomous_chooser;
 
 };
 

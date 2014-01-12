@@ -37,7 +37,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   twist = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
-  log_debug("mecanum_drive() IN: x: %lf, y: %lf, twist: %lf, throttle: %lf",
+  log_info("mecanum_drive() IN: x: %lf, y: %lf, twist: %lf, throttle: %lf",
            x, y, twist, throttle);
 
   // Invert (because the throttle is backwards for no reason)
@@ -58,7 +58,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 
   twist = clamp(twist, -1.0, 1.0);
 
-  log_debug("mecanum_drive() OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf",
+  log_info("mecanum_drive() OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf",
            x, y, twist, throttle);
 
   robot_drive.MecanumDrive_Cartesian(x, y, twist);

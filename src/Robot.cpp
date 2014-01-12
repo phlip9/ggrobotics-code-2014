@@ -43,8 +43,8 @@ void Robot::RobotInit() {
 
   ds_lcd = DriverStationLCD::GetInstance();
 
-  chooser = new SendableChooser();
-  chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
+  autonomous_chooser = new SendableChooser();
+  autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
 }
 
 void Robot::DisabledInit() {
@@ -57,7 +57,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-  autonomous_command = (Command*) chooser->GetSelected();
+  autonomous_command = (Command*) autonomous_chooser->GetSelected();
 
   log_info("AutonomousInit()");
   if (autonomous_command)
