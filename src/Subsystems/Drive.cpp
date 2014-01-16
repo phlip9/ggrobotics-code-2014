@@ -35,8 +35,8 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   y = drive_stick.GetY();
 
   // WARNING: WTF INCOMING
-  // For some fuckign reason, the joystick has these swapped.
-  // yeah... real straightforward
+  // For some fucking reason, the joystick has these swapped.
+  // wow    much sense    many codes    wow
   twist = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
@@ -52,14 +52,12 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   // so we ignore values below a threshold of 0.15
   y = threshold(y, -0.15, 0.15);
 
-  // threshold the twist too
   twist = threshold(twist, -0.10, 0.10);
 
   x *= throttle;
   y *= throttle;
   twist *= throttle;
 
-  //get the Gyro Angle
   gyroAngle = gyro.GetAngle();
 
   // Discard Gyro Angle if the Joystick isn't turned enough (default leaning)
@@ -98,7 +96,6 @@ float clamp(float in, float min, float max) {
     return in;
 }
 
-//Default value is 0.0
 float threshold(float in, float thresh_min, float thresh_max, float out) {
   if (in < thresh_max && in > thresh_min)
     return out;
