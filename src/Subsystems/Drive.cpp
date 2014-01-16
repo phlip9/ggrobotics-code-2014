@@ -59,15 +59,24 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   y *= throttle;
   twist *= throttle;
 
+  //get the Gyro Angle
   gyroAngle = gyro.GetAngle();
 
+  // Discard Gyro Angle if the Joystick isn't turned enough (default leaning)
   if (std::fabs(x) < 0.05 && std::fabs(y) < 0.05 && std::fabs(twist) < 0.05)
     gyro.Reset();
 
+  //Twist is already thresholded between +- 0.1
+  //Compare it to 0 to see if it met the threshold
   if (twist != 0.0) {
+    //If it didn't get thresholded and the gyroAngle > +- 1 (how far the robot has turned)
+    //Multiply by a constant to adjust how fast the robot attempts to turn
+    //Larger number means quicker turning.  Too large and the Robot Oscillates
     if (gyroAngle > 1 || gyroAngle < -1)
       twist = gyroAngle * -0.0125;
   } else {
+
+    //If the Robot isn't supposed to turn, reset the gyro so it doesn't flip out
     gyro.Reset();
   }
 
