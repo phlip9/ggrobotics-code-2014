@@ -73,7 +73,8 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
     //Multiply by a constant to adjust how fast the robot attempts to turn
     //Larger number means quicker turning.  Too large and the Robot Oscillates
     if (gyroAngle > 1 || gyroAngle < -1)
-      twist = gyroAngle * -0.0125;
+       //invert so the robot counteracts the joystick twist
+       twist = gyroAngle * -0.0125;
   } else {
 
     //If the Robot isn't supposed to turn, reset the gyro so it doesn't flip out
@@ -97,6 +98,7 @@ float clamp(float in, float min, float max) {
     return in;
 }
 
+//Default value is 0.0
 float threshold(float in, float thresh_min, float thresh_max, float out) {
   if (in < thresh_max && in > thresh_min)
     return out;
