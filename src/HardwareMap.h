@@ -7,6 +7,8 @@
 
 class SpeedController;
 
+#include "Gyro.h"
+
 class HardwareMap {
 
  public:
@@ -19,6 +21,8 @@ class HardwareMap {
   SpeedController* rear_left_motor;
   SpeedController* front_right_motor;
   SpeedController* rear_right_motor;
+
+  Gyro gyro;
 
 };
 

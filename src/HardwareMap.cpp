@@ -13,7 +13,8 @@ HardwareMap::HardwareMap()
   : front_left_motor(new Jaguar(CONFIG::MotorFrontLeftDrive())),
     rear_left_motor(new Jaguar(CONFIG::MotorRearLeftDrive())),
     front_right_motor(new Jaguar(CONFIG::MotorFrontRightDrive())),
-    rear_right_motor(new Jaguar(CONFIG::MotorRearRightDrive())) {
+    rear_right_motor(new Jaguar(CONFIG::MotorRearRightDrive())),
+    gyro(1) {
 
 }
 

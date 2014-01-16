@@ -3,6 +3,7 @@
 #include "Drive.h"
 
 #include <stdio.h>
+#include <cmath>
 
 #include "SpeedController.h"
 
@@ -27,7 +28,9 @@ void Drive::InitDefaultCommand() {
 }
 
 void Drive::mecanum_drive(Joystick &drive_stick) {
-  float x, y, twist, throttle;
+  Gyro &gyro = Robot::hardware_map->gyro;
+  float x, y, twist, throttle, gyroAngle;
+
   x = drive_stick.GetX();
   y = drive_stick.GetY();
 
@@ -55,6 +58,18 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   x *= throttle;
   y *= throttle;
   twist *= throttle;
+
+  gyroAngle = gyro.GetAngle();
+
+  if (std::fabs(x) < 0.05 && std::fabs(y) < 0.05 && std::fabs(twist) < 0.05)
+    gyro.Reset();
+
+  if (twist != 0.0) {
+    if (gyroAngle > 1 || gyroAngle < -1)
+      twist = gyroAngle * -0.0125;
+  } else {
+    gyro.Reset();
+  }
 
   twist = clamp(twist, -1.0, 1.0);
 

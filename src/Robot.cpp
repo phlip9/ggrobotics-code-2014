@@ -45,6 +45,8 @@ void Robot::RobotInit() {
 
   autonomous_chooser = new SendableChooser();
   autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
+
+  SmartDashboard::PutData("Autonomous modes:", autonomous_chooser);
 }
 
 void Robot::DisabledInit() {
