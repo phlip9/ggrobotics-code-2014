@@ -68,7 +68,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 
   //Twist is already thresholded between +- 0.1
   //Compare it to 0 to see if it met the threshold
-  if (twist != 0.0) {
+  if (twist == 0.0) {
     //If it didn't get thresholded and the gyroAngle > +- 1 (how far the robot has turned)
     //Multiply by a constant to adjust how fast the robot attempts to turn
     //Larger number means quicker turning.  Too large and the Robot Oscillates
