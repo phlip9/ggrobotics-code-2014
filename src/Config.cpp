@@ -19,6 +19,10 @@ int CONFIG::MotorRearRightDrive() {
   return Preferences::GetInstance()->GetInt("MotorRearRightDrive", 4);
 }
 
+float CONFIG::GyroScalingConstant() {
+  return Preferences::GetInstance()->GetInt("GyroScalingConstant", -0.0125);
+}
+
 int CONFIG::JoystickDrive() {
   return Preferences::GetInstance()->GetInt("JoystickDrive", 1);
 }

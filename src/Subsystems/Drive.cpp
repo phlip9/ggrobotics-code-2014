@@ -10,6 +10,7 @@
 #include "../Robot.h"
 #include "../Commands/BackgroundDrive.h"
 #include "../Logging.h"
+#include "../Config.h"
 
 Drive::Drive()
     : Subsystem("Drive"),
@@ -65,7 +66,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   //Twist is already thresholded between +- 0.1
   //Compare it to 0 to see if it met the threshold
   if (turning) {
-    twist = gyroAngle * -0.0125;
+    twist = gyroAngle * CONFIG::GyroScalingConstant();
   } else {
     //If the Robot isn't turning, reset the gyro so it doesn't flip out
     gyro.Reset();
