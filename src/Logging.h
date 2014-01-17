@@ -14,7 +14,7 @@
 #define LEVEL_ERROR
 #define LEVEL_WARN
 #define LEVEL_DEBUG
-//#define LEVEL_INFO
+#define LEVEL_INFO
 
 #ifdef LEVEL_ERROR
 #define log_error(message, ...) printf("[ERROR] (%s:%d) " message "\n", __FILE__, __LINE__, ##__VA_ARGS__)

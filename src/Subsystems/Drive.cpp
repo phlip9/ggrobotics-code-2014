@@ -29,6 +29,7 @@ void Drive::InitDefaultCommand() {
 
 void Drive::mecanum_drive(Joystick &drive_stick) {
   Gyro &gyro = Robot::hardware_map->gyro;
+  bool turning = false;
   float x, y, twist, throttle, gyroAngle;
 
   x = drive_stick.GetX();
@@ -40,8 +41,10 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   twist = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
-  log_info("mecanum_drive() IN: x: %lf, y: %lf, twist: %lf, throttle: %lf",
-           x, y, twist, throttle);
+  gyroAngle = gyro.GetAngle();
+
+  log_info(__FUNC__ "IN: x: %lf, y: %lf, twist: %lf, throttle: %lf, gyroAngle: %lf",
+           x, y, twist, throttle, gyroAngle);
 
   // Invert (because the throttle is backwards for no reason)
   // Add 1 to shift up (from [-1, 1] to [0, 2])
@@ -53,35 +56,24 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   y = threshold(y, -0.15, 0.15);
 
   twist = threshold(twist, -0.10, 0.10);
+  turning = twist == 0.0 && std::fabs(gyroAngle) > 1.0
 
   x *= throttle;
   y *= throttle;
   twist *= throttle;
 
-  gyroAngle = gyro.GetAngle();
-
-  // Discard Gyro Angle if the Joystick isn't turned enough (default leaning)
-  if (std::fabs(x) < 0.05 && std::fabs(y) < 0.05 && std::fabs(twist) < 0.05)
-    gyro.Reset();
-
   //Twist is already thresholded between +- 0.1
   //Compare it to 0 to see if it met the threshold
-  if (twist == 0.0) {
-    //If it didn't get thresholded and the gyroAngle > +- 1 (how far the robot has turned)
-    //Multiply by a constant to adjust how fast the robot attempts to turn
-    //Larger number means quicker turning.  Too large and the Robot Oscillates
-    if (gyroAngle > 1 || gyroAngle < -1)
-       //invert so the robot counteracts the joystick twist
-       twist = gyroAngle * -0.0125;
+  if (turning) {
+    twist = gyroAngle * -0.0125;
   } else {
-
-    //If the Robot isn't supposed to turn, reset the gyro so it doesn't flip out
+    //If the Robot isn't turning, reset the gyro so it doesn't flip out
     gyro.Reset();
   }
 
   twist = clamp(twist, -1.0, 1.0);
 
-  log_info("mecanum_drive() OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf",
+  log_info(__FUNC__ "OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf",
            x, y, twist, throttle);
 
   robot_drive.MecanumDrive_Cartesian(x, y, twist);

@@ -55,7 +55,6 @@ void Robot::DisabledInit() {
 }
 
 void Robot::DisabledPeriodic() {
-  log_info("DisabledPeriodic()");
 }
 
 void Robot::AutonomousInit() {
@@ -67,7 +66,6 @@ void Robot::AutonomousInit() {
 }
 
 void Robot::AutonomousPeriodic() {
-  log_info("AutonomousPeriodic()");
   Scheduler::GetInstance()->Run();
 }
 
@@ -81,7 +79,6 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-  log_info("TeleopPeriodic()");
   Scheduler::GetInstance()->Run();
   ds_lcd->UpdateLCD();
 }
@@ -91,7 +88,6 @@ void Robot::TestInit() {
 }
 
 void Robot::TestPeriodic() {
-  log_info("TestPeriodic()");
   LiveWindow::GetInstance()->Run();
 }
 
