@@ -4,19 +4,19 @@
 #include "Preferences.h"
 
 int CONFIG::MotorFrontLeftDrive() {
-  return Preferences::GetInstance()->GetInt("MotorFrontLeftDrive", 1);
+  return Preferences::GetInstance()->GetInt("MotorFrontLeftDrive", 3);
 }
 
 int CONFIG::MotorRearLeftDrive() {
-  return Preferences::GetInstance()->GetInt("MotorRearLeftDrive", 2);
+  return Preferences::GetInstance()->GetInt("MotorRearLeftDrive", 4);
 }
 
 int CONFIG::MotorFrontRightDrive() {
-  return Preferences::GetInstance()->GetInt("MotorFrontRightDrive", 3);
+  return Preferences::GetInstance()->GetInt("MotorFrontRightDrive", 1);
 }
 
 int CONFIG::MotorRearRightDrive() {
-  return Preferences::GetInstance()->GetInt("MotorRearRightDrive", 4);
+  return Preferences::GetInstance()->GetInt("MotorRearRightDrive", 2);
 }
 
 float CONFIG::GyroScalingConstant() {
