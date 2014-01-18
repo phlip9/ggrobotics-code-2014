@@ -14,10 +14,10 @@
 
 Drive::Drive()
     : Subsystem("Drive"),
-      robot_drive(&Robot::hardware_map->front_left_motor,
-                  &Robot::hardware_map->rear_left_motor,
-                  &Robot::hardware_map->front_right_motor,
-                  &Robot::hardware_map->rear_right_motor) {
+      robot_drive(&Robot::hardware_map().front_left_motor,
+                  &Robot::hardware_map().rear_left_motor,
+                  &Robot::hardware_map().front_right_motor,
+                  &Robot::hardware_map().rear_right_motor) {
 
   robot_drive.SetExpiration(0.1);
 }
@@ -29,7 +29,7 @@ void Drive::InitDefaultCommand() {
 }
 
 void Drive::mecanum_drive(Joystick &drive_stick) {
-  Gyro &gyro = Robot::hardware_map->gyro;
+  Gyro &gyro = Robot::hardware_map().gyro;
   bool turning = false;
   float x, y, twist, throttle, gyroAngle;
 

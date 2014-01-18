@@ -20,33 +20,33 @@
 #include "Subsystems/Drive.h"
 #include "Logging.h"
 
-// Allocate space for the static pointers
+Robot::Robot() :
+  m_hardware_map(),
+  m_oi(),
+  m_drive(),
+  m_autonomous_command(new PrintCommand("AutonomousCommand")),
+  m_teleop_command(new PrintCommand("TeleopCommand")),
+  m_autonomous_chooser() {
 
-HardwareMap *Robot::hardware_map = 0;
-OI *Robot::oi = 0;
-Drive *Robot::drive = 0;
+}
+
+Robot::~Robot() {
+  delete m_autonomous_command;
+  delete m_teleop_command;
+}
 
 void Robot::RobotInit() {
   log_info("RobotInit()");
 
   GetWatchdog().SetEnabled(false);
 
-  hardware_map = new HardwareMap();
-  oi = new OI();
-
   // Init the things
-  hardware_map->init();
-  oi->init();
+  m_hardware_map.init();
+  m_oi.init();
 
-  // Subsystems
-  drive = new Drive();
+  m_autonomous_chooser.AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
 
-  ds_lcd = DriverStationLCD::GetInstance();
-
-  autonomous_chooser = new SendableChooser();
-  autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
-
-  SmartDashboard::PutData("Autonomous modes:", autonomous_chooser);
+  SmartDashboard::PutData("Autonomous modes:", &m_autonomous_chooser);
 }
 
 void Robot::DisabledInit() {
@@ -55,14 +55,15 @@ void Robot::DisabledInit() {
 }
 
 void Robot::DisabledPeriodic() {
+
 }
 
 void Robot::AutonomousInit() {
-  autonomous_command = (Command*) autonomous_chooser->GetSelected();
+  m_autonomous_command = (Command*) m_autonomous_chooser.GetSelected();
 
   log_info("AutonomousInit()");
-  if (autonomous_command)
-    autonomous_command->Start();
+  if (m_autonomous_command)
+    m_autonomous_command->Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -71,16 +72,16 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
   log_info("TeleopInit()");
-  if (autonomous_command)
-    autonomous_command->Cancel();
+  if (m_autonomous_command)
+    m_autonomous_command->Cancel();
 
-  if (teleop_command)
-    teleop_command->Start();
+  if (m_teleop_command)
+    m_teleop_command->Start();
 }
 
 void Robot::TeleopPeriodic() {
   Scheduler::GetInstance()->Run();
-  ds_lcd->UpdateLCD();
+  DriverStationLCD::GetInstance()->UpdateLCD();
 }
 
 void Robot::TestInit() {

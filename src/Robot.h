@@ -8,11 +8,11 @@
 #define _ROBOT_H_
 
 // forward declarations
-class DriverStationLCD;
 class Command;
-class SendableChooser;
 
+#include "RobotBase.h"
 #include "IterativeRobot.h"
+#include "SmartDashboard/SendableChooser.h"
 
 #include "HardwareMap.h"
 #include "OI.h"
@@ -21,6 +21,11 @@ class SendableChooser;
 class Robot : public IterativeRobot {
 
  public:
+  ~Robot() override;
+
+  // Singleton accessor
+  static Robot& instance() { return (Robot&) RobotBase::getInstance(); };
+
   // Robot-wide initialization. Runs when the robot starts up.
   void RobotInit() override;
 
@@ -36,28 +41,36 @@ class Robot : public IterativeRobot {
   void TestInit() override;
   void TestPeriodic() override;
 
-  // Maps hardware modules to software objects.
-  static HardwareMap *hardware_map;
-
-  // Operator Interface
-  static OI *oi;
-
-  // Drivetrain subsystem
-  static Drive *drive;
+  static HardwareMap& hardware_map() { return instance().m_hardware_map; };
+  static OI& oi() { return instance().m_oi; };
+  static Drive& drive() { return instance().m_drive; };
 
  private:
-  DriverStationLCD *ds_lcd;
+  // Give WPILib access to the Robot constructor
+  friend RobotBase* FRC_userClassFactory();
+
+  // The constructor is private because Robot is a singleton.
+  Robot();
+
+  // Maps hardware modules to software objects.
+  HardwareMap m_hardware_map;
+
+  // Operator Interface
+  OI m_oi;
+
+  // Drivetrain subsystem
+  Drive m_drive;
 
   // This command gets run when the robot enters autonomous mode.
-  Command *autonomous_command;
+  Command *m_autonomous_command;
 
   // This command gets run when the robot enter teleop mode.
-  Command *teleop_command;
+  Command *m_teleop_command;
 
   // The autonomous_chooser shows up on the SmartDashboard as a radio button
   // The user selects which command to run when the robot enters autonomous
   // mode.
-  SendableChooser *autonomous_chooser;
+  SendableChooser m_autonomous_chooser;
 
 };
 

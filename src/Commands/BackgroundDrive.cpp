@@ -9,7 +9,7 @@
 BackgroundDrive::BackgroundDrive()
   : Command("BackgroundDrive") {
 
-  Requires(Robot::drive);
+  Requires(&Robot::drive());
 }
 
 void BackgroundDrive::Initialize() {
@@ -17,8 +17,7 @@ void BackgroundDrive::Initialize() {
 }
 
 void BackgroundDrive::Execute() {
-  //printf("BackgroundDrive.Execute() -> Driving...\n");
-  Robot::drive->mecanum_drive(Robot::oi->drive_stick);
+  Robot::drive().mecanum_drive(Robot::oi().drive_stick);
 }
 
 bool BackgroundDrive::IsFinished() {
