@@ -10,19 +10,16 @@
 #include "Logging.h"
 
 HardwareMap::HardwareMap()
-  : front_left_motor(new Talon(CONFIG::MotorFrontLeftDrive())),
-    rear_left_motor(new Talon(CONFIG::MotorRearLeftDrive())),
-    front_right_motor(new Talon(CONFIG::MotorFrontRightDrive())),
-    rear_right_motor(new Talon(CONFIG::MotorRearRightDrive())),
+  : front_left_motor(CONFIG::MotorFrontLeftDrive()),
+    rear_left_motor(CONFIG::MotorRearLeftDrive()),
+    front_right_motor(CONFIG::MotorFrontRightDrive()),
+    rear_right_motor(CONFIG::MotorRearRightDrive()),
     gyro(CONFIG::GyroChannel()) {
 
 }
 
 HardwareMap::~HardwareMap() {
-  delete front_left_motor;
-  delete rear_left_motor;
-  delete front_right_motor;
-  delete rear_left_motor;
+
 }
 
 void HardwareMap::init() {
@@ -31,8 +28,8 @@ void HardwareMap::init() {
   LiveWindow *live_window = LiveWindow::GetInstance();
 
   // Add Talon motors
-  live_window->AddActuator("Drive", "Front Left Motor", dynamic_cast<Talon*>(front_left_motor));
-  live_window->AddActuator("Drive", "Rear Left Motor", dynamic_cast<Talon*>(rear_left_motor));
-  live_window->AddActuator("Drive", "Front Right Motor", dynamic_cast<Talon*>(front_right_motor));
-  live_window->AddActuator("Drive", "Rear Right Motor", dynamic_cast<Talon*>(rear_right_motor));
+  live_window->AddActuator("Drive", "Front Left Motor", &front_left_motor);
+  live_window->AddActuator("Drive", "Rear Left Motor", &rear_left_motor);
+  live_window->AddActuator("Drive", "Front Right Motor", &front_right_motor);
+  live_window->AddActuator("Drive", "Rear Right Motor", &rear_right_motor);
 }

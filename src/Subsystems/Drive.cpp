@@ -14,10 +14,10 @@
 
 Drive::Drive()
     : Subsystem("Drive"),
-      robot_drive(Robot::hardware_map->front_left_motor,
-                  Robot::hardware_map->rear_left_motor,
-                  Robot::hardware_map->front_right_motor,
-                  Robot::hardware_map->rear_right_motor) {
+      robot_drive(&Robot::hardware_map->front_left_motor,
+                  &Robot::hardware_map->rear_left_motor,
+                  &Robot::hardware_map->front_right_motor,
+                  &Robot::hardware_map->rear_right_motor) {
 
   robot_drive.SetExpiration(0.1);
 }
@@ -44,7 +44,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 
   gyroAngle = gyro.GetAngle();
 
-  log_info(__FUNC__ "IN: x: %lf, y: %lf, twist: %lf, throttle: %lf, gyroAngle: %lf",
+  log_info("IN: x: %lf, y: %lf, twist: %lf, throttle: %lf, gyroAngle: %lf",
            x, y, twist, throttle, gyroAngle);
 
   // Invert (because the throttle is backwards for no reason)
@@ -57,7 +57,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   y = threshold(y, -0.15, 0.15);
 
   twist = threshold(twist, -0.10, 0.10);
-  turning = twist == 0.0 && std::fabs(gyroAngle) > 1.0
+  turning = twist == 0.0 && std::fabs(gyroAngle) > 1.0;
 
   x *= throttle;
   y *= throttle;
@@ -74,7 +74,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 
   twist = clamp(twist, -1.0, 1.0);
 
-  log_info(__FUNC__ "OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf",
+  log_info("OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf",
            x, y, twist, throttle);
 
   robot_drive.MecanumDrive_Cartesian(x, y, twist);

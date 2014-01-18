@@ -5,8 +5,7 @@
 #ifndef _HARDWARE_MAP_H_
 #define _HARDWARE_MAP_H_
 
-class SpeedController;
-
+#include "Talon.h"
 #include "Gyro.h"
 
 class HardwareMap {
@@ -17,10 +16,10 @@ class HardwareMap {
 
   void init();
 
-  SpeedController* front_left_motor;
-  SpeedController* rear_left_motor;
-  SpeedController* front_right_motor;
-  SpeedController* rear_right_motor;
+  Talon front_left_motor;
+  Talon rear_left_motor;
+  Talon front_right_motor;
+  Talon rear_right_motor;
 
   Gyro gyro;
 
