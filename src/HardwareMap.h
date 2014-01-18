@@ -16,11 +16,13 @@ class HardwareMap {
 
   void init();
 
+  // Drive motors
   Talon front_left_motor;
   Talon rear_left_motor;
   Talon front_right_motor;
   Talon rear_right_motor;
 
+  // Drive gyro
   Gyro gyro;
 
 };

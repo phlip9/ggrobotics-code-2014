@@ -20,13 +20,13 @@
 #include "Subsystems/Drive.h"
 #include "Logging.h"
 
-Robot::Robot() :
-  m_hardware_map(),
-  m_oi(),
-  m_drive(),
-  m_autonomous_command(new PrintCommand("AutonomousCommand")),
-  m_teleop_command(new PrintCommand("TeleopCommand")),
-  m_autonomous_chooser() {
+Robot::Robot()
+  : m_hardware_map(),
+    m_oi(),
+    m_drive(),
+    m_autonomous_command(new PrintCommand("AutonomousCommand")),
+    m_teleop_command(new PrintCommand("TeleopCommand")),
+    m_autonomous_chooser() {
 
 }
 
@@ -46,6 +46,7 @@ void Robot::RobotInit() {
 
   m_autonomous_chooser.AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
 
+  // Add the autonomous chooser to the SmartDashboard
   SmartDashboard::PutData("Autonomous modes:", &m_autonomous_chooser);
 }
 

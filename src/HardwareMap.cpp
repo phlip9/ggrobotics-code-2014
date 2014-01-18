@@ -32,4 +32,6 @@ void HardwareMap::init() {
   live_window->AddActuator("Drive", "Rear Left Motor", &rear_left_motor);
   live_window->AddActuator("Drive", "Front Right Motor", &front_right_motor);
   live_window->AddActuator("Drive", "Rear Right Motor", &rear_right_motor);
+
+  live_window->AddSensor("Drive", "Gyro", &gyro);
 }

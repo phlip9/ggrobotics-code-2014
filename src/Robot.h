@@ -41,6 +41,7 @@ class Robot : public IterativeRobot {
   void TestInit() override;
   void TestPeriodic() override;
 
+  // Static accessors for easy accessing
   static HardwareMap& hardware_map() { return instance().m_hardware_map; };
   static OI& oi() { return instance().m_oi; };
   static Drive& drive() { return instance().m_drive; };
@@ -55,10 +56,10 @@ class Robot : public IterativeRobot {
   // Maps hardware modules to software objects.
   HardwareMap m_hardware_map;
 
-  // Operator Interface
+  // Operator Interface: holds Joysticks, Buttons, and maps buttons to commands
   OI m_oi;
 
-  // Drivetrain subsystem
+  // Drivetrain subsystem: controls the driving of the robot.
   Drive m_drive;
 
   // This command gets run when the robot enters autonomous mode.
