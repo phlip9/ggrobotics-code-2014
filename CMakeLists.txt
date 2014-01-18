@@ -24,8 +24,10 @@ endmacro(add_make_deploy)
 
 macro(add_make_hotreload TGT)
     add_custom_command(OUTPUT hotreload_stamp
+        COMMAND echo "HOTRELOADING CODE"
         COMMAND echo "alf_reload(\"FRC_UserProgram.out\")" | netconsole_sender
-        DEPENDS ${TGT})
+        DEPENDS ${TGT}
+        VERBATIM)
     add_custom_target(hotreload DEPENDS hotreload_stamp)
 endmacro(add_make_hotreload)
 
