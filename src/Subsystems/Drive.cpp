@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include "SpeedController.h"
+#include "RobotDrive.h"
 
 #include "../Robot.h"
 #include "../Commands/BackgroundDrive.h"
@@ -20,6 +21,8 @@ Drive::Drive()
                   &Robot::hardware_map()->rear_right_motor) {
 
   robot_drive.SetExpiration(0.1);
+  robot_drive.SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
+  robot_drive.SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 
   log_info("Drive()");
 }
