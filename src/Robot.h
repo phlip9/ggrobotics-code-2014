@@ -42,9 +42,9 @@ class Robot : public IterativeRobot {
   void TestPeriodic() override;
 
   // Static accessors for easy accessing
-  static HardwareMap& hardware_map() { return instance().m_hardware_map; };
-  static OI& oi() { return instance().m_oi; };
-  static Drive& drive() { return instance().m_drive; };
+  static HardwareMap* hardware_map() { return instance().m_hardware_map; };
+  static OI* oi() { return instance().m_oi; };
+  static Drive* drive() { return instance().m_drive; };
 
  private:
   // Give WPILib access to the Robot constructor
@@ -54,24 +54,24 @@ class Robot : public IterativeRobot {
   Robot();
 
   // Maps hardware modules to software objects.
-  HardwareMap m_hardware_map;
+  HardwareMap* m_hardware_map;
 
   // Operator Interface: holds Joysticks, Buttons, and maps buttons to commands
-  OI m_oi;
+  OI* m_oi;
 
   // Drivetrain subsystem: controls the driving of the robot.
-  Drive m_drive;
+  Drive* m_drive;
 
   // This command gets run when the robot enters autonomous mode.
-  Command *m_autonomous_command;
+  Command* m_autonomous_command;
 
   // This command gets run when the robot enter teleop mode.
-  Command *m_teleop_command;
+  Command* m_teleop_command;
 
   // The autonomous_chooser shows up on the SmartDashboard as a radio button
   // The user selects which command to run when the robot enters autonomous
   // mode.
-  SendableChooser m_autonomous_chooser;
+  SendableChooser* m_autonomous_chooser;
 
 };
 

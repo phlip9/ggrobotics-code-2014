@@ -20,51 +20,65 @@
 #include "Subsystems/Drive.h"
 #include "Logging.h"
 
-Robot::Robot()
-  : m_hardware_map(),
-    m_oi(),
-    m_drive(),
-    m_autonomous_command(new PrintCommand("AutonomousCommand")),
-    m_teleop_command(new PrintCommand("TeleopCommand")),
-    m_autonomous_chooser() {
-
+Robot::Robot() {
+  log_info("Robot()");
 }
 
 Robot::~Robot() {
+  log_info("~Robot()");
+
+  delete m_hardware_map;
+  delete m_oi;
+  delete m_drive;
+
   delete m_autonomous_command;
   delete m_teleop_command;
+  delete m_autonomous_chooser;
 }
 
 void Robot::RobotInit() {
-  log_info("RobotInit()");
+  log_info("-> RobotInit()");
 
   GetWatchdog().SetEnabled(false);
 
-  // Init the things
-  m_hardware_map.init();
-  m_oi.init();
+  m_hardware_map = new HardwareMap();
+  m_oi = new OI();
 
-  m_autonomous_chooser.AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
+  log_info("Begin inits");
+
+  // Init the things
+  hardware_map()->init();
+  oi()->init();
+
+  log_info("End inits");
+
+  m_drive = new Drive();
+
+  m_autonomous_chooser = new SendableChooser();
+  m_autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
 
   // Add the autonomous chooser to the SmartDashboard
-  SmartDashboard::PutData("Autonomous modes:", &m_autonomous_chooser);
+  SmartDashboard::PutData("Autonomous modes:", m_autonomous_chooser);
+
+  log_info("<- RobotInit()");
 }
 
 void Robot::DisabledInit() {
   log_info("DisabledInit()");
   Preferences::GetInstance()->Save();
+  log_info("----");
 }
 
 void Robot::DisabledPeriodic() {
-
+  //log_info("DisabledPeriodic()");
 }
 
 void Robot::AutonomousInit() {
-  m_autonomous_command = (Command*) m_autonomous_chooser.GetSelected();
+  //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
 
   log_info("AutonomousInit()");
-  if (m_autonomous_command)
-    m_autonomous_command->Start();
+  //if (m_autonomous_command)
+    //m_autonomous_command->Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -73,14 +87,15 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
   log_info("TeleopInit()");
-  if (m_autonomous_command)
-    m_autonomous_command->Cancel();
+  //if (m_autonomous_command)
+    //m_autonomous_command->Cancel();
 
-  if (m_teleop_command)
-    m_teleop_command->Start();
+  //if (m_teleop_command)
+    //m_teleop_command->Start();
 }
 
 void Robot::TeleopPeriodic() {
+  log_info("TeleopPeriodic()");
   Scheduler::GetInstance()->Run();
   DriverStationLCD::GetInstance()->UpdateLCD();
 }

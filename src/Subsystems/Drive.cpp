@@ -14,24 +14,29 @@
 
 Drive::Drive()
     : Subsystem("Drive"),
-      robot_drive(&Robot::hardware_map().front_left_motor,
-                  &Robot::hardware_map().rear_left_motor,
-                  &Robot::hardware_map().front_right_motor,
-                  &Robot::hardware_map().rear_right_motor) {
+      robot_drive(&Robot::hardware_map()->front_left_motor,
+                  &Robot::hardware_map()->rear_left_motor,
+                  &Robot::hardware_map()->front_right_motor,
+                  &Robot::hardware_map()->rear_right_motor) {
 
   robot_drive.SetExpiration(0.1);
+
+  log_info("Drive()");
 }
 
-Drive::~Drive() { }
+Drive::~Drive() {
+  log_info("~Drive()");
+}
 
 void Drive::InitDefaultCommand() {
+  log_info("InitDefaultCommand()");
   SetDefaultCommand(new BackgroundDrive());
 }
 
 void Drive::mecanum_drive(Joystick &drive_stick) {
-  Gyro &gyro = Robot::hardware_map().gyro;
-  bool turning = false;
-  float x, y, twist, throttle, gyroAngle;
+  //Gyro &gyro = Robot::hardware_map()->gyro;
+  //bool turning = false;
+  float x, y, twist, throttle; //, gyroAngle;
 
   x = drive_stick.GetX();
   y = drive_stick.GetY();
@@ -42,10 +47,10 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   twist = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
-  gyroAngle = gyro.GetAngle();
+  //gyroAngle = gyro.GetAngle();
 
-  log_info("IN: x: %lf, y: %lf, twist: %lf, throttle: %lf, gyroAngle: %lf",
-           x, y, twist, throttle, gyroAngle);
+  log_info("IN: x: %lf, y: %lf, twist: %lf, throttle: %lf", //, gyroAngle: %lf",
+           x, y, twist, throttle); //, gyroAngle);
 
   // Invert (because the throttle is backwards for no reason)
   // Add 1 to shift up (from [-1, 1] to [0, 2])
@@ -57,7 +62,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   y = threshold(y, -0.15, 0.15);
 
   twist = threshold(twist, -0.10, 0.10);
-  turning = twist == 0.0 && std::fabs(gyroAngle) > 1.0;
+  //turning = twist == 0.0 && std::fabs(gyroAngle) > 1.0;
 
   x *= throttle;
   y *= throttle;
@@ -65,12 +70,12 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 
   //Twist is already thresholded between +- 0.1
   //Compare it to 0 to see if it met the threshold
-  if (turning) {
-    twist = gyroAngle * CONFIG::GyroScalingConstant();
-  } else {
+  //if (turning) {
+    //twist = gyroAngle * CONFIG::GyroScalingConstant();
+  //} else {
     //If the Robot isn't turning, reset the gyro so it doesn't flip out
-    gyro.Reset();
-  }
+    //gyro.Reset();
+  //}
 
   twist = clamp(twist, -1.0, 1.0);
 

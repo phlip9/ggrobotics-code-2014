@@ -16,10 +16,11 @@ HardwareMap::HardwareMap()
     rear_right_motor(CONFIG::MotorRearRightDrive()),
     gyro(CONFIG::GyroChannel()) {
 
+  log_info("HardwareMap()");
 }
 
 HardwareMap::~HardwareMap() {
-
+  log_info("~HardwareMap()");
 }
 
 void HardwareMap::init() {
