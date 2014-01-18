@@ -33,9 +33,14 @@ Drive::~Drive() {
 
 void Drive::InitDefaultCommand() {
   log_info("InitDefaultCommand()");
-  SetDefaultCommand(new BackgroundDrive());
+  //SetDefaultCommand(new BackgroundDrive());
 }
 
+void Drive::mecanum_drive(Joystick &drive_stick) {
+  robot_drive.MecanumDrive_Cartesian(0.0, 0.0, 0.0);
+}
+
+/*
 void Drive::mecanum_drive(Joystick &drive_stick) {
   //Gyro &gyro = Robot::hardware_map()->gyro;
   //bool turning = false;
@@ -87,6 +92,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 
   robot_drive.MecanumDrive_Cartesian(x, y, twist);
 }
+*/
 
 float clamp(float in, float min, float max) {
   if (in > max)
