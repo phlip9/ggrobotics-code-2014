@@ -10,6 +10,7 @@ namespace CONFIG {
   int MotorFrontRightDrive();
   int MotorRearRightDrive();
 
+  int GyroChannel();
   float GyroScalingConstant();
 
   int JoystickDrive();

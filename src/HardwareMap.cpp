@@ -14,7 +14,7 @@ HardwareMap::HardwareMap()
     rear_left_motor(new Talon(CONFIG::MotorRearLeftDrive())),
     front_right_motor(new Talon(CONFIG::MotorFrontRightDrive())),
     rear_right_motor(new Talon(CONFIG::MotorRearRightDrive())),
-    gyro(1) {
+    gyro(CONFIG::GyroChannel()) {
 
 }
 

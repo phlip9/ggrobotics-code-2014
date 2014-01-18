@@ -19,6 +19,10 @@ int CONFIG::MotorRearRightDrive() {
   return Preferences::GetInstance()->GetInt("MotorRearRightDrive", 2);
 }
 
+int CONFIG::GyroChannel() {
+  return Preferences::GetInstance()->GetInt("GyroChannel", 1);
+}
+
 float CONFIG::GyroScalingConstant() {
   return Preferences::GetInstance()->GetInt("GyroScalingConstant", -0.0125);
 }
