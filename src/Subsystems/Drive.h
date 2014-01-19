@@ -27,6 +27,6 @@ class Drive : public Subsystem {
 float clamp(float in, float min, float max);
 
 // Threshold a value if it's between thresh_max and thresh_min
-float threshold(float in, float thresh_min, float thresh_max, float out = 0.0);
+float deadband(float in, float min, float max, float out = 0.0);
 
 #endif
