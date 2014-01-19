@@ -37,7 +37,8 @@ void Drive::InitDefaultCommand() {
 }
 
 void Drive::mecanum_drive(Joystick &drive_stick) {
-  float x, y, twist, throttle;
+  Gyro &gyro = Robot::hardware_map()->gyro;
+  float x, y, twist, throttle, gyroAngle;
 
   x = drive_stick.GetX();
   y = drive_stick.GetY();
@@ -48,8 +49,10 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   twist = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
-  log_info("IN: x: %lf, y: %lf, twist: %lf, throttle: %lf",
-           x, y, twist, throttle);
+  gyroAngle = gyro.GetAngle();
+
+  log_info("IN: x: %lf, y: %lf, twist: %lf, throttle: %lf, gyro: %lf",
+           x, y, twist, throttle, gyroAngle);
 
   // Add 1 to shift up (from [-1, 1] to [0, 2])
   // Divide by 2 to scale down (from [0, 2] to [0, 1])
