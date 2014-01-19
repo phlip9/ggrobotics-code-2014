@@ -24,7 +24,11 @@ int CONFIG::GyroChannel() {
 }
 
 float CONFIG::GyroScalingConstant() {
-  return Preferences::GetInstance()->GetInt("GyroScalingConstant", -0.0125);
+  return Preferences::GetInstance()->GetFloat("GyroScalingConstant", -0.00875);
+}
+
+float CONFIG::GyroThreshold() {
+  return Preferences::GetInstance()->GetFloat("GyroThreshold", 1.0);
 }
 
 int CONFIG::JoystickDrive() {

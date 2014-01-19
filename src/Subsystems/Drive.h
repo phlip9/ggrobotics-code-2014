@@ -18,8 +18,11 @@ class Drive : public Subsystem {
 
   void mecanum_drive(Joystick &drive_stick);
 
+  void toggle_gyro();
+
  private:
   RobotDrive robot_drive;
+  bool gyro_enabled;
 
 };
 

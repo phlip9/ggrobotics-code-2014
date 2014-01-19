@@ -4,11 +4,13 @@
 
 #include "OI.h"
 
+#include "Commands/GyroToggle.h"
 #include "Config.h"
 #include "Logging.h"
 
 OI::OI()
-    : drive_stick(CONFIG::JoystickDrive()) {
+    : drive_stick(CONFIG::JoystickDrive()),
+      button_gyro_toggle(&drive_stick, 2) {
 
   log_info("OI()");
 }
@@ -23,4 +25,5 @@ void OI::init() {
   log_info("init()");
   // TODO: Add SmartDashboard controls
 
+  button_gyro_toggle.WhenReleased(new GyroToggle());
 }

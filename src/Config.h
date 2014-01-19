@@ -19,6 +19,9 @@ namespace CONFIG {
   // Make it too low, and the robot will correct too slowly.
   float GyroScalingConstant();
 
+  // Don't adjust the robot unless the gyro passes the threshold.
+  float GyroThreshold();
+
   // Drive Joystick port
   int JoystickDrive();
 

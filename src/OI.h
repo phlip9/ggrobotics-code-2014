@@ -18,6 +18,8 @@ class OI {
 
   Joystick drive_stick;
 
+  JoystickButton button_gyro_toggle;
+
 };
 
 #endif

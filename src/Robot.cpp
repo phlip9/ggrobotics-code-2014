@@ -44,15 +44,11 @@ void Robot::RobotInit() {
   m_hardware_map = new HardwareMap();
   m_oi = new OI();
 
-  log_info("Begin inits");
+  m_drive = new Drive();
 
   // Init the things
   hardware_map()->init();
   oi()->init();
-
-  log_info("End inits");
-
-  m_drive = new Drive();
 
   m_autonomous_chooser = new SendableChooser();
   m_autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
