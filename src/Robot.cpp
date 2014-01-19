@@ -71,7 +71,6 @@ void Robot::DisabledInit() {
 
 void Robot::DisabledPeriodic() {
   //log_info("DisabledPeriodic()");
-  m_drive->mecanum_drive(m_oi->drive_stick);
 }
 
 void Robot::AutonomousInit() {
@@ -99,7 +98,6 @@ void Robot::TeleopPeriodic() {
   log_info("TeleopPeriodic()");
   Scheduler::GetInstance()->Run();
   DriverStationLCD::GetInstance()->UpdateLCD();
-  m_drive->mecanum_drive(m_oi->drive_stick);
 }
 
 void Robot::TestInit() {

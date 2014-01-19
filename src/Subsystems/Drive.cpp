@@ -33,7 +33,7 @@ Drive::~Drive() {
 
 void Drive::InitDefaultCommand() {
   log_info("InitDefaultCommand()");
-  //SetDefaultCommand(new BackgroundDrive());
+  SetDefaultCommand(new BackgroundDrive());
 }
 
 void Drive::mecanum_drive(Joystick &drive_stick) {
