@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 set(NAME frc_robot_2014)
+set(ROBOT_IP 10.44.13.2)
 
 project(${NAME})
 
@@ -25,11 +26,11 @@ endmacro(add_make_deploy)
 macro(add_make_hotreload TGT)
     add_custom_command(OUTPUT hotreload_stamp
         COMMAND echo "HOTRELOADING CODE"
-        COMMAND echo "alf_reload(\"FRC_UserProgram.out\")" | netconsole_sender
+        COMMAND echo "alf_reload" | netconsole_sender
         DEPENDS ${TGT}
         VERBATIM)
     add_custom_target(hotreload DEPENDS hotreload_stamp)
 endmacro(add_make_hotreload)
 
-add_make_deploy(${NAME}.out 10.44.13.2)
+add_make_deploy(${NAME}.out ${ROBOT_IP})
 add_make_hotreload(${NAME}.out)
