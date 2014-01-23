@@ -1,20 +1,36 @@
 import os
 import ycm_core
 
+def get_wind_base():
+    wind_base = os.getenv('WIND_BASE')
+    if wind_base:
+        return wind_base
+    return "/usr/powerpc-wrs-vxworks"
+
+WIND_BASE = get_wind_base()
+
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
 # CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
-flags = [
+FLAGS = [
+    '-mcpu=603',
+    '-mstrict-align',
+    '-mlongcall',
+    '-nostdlib',
     '-Wall',
     '-Wextra',
     '-Werror',
     '-fexceptions',
+    '-DCPU=PPC603',
+    '-DTOOL_FAMILY=gnu',
+    '-DTOOL=gnu',
+    '-D_WRS_KERNEL',
     '-DNDEBUG',
     '-DUSE_CLANG_COMPLETER',
-    # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know which
-    # language to use when compiling headers. So it will guess. Badly. So C++
-    # headers will be compiled as C headers. You don't want that so ALWAYS specify
-    # a "-std=<something>".
+    # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know
+    # which language to use when compiling headers. So it will guess. Badly. So
+    # C++ headers will be compiled as C headers. You don't want that so ALWAYS
+    # specify a "-std=<something>".
     # For a C project, you would set this to something like 'c99' instead of
     # 'c++11'.
     '-std=c++11',
@@ -26,19 +42,25 @@ flags = [
     'c++',
     # System includes
     '-isystem',
-    '/usr/powerpc-wrs-vxworks/include',
+    WIND_BASE + '/target/h',
+    '-isystem',
+    WIND_BASE + '/target/h/wrn/coreip',
     # Source includes
+    ## WPILib headers
     '-I',
-    '/usr/powerpc-wrs-vxworks/wind_base/target/h/wrn/coreip/WPILib/',
+    WIND_BASE + '/target/h/wrn/coreip/WPILib/',
+    ## Project headers
     '-I',
     '.'
 ]
 
-def DirectoryOfThisScript():
+def script_dir():
+    """Returns the absolute path of the script directory."""
     return os.path.dirname(os.path.abspath(__file__))
 
 
-def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
+def make_flags_absolute(flags, working_directory):
+    """Makes relative path names in the compile flags absolute paths."""
     if not working_directory:
         return list(flags)
 
@@ -71,8 +93,8 @@ def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
 
 
 def FlagsForFile(filename):
-    relative_to = DirectoryOfThisScript()
-    final_flags = MakeRelativePathsInFlagsAbsolute(flags, relative_to)
+    relative_to = script_dir()
+    final_flags = make_flags_absolute(FLAGS, relative_to)
 
     return {
         'flags': final_flags,
