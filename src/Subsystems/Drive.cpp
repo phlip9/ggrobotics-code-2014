@@ -68,7 +68,7 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   // Use the Gyro if we're not twisting the joystick and the gyroAngle is
   // sufficiently large.
   if (gyro_enabled) {
-    if (twist < 0.10 && twist > -0.10 && std::fabs(gyro_angle) > gyro_threshold) {
+    if (twist < 0.05 && twist > -0.05 && std::fabs(gyro_angle) > gyro_threshold) {
       twist = gyro_angle * gyro_scaler;
     } else {
       gyro.Reset();
