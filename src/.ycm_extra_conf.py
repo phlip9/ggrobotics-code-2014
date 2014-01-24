@@ -13,9 +13,7 @@ WIND_BASE = get_wind_base()
 # compilation database set (by default, one is not set).
 # CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
 FLAGS = [
-    '-mcpu=603',
     '-mstrict-align',
-    '-mlongcall',
     '-nostdlib',
     '-Wall',
     '-Wextra',
