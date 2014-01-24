@@ -9,8 +9,8 @@
 #include "Logging.h"
 
 OI::OI()
-    : drive_stick(CONFIG::JoystickDrive()),
-      button_gyro_toggle(&drive_stick, 2) {
+    : drive_stick(CONFIG::drive_joystick),
+      button_gyro_toggle(&drive_stick, CONFIG::button_gyro_toggle) {
 
   log_info("OI()");
 }

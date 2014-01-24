@@ -2,19 +2,19 @@
 
 #include "HardwareMap.h"
 
-#include "SpeedController.h"
-#include "Talon.h"
+#include "SensorBase.h"
 #include "LiveWindow/LiveWindow.h"
+#include "Gyro.h"
 
 #include "Config.h"
 #include "Logging.h"
 
 HardwareMap::HardwareMap()
-  : front_left_motor(CONFIG::MotorFrontLeftDrive()),
-    rear_left_motor(CONFIG::MotorRearLeftDrive()),
-    front_right_motor(CONFIG::MotorFrontRightDrive()),
-    rear_right_motor(CONFIG::MotorRearRightDrive()),
-    gyro(CONFIG::GyroChannel()) {
+  : front_left_motor(CONFIG::drive_motor_front_left),
+    rear_left_motor(CONFIG::drive_motor_rear_left),
+    front_right_motor(CONFIG::drive_motor_front_right),
+    rear_right_motor(CONFIG::drive_motor_rear_right),
+    gyro(CONFIG::gyro_channel) {
 
   log_info("HardwareMap()");
 }
@@ -25,6 +25,9 @@ HardwareMap::~HardwareMap() {
 
 void HardwareMap::init() {
   log_info("init()");
+
+  bool check_gyro = SensorBase::CheckAnalogModule(CONFIG::gyro_channel);
+  log_debug("Gyro detected: %s", check_gyro ? "true" : "false");
 
   LiveWindow *live_window = LiveWindow::GetInstance();
 

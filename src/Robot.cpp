@@ -5,8 +5,6 @@
 
 #include "Robot.h"
 
-#include <stdio.h>
-
 #include "Commands/Scheduler.h"
 #include "LiveWindow/LiveWindow.h"
 #include "DriverStationLCD.h"

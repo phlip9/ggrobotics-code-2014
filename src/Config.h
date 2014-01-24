@@ -5,14 +5,21 @@
 
 namespace CONFIG {
 
-  // Motor channels
-  int MotorFrontLeftDrive();
-  int MotorRearLeftDrive();
-  int MotorFrontRightDrive();
-  int MotorRearRightDrive();
+  // ## Constants
+  // Motor ports
+  const int drive_motor_front_left = 3;
+  const int drive_motor_rear_left = 4;
+  const int drive_motor_front_right = 1;
+  const int drive_motor_rear_right = 2;
 
-  int GyroChannel();
+  const int gyro_channel = 1;
 
+  // Drive Joystick port
+  const int drive_joystick = 1;
+
+  const int button_gyro_toggle = 2;
+
+  // ## Preferences (Can be edited on the SmartDashboard)
   // The gyro scaling constant controls how strongly the gyro should correct.
   // Make it too high, and the robot will start over-correcting, begin
   // oscillating, and spin out of control.
@@ -21,9 +28,6 @@ namespace CONFIG {
 
   // Don't adjust the robot unless the gyro passes the threshold.
   float GyroThreshold();
-
-  // Drive Joystick port
-  int JoystickDrive();
 
 } // namespace CONFIG
 
