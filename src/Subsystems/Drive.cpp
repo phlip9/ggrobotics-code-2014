@@ -7,6 +7,7 @@
 
 #include "SpeedController.h"
 #include "RobotDrive.h"
+#include "Timer.h"
 
 #include "../Robot.h"
 #include "../Commands/BackgroundDrive.h"
@@ -62,6 +63,16 @@ void Drive::mecanum_drive(float x, float y, float turn) {
 
   robot_drive.MecanumDrive_Cartesian(x, y, twist);
 }
+
+void Drive::autonomous_drive(float x, float y, float twist) {
+  x = clamp(x, -1, 1);
+  y = clamp(y, -1, 1);
+  twist = clamp (twist, -1, 1);
+  robot_drive.MecanumDrive_Cartesian(x, y, twist);
+}
+
+
+
 
 void Drive::toggle_gyro() {
   //gyro_enabled = !gyro_enabled;

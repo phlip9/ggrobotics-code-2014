@@ -17,6 +17,7 @@ class Command;
 #include "HardwareMap.h"
 #include "OI.h"
 #include "Subsystems/Drive.h"
+#include "Commands/AutonomousDrive.h"
 
 class Robot : public IterativeRobot {
 
@@ -63,7 +64,7 @@ class Robot : public IterativeRobot {
   Drive* m_drive;
 
   // This command gets run when the robot enters autonomous mode.
-  Command* m_autonomous_command;
+  Command* m_autonomous_command {new AutonomousDrive()};
 
   // This command gets run when the robot enter teleop mode.
   Command* m_teleop_command;
