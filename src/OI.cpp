@@ -25,5 +25,5 @@ void OI::init() {
   log_info("init()");
   // TODO: Add SmartDashboard controls
 
-  button_gyro_toggle.WhenReleased(new GyroToggle());
+  //button_gyro_toggle.WhenReleased(new GyroToggle());
 }

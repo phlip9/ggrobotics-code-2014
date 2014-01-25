@@ -38,8 +38,8 @@ void Drive::InitDefaultCommand() {
 }
 
 void Drive::mecanum_drive(Joystick &drive_stick) {
-  Gyro &gyro = Robot::hardware_map()->gyro;
-  float x, y, twist, throttle, gyro_angle, gyro_scaler, gyro_threshold;
+  //Gyro &gyro = Robot::hardware_map()->gyro;
+  float x, y, twist, throttle; //, gyro_angle, gyro_scaler, gyro_threshold;
 
   x = drive_stick.GetX();
   y = drive_stick.GetY();
@@ -50,12 +50,12 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
   twist = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
-  gyro_angle = gyro.GetAngle();
+  /*gyro_angle = gyro.GetAngle();
   gyro_scaler = CONFIG::GyroScalingConstant();
-  gyro_threshold = CONFIG::GyroThreshold();
+  gyro_threshold = CONFIG::GyroThreshold();*/
 
-  log_info("IN: x: %lf, y: %lf, twist: %lf, throttle: %lf, gyro: %lf",
-           x, y, twist, throttle, gyro_angle);
+  log_info("IN: x: %lf, y: %lf, twist: %lf, throttle: %lf",
+           x, y, twist, throttle);
 
   // Add 1 to shift up (from [-1, 1] to [0, 2])
   // Divide by 2 to scale down (from [0, 2] to [0, 1])
@@ -67,13 +67,13 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 
   // Use the Gyro if we're not twisting the joystick and the gyroAngle is
   // sufficiently large.
-  if (gyro_enabled) {
+  /*if (gyro_enabled) {
     if (twist < 0.05 && twist > -0.05 && std::fabs(gyro_angle) > gyro_threshold) {
       twist = gyro_angle * gyro_scaler;
     } else {
       gyro.Reset();
     }
-  }
+  }*/
 
   twist = clamp(twist, -1.0, 1.0);
 
@@ -84,8 +84,8 @@ void Drive::mecanum_drive(Joystick &drive_stick) {
 }
 
 void Drive::toggle_gyro() {
-  gyro_enabled = !gyro_enabled;
-  Robot::hardware_map()->gyro.Reset();
+  //gyro_enabled = !gyro_enabled;
+  //Robot::hardware_map()->gyro.Reset();
 }
 
 float clamp(float in, float min, float max) {
