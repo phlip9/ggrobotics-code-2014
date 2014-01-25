@@ -1,35 +1,39 @@
-include "AutonomousDrive.h"
+#include "AutonomousDrive.h"
 
-#include <stdio.h>
+#include "Timer.h"
 
 #include "../Robot.h"
 #include "../Logging.h"
 
-AutonomousDrive::AutonomousDrive()
-  : Command("AutonomousDrive") {
+AutonomousDrive::AutonomousDrive(double seconds, float power)
+  : Command("AutonomousDrive"),
+    m_seconds(seconds),
+    m_power(power),
+    m_timer() {
 
-  log_info("AutonomousDrive");
+  log_info("AutonomousDrive()");
   Requires(Robot::drive());
 }
 
-void BackgroundDrive::Initialize() {
+void AutonomousDrive::Initialize() {
   log_info("Initialize()");
+  m_timer.Start();
 }
 
-void BackgroundDrive::Execute() {
-  //I hope this only calls once  
-  Robot::drive()->mecanum_drive(0, 0.5, 0);
+void AutonomousDrive::Execute() {
+  // drive at half speed
+  Robot::drive()->mecanum_drive(0, 0.5);
 }
 
-bool BackgroundDrive::IsFinished() {
-  return true;
+bool AutonomousDrive::IsFinished() {
+  return m_timer.HasPeriodPassed(m_seconds);
 }
 
-void BackgroundDrive::End() {
+void AutonomousDrive::End() {
   log_info("End()");
 }
 
-void BackgroundDrive::Interrupted() {
+void AutonomousDrive::Interrupted() {
   log_info("Interrupted()");
 }
 

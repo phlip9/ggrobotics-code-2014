@@ -56,23 +56,10 @@ void Drive::mecanum_drive(float x, float y, float turn) {
     }
   }*/
 
-  twist = clamp(twist, -1.0, 1.0);
+  //twist = clamp(twist, -1.0, 1.0);
 
-  log_info("OUT: x: %lf, y: %lf, twist: %lf, throttle: %lf",
-           x, y, twist, throttle);
-
-  robot_drive.MecanumDrive_Cartesian(x, y, twist);
+  robot_drive.MecanumDrive_Cartesian(x, y, turn);
 }
-
-void Drive::autonomous_drive(float x, float y, float twist) {
-  x = clamp(x, -1, 1);
-  y = clamp(y, -1, 1);
-  twist = clamp (twist, -1, 1);
-  robot_drive.MecanumDrive_Cartesian(x, y, twist);
-}
-
-
-
 
 void Drive::toggle_gyro() {
   //gyro_enabled = !gyro_enabled;

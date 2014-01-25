@@ -19,8 +19,6 @@ class Drive : public Subsystem {
   //void mecanum_drive(Joystick &drive_stick);
   void mecanum_drive(float x, float y, float turn = 0.0);
 
-  void autonomous_drive(float x, float y, float twist);
-
   void toggle_gyro();
 
  private:

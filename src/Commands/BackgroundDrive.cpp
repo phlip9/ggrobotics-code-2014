@@ -31,6 +31,9 @@ void BackgroundDrive::Execute() {
   turn = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
+  log_info("DRIVE_STICK: x: %lf, y: %lf, turn: %lf, throttle: %lf",
+           x, y, turn, throttle);
+
   // Add 1 to shift up (from [-1, 1] to [0, 2])
   // Divide by 2 to scale down (from [0, 2] to [0, 1])
   throttle = (-throttle + 1.0) / 2.0;

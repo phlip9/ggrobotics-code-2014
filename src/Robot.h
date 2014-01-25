@@ -9,15 +9,14 @@
 
 // forward declarations
 class Command;
+class SendableChooser;
 
 #include "RobotBase.h"
 #include "IterativeRobot.h"
-#include "SmartDashboard/SendableChooser.h"
 
 #include "HardwareMap.h"
 #include "OI.h"
 #include "Subsystems/Drive.h"
-#include "Commands/AutonomousDrive.h"
 
 class Robot : public IterativeRobot {
 
@@ -52,6 +51,9 @@ class Robot : public IterativeRobot {
   friend RobotBase* FRC_userClassFactory();
 
   // The constructor is private because Robot is a singleton.
+  // Also, don't actually construct anything in here. The robot life cycle
+  // is totally whacked; so, for now, do all of the constructing and initing
+  // in RobotInit()
   Robot();
 
   // Maps hardware modules to software objects.
@@ -64,7 +66,7 @@ class Robot : public IterativeRobot {
   Drive* m_drive;
 
   // This command gets run when the robot enters autonomous mode.
-  Command* m_autonomous_command {new AutonomousDrive()};
+  Command* m_autonomous_command;
 
   // This command gets run when the robot enter teleop mode.
   Command* m_teleop_command;
@@ -72,7 +74,7 @@ class Robot : public IterativeRobot {
   // The autonomous_chooser shows up on the SmartDashboard as a radio button
   // The user selects which command to run when the robot enters autonomous
   // mode.
-  SendableChooser* m_autonomous_chooser;
+  //SendableChooser* m_autonomous_chooser;
 
 };
 
