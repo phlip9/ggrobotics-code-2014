@@ -12,7 +12,6 @@ GyroToggle::GyroToggle()
   : Command("GyroToggle") {
 
   log_info("GyroToggle()");
-  Requires(Robot::drive());
 }
 
 void GyroToggle::Initialize() {

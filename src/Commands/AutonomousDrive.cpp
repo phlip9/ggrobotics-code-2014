@@ -21,16 +21,21 @@ void AutonomousDrive::Initialize() {
 }
 
 void AutonomousDrive::Execute() {
+  log_info("Timer: %.2f", m_timer.Get());
   // drive at half speed
   Robot::drive()->mecanum_drive(0, 0.5);
 }
 
 bool AutonomousDrive::IsFinished() {
-  return m_timer.HasPeriodPassed(m_seconds);
+  bool finished = m_timer.HasPeriodPassed(m_seconds);
+  log_info("IsFinished() : %s", finished ? "true" : "false");
+  return finished;
 }
 
 void AutonomousDrive::End() {
   log_info("End()");
+  m_timer.Stop();
+  m_timer.Reset();
 }
 
 void AutonomousDrive::Interrupted() {

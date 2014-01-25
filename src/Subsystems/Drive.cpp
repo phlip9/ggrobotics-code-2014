@@ -64,6 +64,7 @@ void Drive::mecanum_drive(float x, float y, float turn) {
 void Drive::toggle_gyro() {
   gyro_enabled = !gyro_enabled;
   Robot::hardware_map()->gyro.Reset();
+  log_debug("Toggle Gyro - gyro_enabled: %s", gyro_enabled ? "enabled" : "disabled");
 }
 
 float clamp(float in, float min, float max) {

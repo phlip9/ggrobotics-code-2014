@@ -20,11 +20,11 @@
 #include "Commands/AutonomousDrive.h"
 
 Robot::Robot()
-  : m_hardware_map(0),
-    m_oi(0),
-    m_drive(0),
-    m_autonomous_command(0),
-    m_teleop_command(0) {
+  : m_hardware_map(nullptr),
+    m_oi(nullptr),
+    m_drive(nullptr),
+    m_autonomous_command(nullptr),
+    m_teleop_command(nullptr) {
   log_info("Robot()");
 }
 
@@ -41,14 +41,15 @@ Robot::~Robot() {
 }
 
 void Robot::RobotInit() {
-  log_info("-> RobotInit()");
+  log_debug("-> RobotInit()");
 
   GetWatchdog().SetEnabled(false);
 
   m_hardware_map = new HardwareMap();
   m_oi = new OI();
-
   m_drive = new Drive();
+  m_autonomous_command = nullptr;
+  m_teleop_command = nullptr;
 
   // Init the things
   hardware_map()->init();
@@ -62,22 +63,24 @@ void Robot::RobotInit() {
   SmartDashboard::PutData("Autonomous modes:", m_autonomous_chooser);*/
 
   // Drive forward for 5 seconds
-  m_autonomous_command = new AutonomousDrive(5.0, 0.5);
+  //m_autonomous_command = new AutonomousDrive(5.0, 0.5);
 
-  m_teleop_command = new PrintCommand("TeleopCommand()");
+  //m_teleop_command = new PrintCommand("TeleopCommand()");
 
-  log_info("<- RobotInit()");
+  log_debug("<- RobotInit()");
 }
 
 void Robot::DisabledInit() {
-  log_info("DisabledInit()");
+  log_debug("DisabledInit()");
   Preferences::GetInstance()->Save();
 
-  if (m_autonomous_command)
+  if (m_autonomous_command) {
     m_autonomous_command->Cancel();
+  }
 
-  if (m_teleop_command)
-    m_teleop_command->Cancel();
+  //if (m_teleop_command) {
+    //m_teleop_command->Cancel();
+  //}
 }
 
 void Robot::DisabledPeriodic() {
@@ -86,11 +89,15 @@ void Robot::DisabledPeriodic() {
 
 void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
+
+  m_autonomous_command = new AutonomousDrive(2.0, 0.5);
+
+  if (m_autonomous_command) {
+    m_autonomous_command->Start();
+  }
+
   Scheduler::GetInstance()->Run();
   log_info("AutonomousInit()");
-
-  if (m_autonomous_command)
-    m_autonomous_command->Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -98,10 +105,11 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-  log_info("TeleopInit()");
+  log_debug("TeleopInit()");
 
-  if (m_autonomous_command)
+  if (m_autonomous_command) {
     m_autonomous_command->Cancel();
+  }
 
   //if (m_teleop_command)
     //m_teleop_command->Start();
