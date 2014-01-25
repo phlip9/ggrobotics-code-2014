@@ -31,7 +31,7 @@ void BackgroundDrive::Execute() {
   turn = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
-  log_info("DRIVE_STICK: x: %lf, y: %lf, turn: %lf, throttle: %lf",
+  log_info("DRIVE_STICK: x: %.3f, y: %.3f, turn: %.3f, throttle: %.3f",
            x, y, turn, throttle);
 
   // Add 1 to shift up (from [-1, 1] to [0, 2])

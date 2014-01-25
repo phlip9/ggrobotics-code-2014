@@ -2,12 +2,10 @@
 
 #include "Drive.h"
 
-#include <stdio.h>
 #include <cmath>
 
-#include "SpeedController.h"
 #include "RobotDrive.h"
-#include "Timer.h"
+#include "Gyro.h"
 
 #include "../Robot.h"
 #include "../Commands/BackgroundDrive.h"
@@ -39,31 +37,33 @@ void Drive::InitDefaultCommand() {
 }
 
 void Drive::mecanum_drive(float x, float y, float turn) {
-  //Gyro &gyro = Robot::hardware_map()->gyro;
-  //float gyro_angle, gyro_scaler, gyro_threshold;
+  Gyro &gyro = Robot::hardware_map()->gyro;
+  float gyro_angle, gyro_scaler, gyro_threshold;
 
-  /*gyro_angle = gyro.GetAngle();
+  gyro_angle = gyro.GetAngle();
   gyro_scaler = CONFIG::GyroScalingConstant();
-  gyro_threshold = CONFIG::GyroThreshold();*/
+  gyro_threshold = CONFIG::GyroThreshold();
 
   // Use the Gyro if we're not twisting the joystick and the gyroAngle is
   // sufficiently large.
-  /*if (gyro_enabled) {
-    if (twist < 0.05 && twist > -0.05 && std::fabs(gyro_angle) > gyro_threshold) {
-      twist = gyro_angle * gyro_scaler;
+  if (gyro_enabled) {
+    if (turn < 0.05 && turn > -0.05 && std::fabs(gyro_angle) > gyro_threshold) {
+      turn = gyro_angle * gyro_scaler;
     } else {
       gyro.Reset();
     }
-  }*/
+  }
 
-  //twist = clamp(twist, -1.0, 1.0);
+  turn = clamp(turn, -1.0, 1.0);
+
+  log_info("[GYRO] gyro_angle: %.3f, turn: %.3f", gyro_angle, turn);
 
   robot_drive.MecanumDrive_Cartesian(x, y, turn);
 }
 
 void Drive::toggle_gyro() {
-  //gyro_enabled = !gyro_enabled;
-  //Robot::hardware_map()->gyro.Reset();
+  gyro_enabled = !gyro_enabled;
+  Robot::hardware_map()->gyro.Reset();
 }
 
 float clamp(float in, float min, float max) {
