@@ -13,6 +13,7 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "SmartDashboard/SendableChooser.h"
 
+#include "Commands/AutonomousDrive.h"
 #include "HardwareMap.h"
 #include "OI.h"
 #include "Subsystems/Drive.h"
@@ -69,13 +70,16 @@ void Robot::DisabledPeriodic() {
 
 void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
-
+  m_autonomous_command = new AutonomousDrive();
+  Scheduler::GetInstance()->AddCommand(m_autonomous_command);
+  Scheduler::GetInstance()->Run();
   log_info("AutonomousInit()");
   //if (m_autonomous_command)
     //m_autonomous_command->Start();
 }
 
 void Robot::AutonomousPeriodic() {
+  
   Scheduler::GetInstance()->Run();
 }
 
