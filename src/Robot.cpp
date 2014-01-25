@@ -5,21 +5,26 @@
 
 #include "Robot.h"
 
-#include "Commands/Scheduler.h"
-#include "LiveWindow/LiveWindow.h"
 #include "DriverStationLCD.h"
-#include "Commands/PrintCommand.h"
 #include "Preferences.h"
+#include "Commands/Scheduler.h"
+#include "Commands/PrintCommand.h"
 #include "SmartDashboard/SmartDashboard.h"
 #include "SmartDashboard/SendableChooser.h"
+#include "LiveWindow/LiveWindow.h"
 
+#include "Logging.h"
 #include "HardwareMap.h"
 #include "OI.h"
-#include "Logging.h"
 #include "Subsystems/Drive.h"
 #include "Commands/AutonomousDrive.h"
 
-Robot::Robot() {
+Robot::Robot()
+  : m_hardware_map(0),
+    m_oi(0),
+    m_drive(0),
+    m_autonomous_command(0),
+    m_teleop_command(0) {
   log_info("Robot()");
 }
 
@@ -58,6 +63,8 @@ void Robot::RobotInit() {
 
   // Drive forward for 5 seconds
   m_autonomous_command = new AutonomousDrive(5.0, 0.5);
+
+  m_teleop_command = new PrintCommand("TeleopCommand()");
 
   log_info("<- RobotInit()");
 }
