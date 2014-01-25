@@ -16,7 +16,8 @@ class Drive : public Subsystem {
 
   void InitDefaultCommand() override;
 
-  void mecanum_drive(Joystick &drive_stick);
+  //void mecanum_drive(Joystick &drive_stick);
+  void mecanum_drive(float x, float y, float turn = 0.0);
 
   void toggle_gyro();
 

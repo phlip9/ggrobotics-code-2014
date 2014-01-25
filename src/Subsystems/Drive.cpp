@@ -37,33 +37,13 @@ void Drive::InitDefaultCommand() {
   SetDefaultCommand(new BackgroundDrive());
 }
 
-void Drive::mecanum_drive(Joystick &drive_stick) {
+void Drive::mecanum_drive(float x, float y, float turn) {
   //Gyro &gyro = Robot::hardware_map()->gyro;
-  float x, y, twist, throttle; //, gyro_angle, gyro_scaler, gyro_threshold;
-
-  x = drive_stick.GetX();
-  y = drive_stick.GetY();
-
-  // WARNING: WTF INCOMING
-  // For some fucking reason, the joystick has these swapped.
-  // wow    much sense    many codes    wow
-  twist = drive_stick.GetThrottle();
-  throttle = drive_stick.GetTwist();
+  //float gyro_angle, gyro_scaler, gyro_threshold;
 
   /*gyro_angle = gyro.GetAngle();
   gyro_scaler = CONFIG::GyroScalingConstant();
   gyro_threshold = CONFIG::GyroThreshold();*/
-
-  log_info("IN: x: %lf, y: %lf, twist: %lf, throttle: %lf",
-           x, y, twist, throttle);
-
-  // Add 1 to shift up (from [-1, 1] to [0, 2])
-  // Divide by 2 to scale down (from [0, 2] to [0, 1])
-  throttle = (-throttle + 1.0) / 2.0;
-
-  x *= throttle;
-  y *= throttle;
-  twist *= throttle;
 
   // Use the Gyro if we're not twisting the joystick and the gyroAngle is
   // sufficiently large.

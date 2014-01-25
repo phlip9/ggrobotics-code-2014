@@ -20,7 +20,26 @@ void BackgroundDrive::Initialize() {
 
 void BackgroundDrive::Execute() {
   Joystick &drive_stick = Robot::oi()->drive_stick;
-  Robot::drive()->mecanum_drive(drive_stick);
+  float x, y, turn, throttle;
+
+  x = drive_stick.GetX();
+  y = drive_stick.GetY();
+
+  // WARNING: WTF INCOMING
+  // For some fucking reason, the joystick has these swapped.
+  // wow    much sense    many codes    wow
+  turn = drive_stick.GetThrottle();
+  throttle = drive_stick.GetTwist();
+
+  // Add 1 to shift up (from [-1, 1] to [0, 2])
+  // Divide by 2 to scale down (from [0, 2] to [0, 1])
+  throttle = (-throttle + 1.0) / 2.0;
+
+  x *= throttle;
+  y *= throttle;
+  turn *= throttle;
+
+  Robot::drive()->mecanum_drive(x, y, turn);
 }
 
 bool BackgroundDrive::IsFinished() {
