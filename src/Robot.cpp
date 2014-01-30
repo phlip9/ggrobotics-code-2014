@@ -90,7 +90,7 @@ void Robot::DisabledPeriodic() {
 void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
 
-  m_autonomous_command = new AutonomousDrive(2.0, 0.5);
+  m_autonomous_command = new AutonomousDrive(0.5, 0.5);
 
   if (m_autonomous_command) {
     m_autonomous_command->Start();

@@ -29,6 +29,10 @@ namespace CONFIG {
   // Don't adjust the robot unless the gyro passes the threshold.
   float GyroThreshold();
 
+  // After we turn the joystick, don't enable the gyro until X seconds have
+  // passed.
+  float GyroTimeout();
+
 } // namespace CONFIG
 
 #endif

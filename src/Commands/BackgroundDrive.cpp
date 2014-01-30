@@ -38,6 +38,9 @@ void BackgroundDrive::Execute() {
   // Divide by 2 to scale down (from [0, 2] to [0, 1])
   throttle = (-throttle + 1.0) / 2.0;
 
+  // The X axis seems to be reversed;
+  x = -x;
+
   x *= throttle;
   y *= throttle;
   turn *= throttle;

@@ -23,7 +23,7 @@ void AutonomousDrive::Initialize() {
 void AutonomousDrive::Execute() {
   log_info("Timer: %.2f", m_timer.Get());
   // drive at half speed
-  Robot::drive()->mecanum_drive(0, 0.5);
+  Robot::drive()->mecanum_drive(0, -m_power);
 }
 
 bool AutonomousDrive::IsFinished() {

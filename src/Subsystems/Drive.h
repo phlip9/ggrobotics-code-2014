@@ -23,6 +23,8 @@ class Drive : public Subsystem {
 
  private:
   RobotDrive robot_drive;
+  double gyro_timeout_start_time;
+  bool gyro_was_turning;
   bool gyro_enabled;
 
 };

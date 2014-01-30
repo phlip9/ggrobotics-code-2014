@@ -11,3 +11,7 @@ float CONFIG::GyroScalingConstant() {
 float CONFIG::GyroThreshold() {
   return Preferences::GetInstance()->GetFloat("GyroThreshold", 1.0);
 }
+
+float CONFIG::GyroTimeout() {
+  return Preferences::GetInstance()->GetFloat("GyroTimeout", 0.25);
+}

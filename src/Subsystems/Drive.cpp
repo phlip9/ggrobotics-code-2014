@@ -6,6 +6,7 @@
 
 #include "RobotDrive.h"
 #include "Gyro.h"
+#include "Timer.h"
 
 #include "../Robot.h"
 #include "../Commands/BackgroundDrive.h"
@@ -18,6 +19,8 @@ Drive::Drive()
                   &Robot::hardware_map()->rear_left_motor,
                   &Robot::hardware_map()->front_right_motor,
                   &Robot::hardware_map()->rear_right_motor),
+      gyro_timeout_start_time(-1.0),
+      gyro_was_turning(false),
       gyro_enabled(true) {
 
   robot_drive.SetExpiration(0.1);
@@ -38,17 +41,43 @@ void Drive::InitDefaultCommand() {
 
 void Drive::mecanum_drive(float x, float y, float turn) {
   Gyro &gyro = Robot::hardware_map()->gyro;
-  float gyro_angle, gyro_scaler, gyro_threshold;
+  float gyro_angle, gyro_scaler, gyro_threshold, gyro_timeout,
+        gyro_elapsed_time;
+  bool turning;
 
   gyro_angle = gyro.GetAngle();
   gyro_scaler = CONFIG::GyroScalingConstant();
   gyro_threshold = CONFIG::GyroThreshold();
+  gyro_timeout = CONFIG::GyroTimeout();
+  gyro_elapsed_time = Timer::GetFPGATimestamp() - gyro_timeout_start_time;
+
+  turning = turn > 0.05 || turn < -0.05;
+  if (turning) {
+    log_debug("!! Robot is turning");
+    gyro_was_turning = true;
+  }
 
   // Use the Gyro if we're not twisting the joystick and the gyroAngle is
   // sufficiently large.
   if (gyro_enabled) {
-    if (turn < 0.05 && turn > -0.05 && std::fabs(gyro_angle) > gyro_threshold) {
-      turn = gyro_angle * gyro_scaler;
+    if (!turning && std::fabs(gyro_angle) > gyro_threshold) {
+      // Start the timer if we were just turning.
+      if (gyro_was_turning) {
+        log_debug("!! Stopped turning; Starting gyro timer");
+        gyro_timeout_start_time = Timer::GetFPGATimestamp();
+        gyro_was_turning = false;
+      } else if (gyro_elapsed_time > gyro_timeout
+                 || gyro_timeout_start_time == -1.0) {
+        // If we've passed the timeout, apply the gyro.
+        // *Note* gyro_timeout_start_time will be -1.0 until we first turn, so
+        // we use this as a flag to use the gyro even if we haven't turned yet.
+        log_debug("!! Passed Gyro timeout; Applying gyro; gyro_timer: %.3f",
+                  gyro_elapsed_time);
+        turn = gyro_angle * gyro_scaler;
+      } else { // If we haven't passed the timeout yet, keep resetting the gyro
+        turn = 0.0;
+        gyro.Reset();
+      }
     } else {
       gyro.Reset();
     }
