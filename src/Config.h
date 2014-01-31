@@ -6,7 +6,7 @@
 namespace CONFIG {
 
   // ## Constants
-  // Motor ports
+  // Drive Motor ports
   const int drive_motor_front_left = 3;
   const int drive_motor_rear_left = 4;
   const int drive_motor_front_right = 1;
@@ -14,10 +14,25 @@ namespace CONFIG {
 
   const int gyro_channel = 1;
 
+  // Special mech motors
+  const int wheel_motor = 0;
+
+  const int front_arm_motor = 0;
+  const int back_arm_motor = 0;
+
   // Drive Joystick port
   const int drive_joystick = 1;
 
   const int button_gyro_toggle = 2;
+
+  // Special mech controls
+  const int wheel_motor_spin = 1;
+
+  const int front_arm_motor_up = 5;
+  const int front_arm_motor_down = 3;
+
+  const int back_arm_motor_up = 6;
+  const int back_arm_motor_down = 4;
 
   // ## Preferences (Can be edited on the SmartDashboard)
   // The gyro scaling constant controls how strongly the gyro should correct.

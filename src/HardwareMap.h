@@ -25,6 +25,12 @@ class HardwareMap {
   // Drive gyro
   Gyro gyro;
 
+  // Controls wheels on arm
+  Talon wheel_motor;
+
+  Talon front_arm_motor;
+  Talon back_arm_motor;
+
 };
 
 #endif

@@ -20,6 +20,14 @@ class OI {
 
   JoystickButton button_gyro_toggle;
 
+  JoystickButton wheel_motor_spin;
+
+  JoystickButton front_arm_motor_up;
+  JoystickButton front_arm_motor_down;
+
+  JoystickButton back_arm_motor_up;
+  JoystickButton back_arm_motor_down;
+
 };
 
 #endif

@@ -10,7 +10,12 @@
 
 OI::OI()
     : drive_stick(CONFIG::drive_joystick),
-      button_gyro_toggle(&drive_stick, CONFIG::button_gyro_toggle) {
+      button_gyro_toggle(&drive_stick, CONFIG::button_gyro_toggle),
+      wheel_motor_spin(&drive_stick, CONFIG::wheel_motor_spin),
+      front_arm_motor_up(&drive_stick, CONFIG::front_arm_motor_up),
+      front_arm_motor_down(&drive_stick, CONFIG::front_arm_motor_down),
+      back_arm_motor_up(&drive_stick, CONFIG::back_arm_motor_up),
+      back_arm_motor_down(&drive_stick, CONFIG::back_arm_motor_down) {
 
   log_info("OI()");
 }

@@ -14,7 +14,10 @@ HardwareMap::HardwareMap()
     rear_left_motor(CONFIG::drive_motor_rear_left),
     front_right_motor(CONFIG::drive_motor_front_right),
     rear_right_motor(CONFIG::drive_motor_rear_right),
-    gyro(CONFIG::gyro_channel) {
+    gyro(CONFIG::gyro_channel),
+    wheel_motor(CONFIG::wheel_motor),
+    front_arm_motor(CONFIG::front_arm_motor),
+    back_arm_motor(CONFIG::back_arm_motor) {
 
   log_info("HardwareMap()");
 }
