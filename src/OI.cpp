@@ -4,7 +4,12 @@
 
 #include "OI.h"
 
+#include "Commands/Command.h"
+
 #include "Commands/GyroToggle.h"
+#include "Commands/WheelMotorOn.h"
+#include "Commands/FrontArmMove.h"
+#include "Subsystems/FrontArm.h"
 #include "Config.h"
 #include "Logging.h"
 
@@ -31,4 +36,9 @@ void OI::init() {
   // TODO: Add SmartDashboard controls
 
   button_gyro_toggle.WhenReleased(new GyroToggle());
+
+  wheel_motor_spin.WhileHeld(new WheelMotorOn());
+
+  front_arm_motor_up.WhileHeld(new FrontArmMove(Direction::UP));
+  front_arm_motor_down.WhileHeld(new FrontArmMove(Direction::DOWN));
 }

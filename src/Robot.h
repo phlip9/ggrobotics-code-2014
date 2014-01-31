@@ -17,6 +17,7 @@ class SendableChooser;
 #include "HardwareMap.h"
 #include "OI.h"
 #include "Subsystems/Drive.h"
+#include "Subsystems/FrontArm.h"
 
 class Robot : public IterativeRobot {
 
@@ -45,6 +46,7 @@ class Robot : public IterativeRobot {
   static HardwareMap* hardware_map() { return instance().m_hardware_map; };
   static OI* oi() { return instance().m_oi; };
   static Drive* drive() { return instance().m_drive; };
+  static FrontArm* front_arm() { return instance().m_front_arm; };
 
  private:
   // Give WPILib access to the Robot constructor
@@ -64,6 +66,9 @@ class Robot : public IterativeRobot {
 
   // Drivetrain subsystem: controls the driving of the robot.
   Drive* m_drive;
+
+  // Front arm subsystem: Controls the front arm of the robot.
+  FrontArm* m_front_arm;
 
   // This command gets run when the robot enters autonomous mode.
   Command* m_autonomous_command;

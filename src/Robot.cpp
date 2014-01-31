@@ -17,6 +17,7 @@
 #include "HardwareMap.h"
 #include "OI.h"
 #include "Subsystems/Drive.h"
+#include "Subsystems/FrontArm.h"
 #include "Commands/AutonomousDrive.h"
 
 Robot::Robot()
@@ -31,13 +32,17 @@ Robot::Robot()
 Robot::~Robot() {
   log_info("~Robot()");
 
-  delete m_hardware_map;
-  delete m_oi;
-  delete m_drive;
-
-  delete m_autonomous_command;
-  delete m_teleop_command;
   //delete m_autonomous_chooser;
+
+  // delete in reverse construction order
+
+  delete m_teleop_command;
+  delete m_autonomous_command;
+
+  delete m_front_arm;
+  delete m_drive;
+  delete m_oi;
+  delete m_hardware_map;
 }
 
 void Robot::RobotInit() {
@@ -48,6 +53,8 @@ void Robot::RobotInit() {
   m_hardware_map = new HardwareMap();
   m_oi = new OI();
   m_drive = new Drive();
+  m_front_arm = new FrontArm();
+
   m_autonomous_command = nullptr;
   m_teleop_command = nullptr;
 
