@@ -17,7 +17,7 @@ namespace CONFIG {
   // Special mech motors
   const int wheel_motor = 0;
 
-  const int front_arm_motor = 0;
+  const int front_arm_motor = 5;
   const int back_arm_motor = 0;
 
   // Drive Joystick port

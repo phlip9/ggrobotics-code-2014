@@ -53,7 +53,6 @@ void Drive::mecanum_drive(float x, float y, float turn) {
 
   turning = turn > 0.05 || turn < -0.05;
   if (turning) {
-    log_debug("!! Robot is turning");
     gyro_was_turning = true;
   }
 
@@ -63,7 +62,6 @@ void Drive::mecanum_drive(float x, float y, float turn) {
     if (!turning && std::fabs(gyro_angle) > gyro_threshold) {
       // Start the timer if we were just turning.
       if (gyro_was_turning) {
-        log_debug("!! Stopped turning; Starting gyro timer");
         gyro_timeout_start_time = Timer::GetFPGATimestamp();
         gyro_was_turning = false;
       } else if (gyro_elapsed_time > gyro_timeout
@@ -71,8 +69,6 @@ void Drive::mecanum_drive(float x, float y, float turn) {
         // If we've passed the timeout, apply the gyro.
         // *Note* gyro_timeout_start_time will be -1.0 until we first turn, so
         // we use this as a flag to use the gyro even if we haven't turned yet.
-        log_debug("!! Passed Gyro timeout; Applying gyro; gyro_timer: %.3f",
-                  gyro_elapsed_time);
         turn = gyro_angle * gyro_scaler;
       } else { // If we haven't passed the timeout yet, keep resetting the gyro
         turn = 0.0;
@@ -85,7 +81,7 @@ void Drive::mecanum_drive(float x, float y, float turn) {
 
   turn = clamp(turn, -1.0, 1.0);
 
-  log_info("[GYRO] gyro_angle: %.3f, turn: %.3f", gyro_angle, turn);
+  //log_info("[GYRO] gyro_angle: %.3f, turn: %.3f", gyro_angle, turn);
 
   robot_drive.MecanumDrive_Cartesian(x, y, turn);
 }

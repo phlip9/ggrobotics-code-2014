@@ -5,7 +5,7 @@
 
 #include "Commands/Subsystem.h"
 
-enum class Direction {UP, DOWN};
+#include "../Robot.h"
 
 class FrontArm : public Subsystem {
 
@@ -14,6 +14,7 @@ class FrontArm : public Subsystem {
   ~FrontArm();
 
   void move(Direction direction);
+  void stop();
 
 };
 

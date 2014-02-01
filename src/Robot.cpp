@@ -20,6 +20,10 @@
 #include "Subsystems/FrontArm.h"
 #include "Commands/AutonomousDrive.h"
 
+const char* str_direction(Direction direction) {
+  return direction == Direction::UP ? "UP" : "DOWN";
+}
+
 Robot::Robot()
   : m_hardware_map(nullptr),
     m_oi(nullptr),

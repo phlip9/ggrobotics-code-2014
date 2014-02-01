@@ -6,10 +6,11 @@
 
 #include "Commands/Command.h"
 
+#include "Robot.h"
 #include "Commands/GyroToggle.h"
 #include "Commands/WheelMotorOn.h"
 #include "Commands/FrontArmMove.h"
-#include "Subsystems/FrontArm.h"
+#include "Commands/BackArmMove.h"
 #include "Config.h"
 #include "Logging.h"
 
@@ -41,4 +42,7 @@ void OI::init() {
 
   front_arm_motor_up.WhileHeld(new FrontArmMove(Direction::UP));
   front_arm_motor_down.WhileHeld(new FrontArmMove(Direction::DOWN));
+
+  back_arm_motor_up.WhileHeld(new BackArmMove(Direction::UP));
+  back_arm_motor_down.WhileHeld(new BackArmMove(Direction::DOWN));
 }

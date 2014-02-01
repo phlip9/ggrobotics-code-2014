@@ -8,8 +8,19 @@
 #define _ROBOT_H_
 
 // forward declarations
+class HardwareMap;
+class OI;
+
+class Drive;
+class FrontArm;
+class BackArm;
+
 class Command;
 class SendableChooser;
+
+enum class Direction {UP, DOWN};
+
+const char* str_direction(Direction direction);
 
 #include "RobotBase.h"
 #include "IterativeRobot.h"
@@ -18,6 +29,7 @@ class SendableChooser;
 #include "OI.h"
 #include "Subsystems/Drive.h"
 #include "Subsystems/FrontArm.h"
+#include "Subsystems/BackArm.h"
 
 class Robot : public IterativeRobot {
 
@@ -47,6 +59,7 @@ class Robot : public IterativeRobot {
   static OI* oi() { return instance().m_oi; };
   static Drive* drive() { return instance().m_drive; };
   static FrontArm* front_arm() { return instance().m_front_arm; };
+  static BackArm* back_arm() { return instance().m_back_arm; };
 
  private:
   // Give WPILib access to the Robot constructor
@@ -69,6 +82,9 @@ class Robot : public IterativeRobot {
 
   // Front arm subsystem: Controls the front arm of the robot.
   FrontArm* m_front_arm;
+
+  // Back arm subsystem: Controls the back arm.
+  BackArm* m_back_arm;
 
   // This command gets run when the robot enters autonomous mode.
   Command* m_autonomous_command;
