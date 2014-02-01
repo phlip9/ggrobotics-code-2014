@@ -49,14 +49,16 @@ Install the essential build scripts.
         $ git clone https://github.com/rbmj/frc-buildscripts
         $ git clone https://github.com/rbmj/wpilib
 
-`cd` into each repository you just `git clone`ed, run the following (in the order that you cloned them).
+`cd` into each repository you just `git clone`ed, run the following (in the
+order that you cloned them).
 
         $ cd <repo>
         $ ./debmake
         $ sudo dpkg -i build/*.deb
         $ cd ..
 
-*Note:* Building the toolchain takes a good 30 min (compiling GCC takes for everr...).
+*Note:* Building the toolchain takes a good 30 minutes (compiling GCC takes
+for ever...).
 
 
 ## Windows ##
@@ -86,6 +88,13 @@ Then run make.
 
         $ make
 
+If there are any new or you edit CMakeLists.txt, you need to regeenerate the
+cmake build files.
+
+        $ cd ./build
+        $ rm -rf *
+        $ frcmake ..
+
 ### Deploy to robot ###
 
 Make sure you're connected to the robot with a manually set ip of 10.44.13.XXX
@@ -94,3 +103,7 @@ where XXX is some number between 10 and 255 (the number should be unique).
 Then run the deploy script in the build directory.
 
         $ make deploy
+
+Next, you need to reboot the robot so it can load the new code.
+
+        $ echo "reboot" | netconsole_sender
