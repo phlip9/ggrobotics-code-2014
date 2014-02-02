@@ -7,6 +7,7 @@
 
 #include "Talon.h"
 #include "Gyro.h"
+#include "Jaguar.h"
 
 class HardwareMap {
 
@@ -26,10 +27,10 @@ class HardwareMap {
   Gyro gyro;
 
   // Controls wheels on arm
-  Talon wheel_motor;
+  Jaguar wheel_motor;
 
   Talon front_arm_motor;
-  Talon back_arm_motor;
+  Jaguar back_arm_motor;
 
 };
 
