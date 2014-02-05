@@ -1,3 +1,6 @@
+""" The extra configuration file for YouCompleteMe. Holds the compile flags
+the clang auto-completition engine."""
+
 import os
 import ycm_core
 
@@ -8,6 +11,8 @@ def get_wind_base():
     return "/usr/powerpc-wrs-vxworks"
 
 WIND_BASE = get_wind_base()
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
@@ -49,52 +54,11 @@ FLAGS = [
     WIND_BASE + '/target/h/wrn/coreip/WPILib/',
     ## Project headers
     '-I',
-    '.'
+    SCRIPT_DIR
 ]
 
-def script_dir():
-    """Returns the absolute path of the script directory."""
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-def make_flags_absolute(flags, working_directory):
-    """Makes relative path names in the compile flags absolute paths."""
-    if not working_directory:
-        return list(flags)
-
-    new_flags = []
-    make_next_absolute = False
-    path_flags = ['-isystem', '-I', '-iquote', '--sysroot=']
-
-    for flag in flags:
-        new_flag = flag
-
-        if make_next_absolute:
-            make_next_absolute = False
-            if not flag.startswith('/'):
-                new_flag = os.path.join(working_directory, flag)
-
-        for path_flag in path_flags:
-            if flag == path_flag:
-                make_next_absolute = True
-                break
-
-            if flag.startswith(path_flag):
-                path = flag[ len(path_flag):]
-                new_flag = path_flag + os.path.join(working_directory, path)
-                break
-
-        if new_flag:
-            new_flags.append(new_flag)
-
-    return new_flags
-
-
 def FlagsForFile(filename):
-    relative_to = script_dir()
-    final_flags = make_flags_absolute(FLAGS, relative_to)
-
     return {
-        'flags': final_flags,
+        'flags': FLAGS,
         'do_cache': True
     }
