@@ -27,10 +27,10 @@ class HardwareMap {
   Gyro gyro;
 
   // Controls wheels on arm
-  Jaguar wheel_motor;
+  Talon wheel_motor;
 
   Talon front_arm_motor;
-  Jaguar back_arm_motor;
+  Talon back_arm_motor;
 
 };
 
