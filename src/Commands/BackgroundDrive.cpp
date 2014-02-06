@@ -19,7 +19,7 @@ void BackgroundDrive::Initialize() {
 }
 
 void BackgroundDrive::Execute() {
-  Joystick &drive_stick = Robot::oi()->drive_stick;
+  Joystick &drive_stick = Robot::oi()->joystick_1;
   float x, y, turn, throttle;
 
   x = drive_stick.GetX();

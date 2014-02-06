@@ -3,7 +3,7 @@
 
 #include "Commands/Command.h"
 
-#include "../Subsystems/FrontArm.h"
+#include "../Robot.h"
 
 class FrontArmMove : public Command {
   public:

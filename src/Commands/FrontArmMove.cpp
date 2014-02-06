@@ -1,6 +1,6 @@
 #include "FrontArmMove.h"
 
-#include "../Subsystems/FrontArm.h"
+#include "../Subsystems/MotorSubsystem.h"
 
 #include "../Robot.h"
 #include "../Logging.h"

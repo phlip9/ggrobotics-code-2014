@@ -12,15 +12,12 @@ class HardwareMap;
 class OI;
 
 class Drive;
-class FrontArm;
-class BackArm;
+class MotorSubsystem;
 
 class Command;
 class SendableChooser;
 
 enum class Direction {UP, DOWN};
-
-const char* str_direction(Direction direction);
 
 #include "RobotBase.h"
 #include "IterativeRobot.h"
@@ -28,8 +25,8 @@ const char* str_direction(Direction direction);
 #include "HardwareMap.h"
 #include "OI.h"
 #include "Subsystems/Drive.h"
-#include "Subsystems/FrontArm.h"
-#include "Subsystems/BackArm.h"
+
+const char* str_direction(Direction direction);
 
 class Robot : public IterativeRobot {
 
@@ -57,9 +54,12 @@ class Robot : public IterativeRobot {
   // Static accessors for easy accessing
   static HardwareMap* hardware_map() { return instance().m_hardware_map; };
   static OI* oi() { return instance().m_oi; };
+
   static Drive* drive() { return instance().m_drive; };
-  static FrontArm* front_arm() { return instance().m_front_arm; };
-  static BackArm* back_arm() { return instance().m_back_arm; };
+
+  static MotorSubsystem* front_arm() { return instance().m_front_arm; };
+  static MotorSubsystem* back_arm() { return instance().m_back_arm; };
+  static MotorSubsystem* arm_wheels() { return instance().m_arm_wheels; };
 
  private:
   // Give WPILib access to the Robot constructor
@@ -81,10 +81,14 @@ class Robot : public IterativeRobot {
   Drive* m_drive;
 
   // Front arm subsystem: Controls the front arm of the robot.
-  FrontArm* m_front_arm;
+  MotorSubsystem* m_front_arm;
 
   // Back arm subsystem: Controls the back arm.
-  BackArm* m_back_arm;
+  MotorSubsystem* m_back_arm;
+
+  // Arm wheels subsystem: Controls the wheels on the front arm that grab the
+  // ball.
+  MotorSubsystem* m_arm_wheels;
 
   // This command gets run when the robot enters autonomous mode.
   Command* m_autonomous_command;

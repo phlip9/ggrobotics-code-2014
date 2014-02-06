@@ -16,17 +16,18 @@ class OI {
 
   void init();
 
-  Joystick drive_stick;
+  Joystick joystick_1;
 
   JoystickButton button_gyro_toggle;
 
-  JoystickButton wheel_motor_spin;
+  JoystickButton button_wheel_spin_forward;
+  JoystickButton button_wheel_spin_backward;
 
-  JoystickButton front_arm_motor_up;
-  JoystickButton front_arm_motor_down;
+  JoystickButton button_front_arm_up;
+  JoystickButton button_front_arm_down;
 
-  JoystickButton back_arm_motor_up;
-  JoystickButton back_arm_motor_down;
+  JoystickButton button_back_arm_up;
+  JoystickButton button_back_arm_down;
 
 };
 

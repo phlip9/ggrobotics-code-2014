@@ -14,10 +14,11 @@
 #include "LiveWindow/LiveWindow.h"
 
 #include "Logging.h"
+#include "Config.h"
 #include "HardwareMap.h"
 #include "OI.h"
 #include "Subsystems/Drive.h"
-#include "Subsystems/FrontArm.h"
+#include "Subsystems/MotorSubsystem.h"
 #include "Commands/AutonomousDrive.h"
 
 const char* str_direction(Direction direction) {
@@ -28,6 +29,9 @@ Robot::Robot()
   : m_hardware_map(nullptr),
     m_oi(nullptr),
     m_drive(nullptr),
+    m_front_arm(nullptr),
+    m_back_arm(nullptr),
+    m_arm_wheels(nullptr),
     m_autonomous_command(nullptr),
     m_teleop_command(nullptr) {
   log_info("Robot()");
@@ -43,8 +47,12 @@ Robot::~Robot() {
   delete m_teleop_command;
   delete m_autonomous_command;
 
+  delete m_arm_wheels;
+  delete m_back_arm;
   delete m_front_arm;
+
   delete m_drive;
+
   delete m_oi;
   delete m_hardware_map;
 }
@@ -56,8 +64,16 @@ void Robot::RobotInit() {
 
   m_hardware_map = new HardwareMap();
   m_oi = new OI();
+
   m_drive = new Drive();
-  m_front_arm = new FrontArm();
+
+  m_front_arm  = new MotorSubsystem("FrontArm", &hardware_map()->front_arm_motor,
+                                    -0.50, 0.25);
+  m_back_arm   = new MotorSubsystem("BackArm", &hardware_map()->back_arm_motor,
+                                    -0.50, 0.25);
+  m_arm_wheels = new MotorSubsystem("ArmWheels", &hardware_map()->wheel_motor,
+                                    -CONFIG::ArmWheelPower(),
+                                    CONFIG::ArmWheelPower());
 
   m_autonomous_command = nullptr;
   m_teleop_command = nullptr;
