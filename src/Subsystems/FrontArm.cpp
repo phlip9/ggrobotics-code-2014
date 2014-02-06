@@ -18,11 +18,12 @@ FrontArm::~FrontArm() {
 void FrontArm::move(Direction direction) {
   log_info("move(%s)", str_direction(direction));
   if (direction == Direction::UP) {
-    Robot::hardware_map()->front_arm_motor.Set(-0.40);
+    Robot::hardware_map()->front_arm_motor.Set(-0.50);
   } else if (direction == Direction::DOWN) {
     Robot::hardware_map()->front_arm_motor.Set(0.25);
   } else {
     log_error("Somehow direction is neither UP nor DOWN");
+    stop();
   }
 }
 

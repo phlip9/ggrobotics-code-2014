@@ -27,4 +27,7 @@ void WheelMotorOn::End() {
   Robot::hardware_map()->wheel_motor.Set(0.0);
 }
 
-void WheelMotorOn::Interrupted() {}
+void WheelMotorOn::Interrupted() {
+  log_debug("Interrupted()");
+  Robot::hardware_map()->wheel_motor.Set(0.0);
+}

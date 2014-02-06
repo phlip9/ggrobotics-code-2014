@@ -17,12 +17,14 @@ BackArm::~BackArm() {
 
 void BackArm::move(Direction direction) {
   log_info("move(%s)", str_direction(direction));
-  if (direction == Direction::UP)
-    Robot::hardware_map()->back_arm_motor.Set(-0.40);
-  else if (direction == Direction::DOWN)
+  if (direction == Direction::UP) {
+    Robot::hardware_map()->back_arm_motor.Set(-0.50);
+  } else if (direction == Direction::DOWN) {
     Robot::hardware_map()->back_arm_motor.Set(0.25);
-  else
+  } else {
     log_error("Somehow direction is neither UP nor DOWN");
+    stop();
+  }
 }
 
 void BackArm::stop() {
