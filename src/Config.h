@@ -15,10 +15,10 @@ namespace CONFIG {
   const int gyro_channel = 1;
 
   // Special mech motors
-  const int wheel_motor = 0;
+  const int wheel_motor = 6;
 
   const int front_arm_motor = 5;
-  const int back_arm_motor = 0;
+  const int back_arm_motor = 7;
 
   // Drive Joystick port
   const int drive_joystick = 1;

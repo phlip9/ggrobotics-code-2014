@@ -7,6 +7,7 @@
 
 #include "Talon.h"
 #include "Gyro.h"
+#include "Jaguar.h"
 
 class HardwareMap {
 
