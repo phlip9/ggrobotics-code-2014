@@ -29,11 +29,11 @@ namespace CONFIG {
     // ## Buttons
     const int gyro_toggle = 2;
 
-    const int arm_wheel_forward = 1;
+    const int arm_wheel_forward = 11;
     const int arm_wheel_backward = 12;
 
-    const int front_arm_up = 5;
-    const int front_arm_down = 3;
+    const int front_arm_up = 3;
+    const int front_arm_down = 5;
 
     const int back_arm_up = 6;
     const int back_arm_down = 4;
@@ -57,6 +57,13 @@ namespace CONFIG {
   // (+) pushes the ball out
   // (-) sucks the ball in
   float ArmWheelPower();
+
+  // How much power should be applied to the front arm motors when
+  // going up and down.
+  // (-) arm moves up (counter-clockwise)
+  // (+) arm moves down (clockwise)
+  float FrontArmPowerUp();
+  float FrontArmPowerDown();
 
 } // namespace CONFIG
 

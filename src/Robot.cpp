@@ -68,7 +68,7 @@ void Robot::RobotInit() {
   m_drive = new Drive();
 
   m_front_arm  = new MotorSubsystem("FrontArm", &hardware_map()->front_arm_motor,
-                                    -0.50, 0.30);
+                                    CONFIG::FrontArmPowerUp(), CONFIG::FrontArmPowerDown());
   m_back_arm   = new MotorSubsystem("BackArm", &hardware_map()->back_arm_motor,
                                     -0.50, 0.30);
   m_arm_wheels = new MotorSubsystem("ArmWheels", &hardware_map()->wheel_motor,
