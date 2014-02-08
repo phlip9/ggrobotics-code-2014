@@ -29,7 +29,7 @@ namespace CONFIG {
     // ## Buttons
     const int gyro_toggle = 2;
 
-    const int arm_wheel_forward = 11;
+    const int arm_wheel_forward = 1;
     const int arm_wheel_backward = 12;
 
     const int front_arm_up = 3;
