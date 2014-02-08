@@ -2,17 +2,24 @@
 the clang auto-completition engine."""
 
 import os
+import os.path as path
 import ycm_core
 
 def get_wind_base():
+    """$WIND_BASE environment variable.
+    If $WIND_BASE isn't set, return a default of
+    /usr/powerpc-wrs-vxworks/wind_base"""
+
     wind_base = os.getenv('WIND_BASE')
     if wind_base:
-        return wind_base
-    return "/usr/powerpc-wrs-vxworks"
+        return path.abspath(wind_base)
+    return path.abspath(path.join('/usr', 'powerpc-wrs-vxworks', 'wind_base'))
 
 WIND_BASE = get_wind_base()
+SYS_INCLUDE_DIR = path.join(WIND_BASE, 'target', 'h')
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# Current directory of the script (.ycm_extra_conf.py)
+SCRIPT_DIR = path.dirname(path.abspath(__file__))
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
@@ -45,19 +52,21 @@ FLAGS = [
     'c++',
     # System includes
     '-isystem',
-    WIND_BASE + '/target/h',
+    SYS_INCLUDE_DIR,
     '-isystem',
-    WIND_BASE + '/target/h/wrn/coreip',
+    path.join(SYS_INCLUDE_DIR, 'wrn', 'coreip'),
     # Source includes
     ## WPILib headers
     '-I',
-    WIND_BASE + '/target/h/wrn/coreip/WPILib/',
+    path.join(SYS_INCLUDE_DIR, 'wrn', 'coreip', 'WPILib'),
     ## Project headers
     '-I',
     SCRIPT_DIR
 ]
 
 def FlagsForFile(filename):
+    """Return the compile flags for the current file.
+    Used by the YouCompleteMe autocompletion engine's clang completer."""
     return {
         'flags': FLAGS,
         'do_cache': True
