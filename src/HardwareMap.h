@@ -7,7 +7,7 @@
 
 #include "Talon.h"
 #include "Gyro.h"
-#include "Jaguar.h"
+#include "Solenoid.h"
 
 class HardwareMap {
 
@@ -30,7 +30,8 @@ class HardwareMap {
   Talon wheel_motor;
 
   Talon front_arm_motor;
-  Talon back_arm_motor;
+
+  Solenoid shoot_solenoid;
 
 };
 

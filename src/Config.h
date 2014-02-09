@@ -19,7 +19,9 @@ namespace CONFIG {
 
     // Arm motors
     const int front_arm = 5;
-    const int back_arm = 7;
+
+    // Solenoid channel
+    const int shoot_solenoid = 7;
   };
 
   namespace INPUT {
@@ -35,8 +37,7 @@ namespace CONFIG {
     const int front_arm_up = 3;
     const int front_arm_down = 5;
 
-    const int back_arm_up = 6;
-    const int back_arm_down = 4;
+    const int shoot = 4;
   };
 
   // ## Preferences (Can be edited on the SmartDashboard)

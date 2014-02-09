@@ -13,6 +13,7 @@ class OI;
 
 class Drive;
 class MotorSubsystem;
+class ShooterSubsystem;
 
 class Command;
 class SendableChooser;
@@ -21,10 +22,6 @@ enum class Direction {UP, DOWN};
 
 #include "RobotBase.h"
 #include "IterativeRobot.h"
-
-#include "HardwareMap.h"
-#include "OI.h"
-#include "Subsystems/Drive.h"
 
 const char* str_direction(Direction direction);
 
@@ -58,8 +55,9 @@ class Robot : public IterativeRobot {
   static Drive* drive() { return instance().m_drive; };
 
   static MotorSubsystem* front_arm() { return instance().m_front_arm; };
-  static MotorSubsystem* back_arm() { return instance().m_back_arm; };
   static MotorSubsystem* arm_wheels() { return instance().m_arm_wheels; };
+
+  static ShooterSubsystem* shooter() { return instance().m_shooter; };
 
  private:
   // Give WPILib access to the Robot constructor
@@ -83,12 +81,12 @@ class Robot : public IterativeRobot {
   // Front arm subsystem: Controls the front arm of the robot.
   MotorSubsystem* m_front_arm;
 
-  // Back arm subsystem: Controls the back arm.
-  MotorSubsystem* m_back_arm;
-
   // Arm wheels subsystem: Controls the wheels on the front arm that grab the
   // ball.
   MotorSubsystem* m_arm_wheels;
+
+  // Shooter subsystem: controls the solenoid to shoot the ball.
+  ShooterSubsystem* m_shooter;
 
   // This command gets run when the robot enters autonomous mode.
   Command* m_autonomous_command;

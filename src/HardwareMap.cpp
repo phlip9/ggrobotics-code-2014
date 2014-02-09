@@ -17,7 +17,7 @@ HardwareMap::HardwareMap()
     gyro(CONFIG::HARDWARE::drive_gyro),
     wheel_motor(CONFIG::HARDWARE::arm_wheel),
     front_arm_motor(CONFIG::HARDWARE::front_arm),
-    back_arm_motor(CONFIG::HARDWARE::back_arm) {
+    shoot_solenoid(CONFIG::HARDWARE::shoot_solenoid) {
 
   log_info("HardwareMap()");
 }

@@ -19,6 +19,7 @@
 #include "OI.h"
 #include "Subsystems/Drive.h"
 #include "Subsystems/MotorSubsystem.h"
+#include "Subsystems/ShooterSubsystem.h"
 #include "Commands/AutonomousDrive.h"
 
 const char* str_direction(Direction direction) {
@@ -30,7 +31,7 @@ Robot::Robot()
     m_oi(nullptr),
     m_drive(nullptr),
     m_front_arm(nullptr),
-    m_back_arm(nullptr),
+    m_shooter(nullptr),
     m_arm_wheels(nullptr),
     m_autonomous_command(nullptr),
     m_teleop_command(nullptr) {
@@ -47,8 +48,9 @@ Robot::~Robot() {
   delete m_teleop_command;
   delete m_autonomous_command;
 
+  delete m_shooter;
+
   delete m_arm_wheels;
-  delete m_back_arm;
   delete m_front_arm;
 
   delete m_drive;
@@ -69,11 +71,11 @@ void Robot::RobotInit() {
 
   m_front_arm  = new MotorSubsystem("FrontArm", &hardware_map()->front_arm_motor,
                                     CONFIG::FrontArmPowerUp(), CONFIG::FrontArmPowerDown());
-  m_back_arm   = new MotorSubsystem("BackArm", &hardware_map()->back_arm_motor,
-                                    -0.50, 0.30);
   m_arm_wheels = new MotorSubsystem("ArmWheels", &hardware_map()->wheel_motor,
                                     -CONFIG::ArmWheelPower(),
                                     CONFIG::ArmWheelPower());
+
+  m_shooter = new ShooterSubsystem();
 
   m_autonomous_command = nullptr;
   m_teleop_command = nullptr;

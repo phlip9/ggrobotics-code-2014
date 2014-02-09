@@ -3,8 +3,6 @@
 
 #include "GyroToggle.h"
 
-#include <stdio.h>
-
 #include "../Robot.h"
 #include "../Logging.h"
 

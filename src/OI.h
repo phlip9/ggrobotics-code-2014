@@ -26,8 +26,7 @@ class OI {
   JoystickButton button_front_arm_up;
   JoystickButton button_front_arm_down;
 
-  JoystickButton button_back_arm_up;
-  JoystickButton button_back_arm_down;
+  JoystickButton button_shoot;
 
 };
 
