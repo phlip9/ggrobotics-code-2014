@@ -10,6 +10,7 @@
 #include "Commands/GyroToggle.h"
 #include "Commands/WheelMotorSpin.h"
 #include "Commands/FrontArmMove.h"
+#include "Commands/ShooterToggle.h"
 #include "Config.h"
 #include "Logging.h"
 

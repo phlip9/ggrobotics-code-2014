@@ -8,6 +8,9 @@
 #define _ROBOT_H_
 
 // forward declarations
+class Command;
+class SendableChooser;
+
 class HardwareMap;
 class OI;
 
@@ -15,13 +18,17 @@ class Drive;
 class MotorSubsystem;
 class ShooterSubsystem;
 
-class Command;
-class SendableChooser;
-
 enum class Direction {UP, DOWN};
 
 #include "RobotBase.h"
 #include "IterativeRobot.h"
+
+#include "HardwareMap.h"
+#include "OI.h"
+
+#include "Subsystems/Drive.h"
+#include "Subsystems/MotorSubsystem.h"
+#include "Subsystems/ShooterSubsystem.h"
 
 const char* str_direction(Direction direction);
 

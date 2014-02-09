@@ -31,8 +31,8 @@ Robot::Robot()
     m_oi(nullptr),
     m_drive(nullptr),
     m_front_arm(nullptr),
-    m_shooter(nullptr),
     m_arm_wheels(nullptr),
+    m_shooter(nullptr),
     m_autonomous_command(nullptr),
     m_teleop_command(nullptr) {
   log_info("Robot()");

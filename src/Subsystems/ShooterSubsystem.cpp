@@ -1,6 +1,7 @@
 #include "ShooterSubsystem.h"
 
 #include "../Robot.h"
+#include "../Logging.h"
 
 ShooterSubsystem::ShooterSubsystem()
   : Subsystem("ShooterSubsystem"),
