@@ -88,8 +88,10 @@ Then run make.
 
 ### Deploy to robot ###
 
-Make sure you're connected to the robot with a manually set ip of 10.44.13.XXX
-where XXX is some number between 10 and 255 (the number should be unique).
+Make sure you're connected to the robot with a manually set ip of 10.XX.YY.ZZ
+
+Where XXYY is your team number (0s included) 
+Where ZZ is some number between 10 and 255 (the number should be unique).
 
 Then run the deploy script in the build directory.
 
