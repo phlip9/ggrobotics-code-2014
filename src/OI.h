@@ -28,6 +28,7 @@ class OI {
 
   JoystickButton button_shoot;
 
+  JoystickButton button_compressor;
 };
 
 #endif

@@ -21,7 +21,7 @@
 #include "Subsystems/MotorSubsystem.h"
 #include "Subsystems/ShooterSubsystem.h"
 #include "Commands/AutonomousDrive.h"
-#include "Commands/CompressorOn.h"
+#include "Commands/CompressorToggle.h"
 
 const char* str_direction(Direction direction) {
   return direction == Direction::UP ? "UP" : "DOWN";
@@ -35,7 +35,8 @@ Robot::Robot()
     m_arm_wheels(nullptr),
     m_shooter(nullptr),
     m_autonomous_command(nullptr),
-    m_teleop_command(nullptr) {
+    m_teleop_command(nullptr),
+    m_compressor_command(nullptr){
   log_info("Robot()");
 }
 
@@ -81,12 +82,11 @@ void Robot::RobotInit() {
 
   m_autonomous_command = nullptr;
   m_teleop_command = nullptr;
+  m_compressor_command = nullptr;
 
   // Init the things
   hardware_map()->init();
   oi()->init();
-
-  m_compressor_command = new CompressorOn();
 
   /*m_autonomous_chooser = new SendableChooser();
   m_autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
@@ -124,7 +124,7 @@ void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
 
   m_autonomous_command = new AutonomousDrive(0.5, 0.5);
-  m_compressor_command = new CompressorOn();
+  m_compressor_command = new CompressorToggle();
 
   if(m_compressor_command) {
     m_compressor_command->Start();
@@ -149,12 +149,10 @@ void Robot::TeleopInit() {
   }
 
   if (!m_compressor_command) {
-    m_compressor_command = new CompressorOn();
-    m_compressor_command->Start();
-  } else {
-    m_compressor_command->Start();
+    m_compressor_command = new CompressorToggle();
   }
 
+  m_compressor_command->Start();
   //if (m_teleop_command)
     //m_teleop_command->Start();
 }

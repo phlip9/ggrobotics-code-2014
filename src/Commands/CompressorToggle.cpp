@@ -3,8 +3,9 @@
 #include "../Robot.h"
 #include "../Logging.h"
 
-CompressorOn::CompressorOn()
-  : Command("Compressor") {
+CompressorOn::CompressorOn(bool on)
+  : Command("Compressor"),
+    compressor_on(on){
 
   log_debug("Compressor()");
 
@@ -15,7 +16,11 @@ void CompressorOn::Initialize() {
 }
 
 void CompressorOn::Execute() {
-  Robot::hardware_map()->compressor.Start();
+  if (compressor_on) {
+    Robot::hardware_map()->compressor.Start();
+  } else {
+    Robot::hardware_map()->compressor.Stop();
+  }
 }
 
 bool CompressorOn::IsFinished() {

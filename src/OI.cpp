@@ -11,6 +11,7 @@
 #include "Commands/WheelMotorSpin.h"
 #include "Commands/FrontArmMove.h"
 #include "Commands/ShooterToggle.h"
+#include "Commands/CompressorToggle.h"
 #include "Config.h"
 #include "Logging.h"
 
@@ -21,7 +22,8 @@ OI::OI()
     button_wheel_spin_backward(&joystick_1, CONFIG::INPUT::arm_wheel_backward),
     button_front_arm_up(&joystick_1, CONFIG::INPUT::front_arm_up),
     button_front_arm_down(&joystick_1, CONFIG::INPUT::front_arm_down),
-    button_shoot(&joystick_1, CONFIG::INPUT::shoot) {
+    button_shoot(&joystick_1, CONFIG::INPUT::shoot),
+    button_compressor(&joystick_1, CONFIG::INPUT::compressor_on) {
 
   log_info("OI()");
 }
@@ -45,4 +47,6 @@ void OI::init() {
   button_front_arm_down.WhileHeld(new FrontArmMove(Direction::DOWN));
 
   button_shoot.WhenReleased(new ShooterToggle());
+
+  button_compressor.WhenReleased(new CompressorToggle(false));
 }
