@@ -6,9 +6,9 @@
 #include "Commands/Command.h"
 #include "../Robot.h"
 
-class CompressorOn: public Command {
+class CompressorToggle: public Command {
  public:
-  explicit CompressorOn(bool on);
+  explicit CompressorToggle(bool on);
 
   virtual void Initialize() override;
   virtual void Execute() override;

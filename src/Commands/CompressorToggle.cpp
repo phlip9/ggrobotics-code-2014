@@ -1,21 +1,21 @@
-#include "CompressorOn.h"
+#include "CompressorToggle.h"
 
 #include "../Robot.h"
 #include "../Logging.h"
 
-CompressorOn::CompressorOn(bool on)
-  : Command("Compressor"),
+CompressorToggle::CompressorToggle(bool on)
+  : Command("CompressorToggle"),
     compressor_on(on){
 
   log_debug("Compressor()");
 
 }
 
-void CompressorOn::Initialize() {
+void CompressorToggle::Initialize() {
   log_debug("Initialize()");
 }
 
-void CompressorOn::Execute() {
+void CompressorToggle::Execute() {
   if (compressor_on) {
     Robot::hardware_map()->compressor.Start();
   } else {
@@ -23,14 +23,14 @@ void CompressorOn::Execute() {
   }
 }
 
-bool CompressorOn::IsFinished() {
+bool CompressorToggle::IsFinished() {
   return true;
 }
 
-void CompressorOn::End() {
+void CompressorToggle::End() {
   log_debug("End()");
 }
 
-void CompressorOn::Interrupted() {
+void CompressorToggle::Interrupted() {
   log_debug("Interrupted()");
 }

@@ -124,7 +124,7 @@ void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
 
   m_autonomous_command = new AutonomousDrive(0.5, 0.5);
-  m_compressor_command = new CompressorToggle();
+  m_compressor_command = new CompressorToggle(true);
 
   if(m_compressor_command) {
     m_compressor_command->Start();
@@ -149,7 +149,7 @@ void Robot::TeleopInit() {
   }
 
   if (!m_compressor_command) {
-    m_compressor_command = new CompressorToggle();
+    m_compressor_command = new CompressorToggle(true);
   }
 
   m_compressor_command->Start();
