@@ -101,6 +101,8 @@ class Robot : public IterativeRobot {
   // This command gets run when the robot enter teleop mode.
   Command* m_teleop_command;
 
+  // Compressor On Command
+  Command* m_compressor_command;
   // The autonomous_chooser shows up on the SmartDashboard as a radio button
   // The user selects which command to run when the robot enters autonomous
   // mode.

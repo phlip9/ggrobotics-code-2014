@@ -22,6 +22,9 @@ namespace CONFIG {
 
     // Solenoid channel
     const int shoot_solenoid = 7;
+
+    const int compressor_switch = 0;
+    const int compressor_relay = 0;
   };
 
   namespace INPUT {

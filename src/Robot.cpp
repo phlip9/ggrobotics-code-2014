@@ -21,6 +21,7 @@
 #include "Subsystems/MotorSubsystem.h"
 #include "Subsystems/ShooterSubsystem.h"
 #include "Commands/AutonomousDrive.h"
+#include "Commands/CompressorOn.h"
 
 const char* str_direction(Direction direction) {
   return direction == Direction::UP ? "UP" : "DOWN";
@@ -44,6 +45,7 @@ Robot::~Robot() {
   //delete m_autonomous_chooser;
 
   // delete in reverse construction order
+  delete m_compressor_command;
 
   delete m_teleop_command;
   delete m_autonomous_command;
@@ -84,6 +86,8 @@ void Robot::RobotInit() {
   hardware_map()->init();
   oi()->init();
 
+  m_compressor_command = new CompressorOn();
+
   /*m_autonomous_chooser = new SendableChooser();
   m_autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
   m_autonomous_chooser->AddCommand("AutonomousDrive", new AutonomousDrive(5.0));
@@ -120,7 +124,11 @@ void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
 
   m_autonomous_command = new AutonomousDrive(0.5, 0.5);
+  m_compressor_command = new CompressorOn();
 
+  if(m_compressor_command) {
+    m_compressor_command->Start();
+  }
   if (m_autonomous_command) {
     m_autonomous_command->Start();
   }
@@ -138,6 +146,13 @@ void Robot::TeleopInit() {
 
   if (m_autonomous_command) {
     m_autonomous_command->Cancel();
+  }
+
+  if (!m_compressor_command) {
+    m_compressor_command = new CompressorOn();
+    m_compressor_command->Start();
+  } else {
+    m_compressor_command->Start();
   }
 
   //if (m_teleop_command)

@@ -8,6 +8,7 @@
 #include "Talon.h"
 #include "Gyro.h"
 #include "Solenoid.h"
+#include "Compressor.h"
 
 class HardwareMap {
 
@@ -33,6 +34,7 @@ class HardwareMap {
 
   Solenoid shoot_solenoid;
 
+  Compressor compressor;
 };
 
 #endif
