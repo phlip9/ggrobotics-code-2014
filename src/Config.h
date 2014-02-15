@@ -21,10 +21,10 @@ namespace CONFIG {
     const int front_arm = 5;
 
     // Solenoid channel
-    const int shoot_solenoid = 7;
+    const int shoot_solenoid = 1;
 
-    const int compressor_switch = 0;
-    const int compressor_relay = 0;
+    const int compressor_switch = 2;
+    const int compressor_relay = 3;
   };
 
   namespace INPUT {

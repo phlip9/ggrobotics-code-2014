@@ -1,4 +1,4 @@
-// This command toggles the shooter
+// This command turns on the compressor
 
 #ifndef _COMMANDS_COMPRESSORON_H_
 #define _COMMANDS_COMPRESSORON_H_

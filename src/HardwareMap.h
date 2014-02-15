@@ -34,6 +34,7 @@ class HardwareMap {
 
   Solenoid shoot_solenoid;
 
+  //Compressor
   Compressor compressor;
 };
 
