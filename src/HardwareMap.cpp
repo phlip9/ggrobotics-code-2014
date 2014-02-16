@@ -4,6 +4,7 @@
 
 #include "SensorBase.h"
 #include "LiveWindow/LiveWindow.h"
+#include "Compressor.h"
 #include "Gyro.h"
 
 #include "Config.h"
@@ -43,4 +44,5 @@ void HardwareMap::init() {
   live_window->AddActuator("Drive", "Rear Right Motor", &rear_right_motor);
 
   live_window->AddSensor("Drive", "Gyro", &gyro);
+
 }

@@ -21,7 +21,6 @@
 #include "Subsystems/MotorSubsystem.h"
 #include "Subsystems/ShooterSubsystem.h"
 #include "Commands/AutonomousDrive.h"
-#include "Commands/CompressorToggle.h"
 
 const char* str_direction(Direction direction) {
   return direction == Direction::UP ? "UP" : "DOWN";
@@ -35,8 +34,7 @@ Robot::Robot()
     m_arm_wheels(nullptr),
     m_shooter(nullptr),
     m_autonomous_command(nullptr),
-    m_teleop_command(nullptr),
-    m_compressor_command(nullptr){
+    m_teleop_command(nullptr){
   log_info("Robot()");
 }
 
@@ -46,7 +44,6 @@ Robot::~Robot() {
   //delete m_autonomous_chooser;
 
   // delete in reverse construction order
-  delete m_compressor_command;
 
   delete m_teleop_command;
   delete m_autonomous_command;
@@ -82,7 +79,6 @@ void Robot::RobotInit() {
 
   m_autonomous_command = nullptr;
   m_teleop_command = nullptr;
-  m_compressor_command = nullptr;
 
   // Init the things
   hardware_map()->init();
@@ -105,7 +101,7 @@ void Robot::RobotInit() {
 
 void Robot::DisabledInit() {
   log_debug("DisabledInit()");
-  Preferences::GetInstance()->Save();
+ Preferences::GetInstance()->Save();
 
   if (m_autonomous_command) {
     m_autonomous_command->Cancel();
@@ -124,11 +120,6 @@ void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
 
   m_autonomous_command = new AutonomousDrive(0.5, 0.5);
-  m_compressor_command = new CompressorToggle(true);
-
-  if(m_compressor_command) {
-    m_compressor_command->Start();
-  }
   if (m_autonomous_command) {
     m_autonomous_command->Start();
   }
@@ -148,11 +139,12 @@ void Robot::TeleopInit() {
     m_autonomous_command->Cancel();
   }
 
-  if (!m_compressor_command) {
-    m_compressor_command = new CompressorToggle(true);
-  }
+  Robot::hardware_map()->compressor.Start();
+  //if (!m_compressor_command) {
+    //m_compressor_command = new CompressorToggle(true);
+  //}
 
-  m_compressor_command->Start();
+  //m_compressor_command->Execute();
   //if (m_teleop_command)
     //m_teleop_command->Start();
 }
