@@ -16,7 +16,8 @@ HardwareMap::HardwareMap()
     rear_right_motor(CONFIG::HARDWARE::drive_rear_right),
     wheel_motor(CONFIG::HARDWARE::arm_wheel),
     front_arm_motor(CONFIG::HARDWARE::front_arm),
-    shoot_solenoid(CONFIG::HARDWARE::shoot_solenoid),
+    launch_solenoid_right(CONFIG::HARDWARE::launch_solenoid_right),
+    launch_solenoid_left(CONFIG::HARDWARE::launch_solenoid_left),
     compressor(CONFIG::HARDWARE::compressor_switch,
                CONFIG::HARDWARE::compressor_relay){
 
@@ -38,6 +39,4 @@ void HardwareMap::init() {
   live_window->AddActuator("Drive", "Rear Left Motor", &rear_left_motor);
   live_window->AddActuator("Drive", "Front Right Motor", &front_right_motor);
   live_window->AddActuator("Drive", "Rear Right Motor", &rear_right_motor);
-
-
 }

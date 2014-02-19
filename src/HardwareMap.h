@@ -29,7 +29,8 @@ class HardwareMap {
 
   Talon front_arm_motor;
 
-  Solenoid shoot_solenoid;
+  Solenoid launch_solenoid_right;
+  Solenoid launch_solenoid_left;
 
   Compressor compressor;
 };

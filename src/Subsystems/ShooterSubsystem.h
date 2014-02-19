@@ -10,10 +10,7 @@ class ShooterSubsystem : public Subsystem {
   explicit ShooterSubsystem();
   virtual ~ShooterSubsystem();
 
-  void toggle();
-
- private:
-  bool m_on;
+  void LaunchSolenoids(bool on);
 };
 
 #endif

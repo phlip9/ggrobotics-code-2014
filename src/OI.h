@@ -25,8 +25,6 @@ class OI {
   JoystickButton button_front_arm_down;
 
   JoystickButton button_shoot;
-
-
 };
 
 #endif

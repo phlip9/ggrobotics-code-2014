@@ -84,6 +84,13 @@ void Robot::RobotInit() {
   hardware_map()->init();
   oi()->init();
 
+  SmartDashboard::PutData("Current Scheduler Command:", Scheduler::GetInstance());
+
+  SmartDashboard::PutData("Drive:", m_drive);
+  SmartDashboard::PutData("Front Arm:", m_front_arm);
+  SmartDashboard::PutData("Arm Wheels:", m_arm_wheels);
+  SmartDashboard::PutData("Shooter:", m_shooter);
+
   /*m_autonomous_chooser = new SendableChooser();
   m_autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
   m_autonomous_chooser->AddCommand("AutonomousDrive", new AutonomousDrive(5.0));
@@ -101,14 +108,16 @@ void Robot::RobotInit() {
 
 void Robot::DisabledInit() {
   log_debug("DisabledInit()");
- Preferences::GetInstance()->Save();
+  Preferences::GetInstance()->Save();
+
+  hardware_map()->compressor.Stop();
 
   if (m_autonomous_command) {
     m_autonomous_command->Cancel();
   }
 
   //if (m_teleop_command) {
-    //m_teleop_command->Cancel();
+  //m_teleop_command->Cancel();
   //}
 }
 
@@ -119,10 +128,12 @@ void Robot::DisabledPeriodic() {
 void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
 
-  m_autonomous_command = new AutonomousDrive(0.5, 0.5);
+  m_autonomous_command = new AutonomousDrive(0.7, 0.5);
   if (m_autonomous_command) {
     m_autonomous_command->Start();
   }
+
+  hardware_map()->compressor.Start();
 
   Scheduler::GetInstance()->Run();
   log_info("AutonomousInit()");
@@ -139,7 +150,8 @@ void Robot::TeleopInit() {
     m_autonomous_command->Cancel();
   }
 
-  Robot::hardware_map()->compressor.Start();
+  hardware_map()->compressor.Start();
+
   //if (!m_compressor_command) {
     //m_compressor_command = new CompressorToggle(true);
   //}

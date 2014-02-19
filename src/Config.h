@@ -13,18 +13,17 @@ namespace CONFIG {
     const int drive_front_right = 1;
     const int drive_rear_right = 2;
 
-    const int drive_gyro = 1;
-
     // Special mech motors
     const int arm_wheel = 6;
 
     // Arm motors
     const int front_arm = 5;
 
-    // Solenoid channel
-    const int shoot_solenoid = 3;
+    // Launch Solenoids
+    const int launch_solenoid_right = 2;
+    const int launch_solenoid_left = 7;
 
-    const int compressor_switch = 1;
+    const int compressor_switch = 10;
     const int compressor_relay = 1;
   };
 
@@ -42,7 +41,6 @@ namespace CONFIG {
     const int front_arm_down = 5;
 
     const int shoot = 4;
-
   };
 
   // ## Preferences (Can be edited on the SmartDashboard)
