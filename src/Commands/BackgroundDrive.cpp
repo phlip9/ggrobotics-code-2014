@@ -19,7 +19,7 @@ void BackgroundDrive::Initialize() {
 }
 
 void BackgroundDrive::Execute() {
-  Joystick &drive_stick = Robot::oi()->drive_stick;
+  Joystick &drive_stick = Robot::oi()->joystick_1;
   float x, y, turn, throttle;
 
   x = drive_stick.GetX();
@@ -31,8 +31,8 @@ void BackgroundDrive::Execute() {
   turn = drive_stick.GetThrottle();
   throttle = drive_stick.GetTwist();
 
-  log_info("DRIVE_STICK: x: %.3f, y: %.3f, turn: %.3f, throttle: %.3f",
-           x, y, turn, throttle);
+  //log_info("DRIVE_STICK: x: %.3f, y: %.3f, turn: %.3f, throttle: %.3f",
+           //x, y, turn, throttle);
 
   // Add 1 to shift up (from [-1, 1] to [0, 2])
   // Divide by 2 to scale down (from [0, 2] to [0, 1])

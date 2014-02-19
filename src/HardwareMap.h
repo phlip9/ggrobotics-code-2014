@@ -6,7 +6,8 @@
 #define _HARDWARE_MAP_H_
 
 #include "Talon.h"
-#include "Gyro.h"
+#include "Solenoid.h"
+#include "Compressor.h"
 
 class HardwareMap {
 
@@ -22,9 +23,16 @@ class HardwareMap {
   Talon front_right_motor;
   Talon rear_right_motor;
 
-  // Drive gyro
-  Gyro gyro;
 
+  // Controls wheels on arm
+  Talon wheel_motor;
+
+  Talon front_arm_motor;
+
+  Solenoid launch_solenoid_right;
+  Solenoid launch_solenoid_left;
+
+  Compressor compressor;
 };
 
 #endif

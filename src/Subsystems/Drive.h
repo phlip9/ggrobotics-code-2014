@@ -19,13 +19,9 @@ class Drive : public Subsystem {
   //void mecanum_drive(Joystick &drive_stick);
   void mecanum_drive(float x, float y, float turn = 0.0);
 
-  void toggle_gyro();
 
  private:
   RobotDrive robot_drive;
-  double gyro_timeout_start_time;
-  bool gyro_was_turning;
-  bool gyro_enabled;
 
 };
 

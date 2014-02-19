@@ -15,3 +15,15 @@ float CONFIG::GyroThreshold() {
 float CONFIG::GyroTimeout() {
   return Preferences::GetInstance()->GetFloat("GyroTimeout", 0.25);
 }
+
+float CONFIG::ArmWheelPower() {
+  return Preferences::GetInstance()->GetFloat("ArmWheelPower", 0.5);
+}
+
+float CONFIG::FrontArmPowerUp() {
+  return Preferences::GetInstance()->GetFloat("FrontArmPowerUp", -0.50);
+}
+
+float CONFIG::FrontArmPowerDown() {
+  return Preferences::GetInstance()->GetFloat("FrontArmPowerDown", 0.30);
+}

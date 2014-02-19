@@ -4,17 +4,22 @@
 
 #include "SensorBase.h"
 #include "LiveWindow/LiveWindow.h"
-#include "Gyro.h"
+#include "Compressor.h"
 
 #include "Config.h"
 #include "Logging.h"
 
 HardwareMap::HardwareMap()
-  : front_left_motor(CONFIG::drive_motor_front_left),
-    rear_left_motor(CONFIG::drive_motor_rear_left),
-    front_right_motor(CONFIG::drive_motor_front_right),
-    rear_right_motor(CONFIG::drive_motor_rear_right),
-    gyro(CONFIG::gyro_channel) {
+  : front_left_motor(CONFIG::HARDWARE::drive_front_left),
+    rear_left_motor(CONFIG::HARDWARE::drive_rear_left),
+    front_right_motor(CONFIG::HARDWARE::drive_front_right),
+    rear_right_motor(CONFIG::HARDWARE::drive_rear_right),
+    wheel_motor(CONFIG::HARDWARE::arm_wheel),
+    front_arm_motor(CONFIG::HARDWARE::front_arm),
+    launch_solenoid_right(CONFIG::HARDWARE::launch_solenoid_right),
+    launch_solenoid_left(CONFIG::HARDWARE::launch_solenoid_left),
+    compressor(CONFIG::HARDWARE::compressor_switch,
+               CONFIG::HARDWARE::compressor_relay){
 
   log_info("HardwareMap()");
 }
@@ -26,8 +31,6 @@ HardwareMap::~HardwareMap() {
 void HardwareMap::init() {
   log_info("init()");
 
-  bool check_gyro = SensorBase::CheckAnalogModule(CONFIG::gyro_channel);
-  log_debug("Gyro detected: %s", check_gyro ? "true" : "false");
 
   LiveWindow *live_window = LiveWindow::GetInstance();
 
@@ -36,6 +39,4 @@ void HardwareMap::init() {
   live_window->AddActuator("Drive", "Rear Left Motor", &rear_left_motor);
   live_window->AddActuator("Drive", "Front Right Motor", &front_right_motor);
   live_window->AddActuator("Drive", "Rear Right Motor", &rear_right_motor);
-
-  live_window->AddSensor("Drive", "Gyro", &gyro);
 }

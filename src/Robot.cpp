@@ -14,30 +14,49 @@
 #include "LiveWindow/LiveWindow.h"
 
 #include "Logging.h"
+#include "Config.h"
 #include "HardwareMap.h"
 #include "OI.h"
 #include "Subsystems/Drive.h"
+#include "Subsystems/MotorSubsystem.h"
+#include "Subsystems/ShooterSubsystem.h"
 #include "Commands/AutonomousDrive.h"
+
+const char* str_direction(Direction direction) {
+  return direction == Direction::UP ? "UP" : "DOWN";
+}
 
 Robot::Robot()
   : m_hardware_map(nullptr),
     m_oi(nullptr),
     m_drive(nullptr),
+    m_front_arm(nullptr),
+    m_arm_wheels(nullptr),
+    m_shooter(nullptr),
     m_autonomous_command(nullptr),
-    m_teleop_command(nullptr) {
+    m_teleop_command(nullptr){
   log_info("Robot()");
 }
 
 Robot::~Robot() {
   log_info("~Robot()");
 
-  delete m_hardware_map;
-  delete m_oi;
+  //delete m_autonomous_chooser;
+
+  // delete in reverse construction order
+
+  delete m_teleop_command;
+  delete m_autonomous_command;
+
+  delete m_shooter;
+
+  delete m_arm_wheels;
+  delete m_front_arm;
+
   delete m_drive;
 
-  delete m_autonomous_command;
-  delete m_teleop_command;
-  //delete m_autonomous_chooser;
+  delete m_oi;
+  delete m_hardware_map;
 }
 
 void Robot::RobotInit() {
@@ -47,13 +66,30 @@ void Robot::RobotInit() {
 
   m_hardware_map = new HardwareMap();
   m_oi = new OI();
+
   m_drive = new Drive();
+
+  m_front_arm  = new MotorSubsystem("FrontArm", &hardware_map()->front_arm_motor,
+                                    CONFIG::FrontArmPowerUp(), CONFIG::FrontArmPowerDown());
+  m_arm_wheels = new MotorSubsystem("ArmWheels", &hardware_map()->wheel_motor,
+                                    -CONFIG::ArmWheelPower(),
+                                    CONFIG::ArmWheelPower());
+
+  m_shooter = new ShooterSubsystem();
+
   m_autonomous_command = nullptr;
   m_teleop_command = nullptr;
 
   // Init the things
   hardware_map()->init();
   oi()->init();
+
+  SmartDashboard::PutData("Current Scheduler Command:", Scheduler::GetInstance());
+
+  SmartDashboard::PutData("Drive:", m_drive);
+  SmartDashboard::PutData("Front Arm:", m_front_arm);
+  SmartDashboard::PutData("Arm Wheels:", m_arm_wheels);
+  SmartDashboard::PutData("Shooter:", m_shooter);
 
   /*m_autonomous_chooser = new SendableChooser();
   m_autonomous_chooser->AddDefault("Do Nothing", new PrintCommand("AutonomousCommand"));
@@ -74,12 +110,14 @@ void Robot::DisabledInit() {
   log_debug("DisabledInit()");
   Preferences::GetInstance()->Save();
 
+  hardware_map()->compressor.Stop();
+
   if (m_autonomous_command) {
     m_autonomous_command->Cancel();
   }
 
   //if (m_teleop_command) {
-    //m_teleop_command->Cancel();
+  //m_teleop_command->Cancel();
   //}
 }
 
@@ -90,11 +128,12 @@ void Robot::DisabledPeriodic() {
 void Robot::AutonomousInit() {
   //m_autonomous_command = (Command*) m_autonomous_chooser->GetSelected();
 
-  m_autonomous_command = new AutonomousDrive(0.5, 0.5);
-
+  m_autonomous_command = new AutonomousDrive(0.7, 0.5);
   if (m_autonomous_command) {
     m_autonomous_command->Start();
   }
+
+  hardware_map()->compressor.Start();
 
   Scheduler::GetInstance()->Run();
   log_info("AutonomousInit()");
@@ -111,6 +150,13 @@ void Robot::TeleopInit() {
     m_autonomous_command->Cancel();
   }
 
+  hardware_map()->compressor.Start();
+
+  //if (!m_compressor_command) {
+    //m_compressor_command = new CompressorToggle(true);
+  //}
+
+  //m_compressor_command->Execute();
   //if (m_teleop_command)
     //m_teleop_command->Start();
 }

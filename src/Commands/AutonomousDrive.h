@@ -8,11 +8,11 @@ class AutonomousDrive : public Command {
   public:
    explicit AutonomousDrive(double seconds, float power);
 
-   virtual void Initialize() override;
-   virtual void Execute() override;
-   virtual bool IsFinished() override;
-   virtual void End() override;
-   virtual void Interrupted() override;
+   void Initialize() override;
+   void Execute() override;
+   bool IsFinished() override;
+   void End() override;
+   void Interrupted() override;
 
   private:
    double m_seconds;
