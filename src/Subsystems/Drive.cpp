@@ -2,15 +2,11 @@
 
 #include "Drive.h"
 
-#include <cmath>
-
 #include "RobotDrive.h"
-#include "Timer.h"
 
-#include "../Robot.h"
 #include "../Commands/BackgroundDrive.h"
+#include "../Robot.h"
 #include "../Logging.h"
-#include "../Config.h"
 
 Drive::Drive()
     : Subsystem("Drive"),
@@ -32,27 +28,24 @@ Drive::~Drive() {
 
 void Drive::InitDefaultCommand() {
   log_info("InitDefaultCommand()");
+
+  // BackgroundDrive (which takes input from the joystick and calls
+  // mecanum_drive) should run whenever no other command is using this
+  // subsystem.
   SetDefaultCommand(new BackgroundDrive());
 }
 
 void Drive::mecanum_drive(float x, float y, float turn) {
+  // If we need to add a gyro, put the gyro code here.
+  // You can look at commits before
+  //  commit ef2d3eac7d40373c06639e7fc46fcb8eebb8e304
+  //  Author: Matthew Gee <geem2014@gmail.com>
+  //  Date:   Sun Feb 16 12:57:50 2014 -0800
+  //
+  //    Purged Gyro Code.  Hooray
+  //
+  // for semi-working gyro code.
+
   robot_drive.MecanumDrive_Cartesian(x, y, turn);
-}
-
-
-float clamp(float in, float min, float max) {
-  if (in > max)
-    return max;
-  else if (in < min)
-    return min;
-  else
-    return in;
-}
-
-float deadband(float in, float min, float max, float out) {
-  if (in < max && in > min)
-    return out;
-  else
-    return in;
 }
 

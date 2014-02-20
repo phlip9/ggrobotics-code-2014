@@ -6,29 +6,18 @@
 #include "Commands/Subsystem.h"
 
 #include "RobotDrive.h"
-#include "Joystick.h"
 
 class Drive : public Subsystem {
-
  public:
   Drive();
-  ~Drive();
+  ~Drive() override;
 
   void InitDefaultCommand() override;
 
-  //void mecanum_drive(Joystick &drive_stick);
   void mecanum_drive(float x, float y, float turn = 0.0);
-
 
  private:
   RobotDrive robot_drive;
-
 };
-
-// Clamp a value between min and max
-float clamp(float in, float min, float max);
-
-// Threshold a value if it's between thresh_max and thresh_min
-float deadband(float in, float min, float max, float out = 0.0);
 
 #endif
