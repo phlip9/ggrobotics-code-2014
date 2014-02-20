@@ -1,13 +1,16 @@
 /*
- * This class holds the hardware map, operator interface, and robot subsystems.
- * It also manages the different robot state logic, e.g., autonomous vs teleop vs
- * test mode.
+ * The Robot class holds the hardware map, operator interface, and robot
+ * subsystems; manages the different robot state logic, e.g.,
+ * disabled, autonomous vs teleop vs test mode; and is the entry point of the
+ * program.
  */
 
 #ifndef _ROBOT_H_
 #define _ROBOT_H_
 
 // forward declarations
+// (we use forward declarations for the pointer types we use in the class
+// because it means less includes and therefore faster compile times).
 class Command;
 class SendableChooser;
 
@@ -18,6 +21,7 @@ class Drive;
 class MotorSubsystem;
 class ShooterSubsystem;
 
+// Reverse dependency issue, so we declare this before the includes.
 enum class Direction {UP, DOWN};
 
 #include "RobotBase.h"
@@ -40,7 +44,12 @@ class Robot : public IterativeRobot {
   // Singleton accessor
   static Robot& instance() { return (Robot&) RobotBase::getInstance(); };
 
-  // Robot-wide initialization. Runs when the robot starts up.
+  // Robot state methods inherited from IterativeRobot
+  // RobotInit() gets called after the robot boots and the code is loaded.
+  // Each state Init method gets called once upon entering the given state and
+  // then the Periodic functions get called every `IterativeRobot::GetPeriod()`
+  // which is 50 Hz by default (50 cycles/second)
+
   void RobotInit() override;
 
   void DisabledInit() override;
@@ -73,7 +82,8 @@ class Robot : public IterativeRobot {
   // The constructor is private because Robot is a singleton.
   // Also, don't actually construct anything in here. The robot life cycle
   // is totally whacked; so, for now, do all of the constructing and initing
-  // in RobotInit()
+  // in RobotInit() (which means members should be pointers initialized
+  // to nullptrs)
   Robot();
 
   // Maps hardware modules to software objects.
@@ -97,15 +107,6 @@ class Robot : public IterativeRobot {
 
   // This command gets run when the robot enters autonomous mode.
   Command* m_autonomous_command;
-
-  // This command gets run when the robot enter teleop mode.
-  Command* m_teleop_command;
-
-  // The autonomous_chooser shows up on the SmartDashboard as a radio button
-  // The user selects which command to run when the robot enters autonomous
-  // mode.
-  //SendableChooser* m_autonomous_chooser;
-
 };
 
 #endif
