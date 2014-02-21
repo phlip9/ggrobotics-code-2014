@@ -4,6 +4,11 @@
 // log_warn
 // log_debug
 // log_info
+//
+// Each logging macro logs messages to stdout (which then gets broadcast over
+// UDP port 6668) and can be listened to with the netconsole_receiver. The
+// macros print the current file, line, and a message with printf-like
+// formatting.
 
 #ifndef _LOGGING_H_
 #define _LOGGING_H_

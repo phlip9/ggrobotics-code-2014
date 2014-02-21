@@ -1,5 +1,7 @@
 /*
- * Wires commands to operator inputs.
+ * Holds the user input objects (Joysticks, JoystickButtons, and
+ * DigitalInButtons) and maps user input to respective commands, e.g., when
+ * user releases the button, launch the ball.
  */
 
 #ifndef _OI_H_
