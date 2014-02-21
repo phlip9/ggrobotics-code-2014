@@ -1,8 +1,3 @@
-/*
- * Robot impementation. Controls teleop and autonomous periods. Holds all the
- * different robot subsystems.
- */
-
 #include "Robot.h"
 
 #include "DriverStationLCD.h"
@@ -81,8 +76,6 @@ void Robot::RobotInit() {
   // Drive forward for 0.7 seconds at half power.
   m_autonomous_command = new AutonomousDrive(0.7, 0.5);
 
-  m_teleop_command = nullptr;
-
   // Call init after constructing everything else
   hardware_map()->init();
   oi()->init();
@@ -111,6 +104,7 @@ void Robot::DisabledPeriodic() { }
 
 void Robot::AutonomousInit() {
   log_info("AutonomousInit()");
+  LiveWindow::GetInstance()->SetEnabled(false);
 
   if (m_autonomous_command) {
     m_autonomous_command->Start();
@@ -125,6 +119,7 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
   log_debug("TeleopInit()");
+  LiveWindow::GetInstance()->SetEnabled(false);
 
   if (m_autonomous_command) {
     m_autonomous_command->Cancel();
@@ -140,6 +135,7 @@ void Robot::TeleopPeriodic() {
 
 void Robot::TestInit() {
   log_info("TestInit()");
+  LiveWindow::GetInstance()->SetEnabled(true);
 }
 
 void Robot::TestPeriodic() {

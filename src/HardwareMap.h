@@ -10,7 +10,6 @@
 #include "Compressor.h"
 
 class HardwareMap {
-
  public:
   HardwareMap();
   ~HardwareMap();
@@ -23,12 +22,13 @@ class HardwareMap {
   Talon front_right_motor;
   Talon rear_right_motor;
 
-
-  // Controls wheels on arm
+  // Arm wheel spinning motor
   Talon wheel_motor;
 
+  // Arm moving motor
   Talon front_arm_motor;
 
+  // Shooter solenoids
   Solenoid launch_solenoid_right;
   Solenoid launch_solenoid_left;
 
