@@ -1,5 +1,5 @@
 // Generic motor subsystem
-// Used by front arm, back arm, and front arm wheels
+// Used by front arm and front arm wheels
 
 #include "MotorSubsystem.h"
 
@@ -39,5 +39,5 @@ void MotorSubsystem::move(Direction direction) {
 }
 
 void MotorSubsystem::stop() {
-  m_motor->Set(0.0);
+  move(0.0);
 }

@@ -1,8 +1,4 @@
-// Drives robot
-
 #include "BackgroundDrive.h"
-
-#include <stdio.h>
 
 #include "../Robot.h"
 #include "../Logging.h"
@@ -13,6 +9,8 @@ BackgroundDrive::BackgroundDrive()
   log_info("BackgroundDrive()");
   Requires(Robot::drive());
 }
+
+BackgroundDrive::~BackgroundDrive() {}
 
 void BackgroundDrive::Initialize() {
   log_info("Initialize()");

@@ -3,16 +3,18 @@
 #include "../Robot.h"
 #include "../Logging.h"
 
-LaunchSolenoids::LaunchSolenoids(bool on)
+LaunchSolenoids::LaunchSolenoids(bool open)
   : Command("LaunchSolenoids"),
-    m_on(on) {
+    m_open(open) {
 
-  log_debug("LaunchSolenoids(%s)", on ? "true" : "false");
+  log_debug("LaunchSolenoids(%s)", open ? "open" : "close");
   Requires(Robot::shooter());
 }
 
+LaunchSolenoids::~LaunchSolenoids() {}
+
 void LaunchSolenoids::Execute() {
-  Robot::shooter()->LaunchSolenoids(m_on);
+  Robot::shooter()->ToggleLaunchSolenoids(m_open);
 }
 
 bool LaunchSolenoids::IsFinished() {

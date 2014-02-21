@@ -13,8 +13,8 @@ ShooterSubsystem::~ShooterSubsystem() {
   log_debug("~ShooterSubsystem()");
 }
 
-void ShooterSubsystem::LaunchSolenoids(bool on) {
-  log_debug("LaunchSolenoids(%s)", on ? "true" : "false");
-  Robot::hardware_map()->launch_solenoid_right.Set(on);
-  Robot::hardware_map()->launch_solenoid_left.Set(on);
+void ShooterSubsystem::ToggleLaunchSolenoids(bool open) {
+  log_debug("ToggleLaunchSolenoids(%s)", open ? "open" : "close");
+  Robot::hardware_map()->launch_solenoid_right.Set(open);
+  Robot::hardware_map()->launch_solenoid_left.Set(open);
 }

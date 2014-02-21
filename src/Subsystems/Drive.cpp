@@ -15,7 +15,7 @@ Drive::Drive()
                   &Robot::hardware_map()->front_right_motor,
                   &Robot::hardware_map()->rear_right_motor){
 
-  robot_drive.SetExpiration(0.1);
+  robot_drive.SetExpiration(0.5);
   robot_drive.SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
   robot_drive.SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 

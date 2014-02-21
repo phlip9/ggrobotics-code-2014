@@ -1,4 +1,6 @@
 // Robot drive subsystem
+// Controls the driving of the robot
+// Runs the BackgroundDrive command when no other commands are running.
 
 #ifndef _SUBSYSTEMS_DRIVE_H_
 #define _SUBSYSTEMS_DRIVE_H_

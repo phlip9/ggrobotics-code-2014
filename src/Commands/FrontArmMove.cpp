@@ -1,7 +1,5 @@
 #include "FrontArmMove.h"
 
-#include "../Subsystems/MotorSubsystem.h"
-
 #include "../Robot.h"
 #include "../Logging.h"
 
@@ -12,6 +10,8 @@ FrontArmMove::FrontArmMove(Direction direction)
   log_debug("FrontArmMove(%s)", str_direction(direction));
   Requires(Robot::front_arm());
 }
+
+FrontArmMove::~FrontArmMove() {}
 
 void FrontArmMove::Initialize() {}
 

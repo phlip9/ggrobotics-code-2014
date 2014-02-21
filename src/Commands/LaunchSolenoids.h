@@ -5,7 +5,8 @@
 
 class LaunchSolenoids : public Command {
  public:
-  explicit LaunchSolenoids(bool on);
+  explicit LaunchSolenoids(bool open);
+  ~LaunchSolenoids() override;
 
   void Initialize() override;
   void Execute() override;
@@ -14,7 +15,7 @@ class LaunchSolenoids : public Command {
   void Interrupted() override;
 
  private:
-  bool m_on;
+  bool m_open;
 };
 
 #endif

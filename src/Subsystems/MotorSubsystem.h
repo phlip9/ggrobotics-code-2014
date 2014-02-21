@@ -1,5 +1,5 @@
 // Generic motor subsystem
-// Used by front arm, back arm, and front arm wheels
+// Used by front arm and front arm wheels
 
 #ifndef _SUBSYSTEMS_MOTOR_SUBSYSTEM_H_
 #define _SUBSYSTEMS_MOTOR_SUBSYSTEM_H_
@@ -13,12 +13,17 @@ class SpeedController;
 class MotorSubsystem : public Subsystem {
 
  public:
-  explicit MotorSubsystem(const char* name, SpeedController* motor, float power_up = 1.0, float power_down = 1.0);
-  virtual ~MotorSubsystem();
+  MotorSubsystem(const char* name, SpeedController* motor, float power_up = 1.0, float power_down = -1.0);
+  ~MotorSubsystem() override;
 
-  virtual void move(Direction direction);
-  virtual void move(float power);
-  virtual void stop();
+  // Move the motor Direction::UP or Direction::DOWN
+  void move(Direction direction);
+
+  // Move the motor with a specific power
+  void move(float power);
+
+  // Stop the motor (set the power to 0)
+  void stop();
 
  private:
   const char* m_name;

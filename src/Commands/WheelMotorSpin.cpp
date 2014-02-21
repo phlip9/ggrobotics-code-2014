@@ -14,6 +14,8 @@ WheelMotorSpin::WheelMotorSpin(Direction direction)
   Requires(Robot::arm_wheels());
 }
 
+WheelMotorSpin::~WheelMotorSpin() {}
+
 void WheelMotorSpin::Initialize() {}
 
 void WheelMotorSpin::Execute() {

@@ -6,19 +6,18 @@
 #include "../Robot.h"
 
 class WheelMotorSpin : public Command {
-  public:
-   explicit WheelMotorSpin(Direction direction);
+ public:
+  explicit WheelMotorSpin(Direction direction);
+  ~WheelMotorSpin() override;
 
-   void Initialize() override;
-   void Execute() override;
-   bool IsFinished() override;
-   void End() override;
-   void Interrupted() override;
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
 
-  private:
-   Direction m_direction;
-
+ private:
+  Direction m_direction;
 };
 
 #endif
-

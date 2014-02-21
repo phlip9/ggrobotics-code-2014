@@ -8,9 +8,9 @@
 class ShooterSubsystem : public Subsystem {
  public:
   explicit ShooterSubsystem();
-  virtual ~ShooterSubsystem();
+  ~ShooterSubsystem() override;
 
-  void LaunchSolenoids(bool on);
+  void ToggleLaunchSolenoids(bool open);
 };
 
 #endif

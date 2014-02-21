@@ -8,6 +8,7 @@
 class Shoot : public CommandGroup {
  public:
   Shoot();
+  ~Shoot() override;
 };
 
 #endif

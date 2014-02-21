@@ -15,6 +15,8 @@ AutonomousDrive::AutonomousDrive(double seconds, float power)
   Requires(Robot::drive());
 }
 
+AutonomousDrive::~AutonomousDrive() {}
+
 void AutonomousDrive::Initialize() {
   log_info("Initialize()");
   m_timer.Start();

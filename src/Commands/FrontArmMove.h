@@ -6,18 +6,18 @@
 #include "../Robot.h"
 
 class FrontArmMove : public Command {
-  public:
-   explicit FrontArmMove(Direction direction);
+ public:
+  explicit FrontArmMove(Direction direction);
+  ~FrontArmMove() override;
 
-   void Initialize() override;
-   void Execute() override;
-   bool IsFinished() override;
-   void End() override;
-   void Interrupted() override;
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
 
-  private:
-   Direction m_direction;
-
+ private:
+  Direction m_direction;
 };
 
 #endif
