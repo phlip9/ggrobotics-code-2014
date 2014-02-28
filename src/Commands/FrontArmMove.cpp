@@ -1,14 +1,16 @@
 #include "FrontArmMove.h"
 
+#include "../Subsystems/MotorSubsystem.h"
 #include "../Robot.h"
 #include "../Logging.h"
 
-FrontArmMove::FrontArmMove(Direction direction)
+FrontArmMove::FrontArmMove(MotorSubsystem *front_arm, Direction direction)
   : Command("FrontArmMove"),
+    m_front_arm(front_arm),
     m_direction(direction) {
 
   log_debug("FrontArmMove(%s)", str_direction(direction));
-  Requires(Robot::front_arm());
+  Requires(front_arm);
 }
 
 FrontArmMove::~FrontArmMove() {}
@@ -16,7 +18,7 @@ FrontArmMove::~FrontArmMove() {}
 void FrontArmMove::Initialize() {}
 
 void FrontArmMove::Execute() {
-  Robot::front_arm()->move(m_direction);
+  m_front_arm->move(m_direction);
 }
 
 bool FrontArmMove::IsFinished() {
@@ -25,10 +27,10 @@ bool FrontArmMove::IsFinished() {
 
 void FrontArmMove::End() {
   log_debug("End()");
-  Robot::front_arm()->stop();
+  m_front_arm->stop();
 }
 
 void FrontArmMove::Interrupted() {
   log_debug("Interrupted()");
-  Robot::front_arm()->stop();
+  m_front_arm->stop();
 }

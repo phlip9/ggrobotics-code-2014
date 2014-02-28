@@ -3,17 +3,21 @@
 #include "Drive.h"
 
 #include "RobotDrive.h"
+#include "Joystick.h"
+#include "Talon.h"
 
 #include "../Commands/BackgroundDrive.h"
 #include "../Robot.h"
 #include "../Logging.h"
 
-Drive::Drive()
+Drive::Drive(Talon *front_left, Talon *rear_left, Talon *front_right,
+             Talon *rear_right, Joystick *joystick)
     : Subsystem("Drive"),
-      robot_drive(&Robot::hardware_map()->front_left_motor,
-                  &Robot::hardware_map()->rear_left_motor,
-                  &Robot::hardware_map()->front_right_motor,
-                  &Robot::hardware_map()->rear_right_motor){
+      robot_drive(front_left,
+                  rear_left,
+                  front_right,
+                  rear_right),
+      m_default_command(this, joystick) {
 
   robot_drive.SetExpiration(0.5);
   robot_drive.SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
@@ -32,7 +36,7 @@ void Drive::InitDefaultCommand() {
   // BackgroundDrive (which takes input from the joystick and calls
   // mecanum_drive) should run whenever no other command is using this
   // subsystem.
-  SetDefaultCommand(new BackgroundDrive());
+  SetDefaultCommand(&m_default_command);
 }
 
 void Drive::mecanum_drive(float x, float y, float turn) {

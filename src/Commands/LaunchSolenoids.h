@@ -1,11 +1,13 @@
 #ifndef _COMMANDS_LAUNCH_SOLENOIDS_H_
 #define _COMMANDS_LAUNCH_SOLENOIDS_H_
 
+class ShooterSubsystem;
+
 #include "Commands/Command.h"
 
 class LaunchSolenoids : public Command {
  public:
-  explicit LaunchSolenoids(bool open);
+  LaunchSolenoids(ShooterSubsystem *shooter, bool open);
   ~LaunchSolenoids() override;
 
   void Initialize() override;
@@ -15,6 +17,7 @@ class LaunchSolenoids : public Command {
   void Interrupted() override;
 
  private:
+  ShooterSubsystem *m_shooter;
   bool m_open;
 };
 

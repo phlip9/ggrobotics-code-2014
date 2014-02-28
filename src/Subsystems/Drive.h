@@ -5,13 +5,19 @@
 #ifndef _SUBSYSTEMS_DRIVE_H_
 #define _SUBSYSTEMS_DRIVE_H_
 
+class Joystick;
+class Talon;
+
 #include "Commands/Subsystem.h"
 
 #include "RobotDrive.h"
 
+#include "../Commands/BackgroundDrive.h"
+
 class Drive : public Subsystem {
  public:
-  Drive();
+  Drive(Talon *front_left, Talon *right_left, Talon *front_right,
+        Talon *rear_right, Joystick *joystick);
   ~Drive() override;
 
   void InitDefaultCommand() override;
@@ -20,6 +26,7 @@ class Drive : public Subsystem {
 
  private:
   RobotDrive robot_drive;
+  BackgroundDrive m_default_command;
 };
 
 #endif

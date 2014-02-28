@@ -39,10 +39,12 @@ const char* str_direction(Direction direction);
 class Robot : public IterativeRobot {
 
  public:
+  // Don't actually construct anything in here. The robot life cycle
+  // is totally whacked; so, for now, do all of the constructing and
+  // initializing in RobotInit() (which means members should be pointers
+  // initialized to nullptrs)
+  Robot();
   ~Robot() override;
-
-  // Singleton accessor
-  static Robot& instance() { return (Robot&) RobotBase::getInstance(); };
 
   // Robot state methods inherited from IterativeRobot
   // RobotInit() gets called after the robot boots and the code is loaded.
@@ -64,28 +66,7 @@ class Robot : public IterativeRobot {
   void TestInit() override;
   void TestPeriodic() override;
 
-  // Static accessors for easy accessing
-  static HardwareMap* hardware_map() { return instance().m_hardware_map; };
-  static OI* oi() { return instance().m_oi; };
-
-  static Drive* drive() { return instance().m_drive; };
-
-  static MotorSubsystem* front_arm() { return instance().m_front_arm; };
-  static MotorSubsystem* arm_wheels() { return instance().m_arm_wheels; };
-
-  static ShooterSubsystem* shooter() { return instance().m_shooter; };
-
  private:
-  // Give WPILib access to the Robot constructor
-  friend RobotBase* FRC_userClassFactory();
-
-  // The constructor is private because Robot is a singleton.
-  // Also, don't actually construct anything in here. The robot life cycle
-  // is totally whacked; so, for now, do all of the constructing and initing
-  // in RobotInit() (which means members should be pointers initialized
-  // to nullptrs)
-  Robot();
-
   // Maps hardware modules to software objects.
   HardwareMap* m_hardware_map;
 

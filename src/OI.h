@@ -7,6 +7,9 @@
 #ifndef _OI_H_
 #define _OI_H_
 
+class MotorSubsystem;
+class ShooterSubsystem;
+
 #include "Joystick.h"
 #include "Buttons/JoystickButton.h"
 
@@ -16,7 +19,7 @@ class OI {
   OI();
   ~OI();
 
-  void init();
+  void init(MotorSubsystem *arm_wheel, MotorSubsystem *front_arm, ShooterSubsystem *shooter);
 
   Joystick joystick_1;
 

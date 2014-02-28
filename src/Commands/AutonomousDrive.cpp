@@ -2,17 +2,18 @@
 
 #include "Timer.h"
 
-#include "../Robot.h"
+#include "../Subsystems/Drive.h"
 #include "../Logging.h"
 
-AutonomousDrive::AutonomousDrive(double seconds, float power)
+AutonomousDrive::AutonomousDrive(Drive *drive, double seconds, float power)
   : Command("AutonomousDrive"),
+    m_drive(drive),
     m_seconds(seconds),
     m_power(power),
     m_timer() {
 
   log_info("AutonomousDrive()");
-  Requires(Robot::drive());
+  Requires(drive);
 }
 
 AutonomousDrive::~AutonomousDrive() {}
@@ -25,7 +26,7 @@ void AutonomousDrive::Initialize() {
 void AutonomousDrive::Execute() {
   log_info("Timer: %.2f", m_timer.Get());
   // drive at half speed
-  Robot::drive()->mecanum_drive(0, -m_power);
+  m_drive->mecanum_drive(0, -m_power);
 }
 
 bool AutonomousDrive::IsFinished() {

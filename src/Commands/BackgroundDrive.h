@@ -5,11 +5,14 @@
 #ifndef _COMMANDS_BACKGROUND_DRIVE_H_
 #define _COMMANDS_BACKGROUND_DRIVE_H_
 
+class Drive;
+class Joystick;
+
 #include "Commands/Command.h"
 
 class BackgroundDrive : public Command {
  public:
-  explicit BackgroundDrive();
+  BackgroundDrive(Drive *drive, Joystick *joystick);
   ~BackgroundDrive() override;
 
   void Initialize() override;
@@ -17,6 +20,10 @@ class BackgroundDrive : public Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+
+ private:
+  Drive *m_drive;
+  Joystick *m_joystick;
 };
 
 #endif

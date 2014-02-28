@@ -1,5 +1,5 @@
-#ifndef _COMMANDS_FRONT_ARM_MOVE_H_
-#define _COMMANDS_FRONT_ARM_MOVE_H_
+#ifndef _COMMANDS_MOTOR_MOVE_H_
+#define _COMMANDS_MOTOR_MOVE_H_
 
 class MotorSubsystem;
 
@@ -7,10 +7,10 @@ class MotorSubsystem;
 
 #include "../Robot.h"
 
-class FrontArmMove : public Command {
+class MotorMove : public Command {
  public:
-  FrontArmMove(MotorSubsystem *front_arm, Direction direction);
-  ~FrontArmMove() override;
+  MotorMove(const char* name, MotorSubsystem *subsystem, Direction direction);
+  ~MotorMove() override;
 
   void Initialize() override;
   void Execute() override;
@@ -19,9 +19,9 @@ class FrontArmMove : public Command {
   void Interrupted() override;
 
  private:
-  MotorSubsystem *m_front_arm;
+  const char* m_name;
+  MotorSubsystem *m_subsystem;
   Direction m_direction;
 };
 
 #endif
-

@@ -6,10 +6,9 @@
 
 #include "Commands/Command.h"
 
-#include "Robot.h"
-#include "Commands/WheelMotorSpin.h"
-#include "Commands/FrontArmMove.h"
+#include "Commands/MotorMove.h"
 #include "Commands/Shoot.h"
+#include "Robot.h"
 #include "Config.h"
 #include "Logging.h"
 
@@ -30,15 +29,15 @@ OI::~OI() {
 
 // Wires the buttons, joysticks, and SmartDashboard controls to their
 // respective commands.
-void OI::init() {
+void OI::init(MotorSubsystem *arm_wheel, MotorSubsystem *front_arm, ShooterSubsystem *shooter) {
   log_info("init()");
   // TODO: Add SmartDashboard controls
 
-  button_wheel_spin_forward.WhileHeld(new WheelMotorSpin(Direction::UP));
-  button_wheel_spin_backward.WhileHeld(new WheelMotorSpin(Direction::DOWN));
+  button_wheel_spin_forward.WhileHeld(new MotorMove("WheelMotorSpin", arm_wheel, Direction::UP));
+  button_wheel_spin_backward.WhileHeld(new MotorMove("WheelMotorSpin", arm_wheel, Direction::DOWN));
 
-  button_front_arm_up.WhileHeld(new FrontArmMove(Direction::UP));
-  button_front_arm_down.WhileHeld(new FrontArmMove(Direction::DOWN));
+  button_front_arm_up.WhileHeld(new MotorMove("FrontArmMove", front_arm, Direction::UP));
+  button_front_arm_down.WhileHeld(new MotorMove("FrontArmMove", front_arm, Direction::DOWN));
 
-  button_shoot.WhenReleased(new Shoot());
+  button_shoot.WhenReleased(new Shoot(shooter));
 }

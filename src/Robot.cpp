@@ -63,22 +63,31 @@ void Robot::RobotInit() {
   m_hardware_map = new HardwareMap();
   m_oi = new OI();
 
-  m_drive = new Drive();
+  m_drive = new Drive(&m_hardware_map->front_left_motor,
+                      &m_hardware_map->rear_left_motor,
+                      &m_hardware_map->front_right_motor,
+                      &m_hardware_map->rear_right_motor,
+                      &m_oi->joystick_1);
 
-  m_front_arm  = new MotorSubsystem("FrontArm", &hardware_map()->front_arm_motor,
-                                    CONFIG::FrontArmPowerUp(), CONFIG::FrontArmPowerDown());
-  m_arm_wheels = new MotorSubsystem("ArmWheels", &hardware_map()->wheel_motor,
+  m_front_arm  = new MotorSubsystem("FrontArm",
+                                    &m_hardware_map->front_arm_motor,
+                                    CONFIG::FrontArmPowerUp(),
+                                    CONFIG::FrontArmPowerDown());
+
+  m_arm_wheels = new MotorSubsystem("ArmWheels",
+                                    &m_hardware_map->wheel_motor,
                                     -CONFIG::ArmWheelPower(),
                                     CONFIG::ArmWheelPower());
 
-  m_shooter = new ShooterSubsystem();
+  m_shooter = new ShooterSubsystem(&m_hardware_map->launch_solenoid_left,
+                                   &m_hardware_map->launch_solenoid_right);
 
   // Drive forward for 0.7 seconds at half power.
-  m_autonomous_command = new AutonomousDrive(0.7, 0.5);
+  m_autonomous_command = new AutonomousDrive(m_drive, 0.7, 0.5);
 
   // Call init after constructing everything else
-  hardware_map()->init();
-  oi()->init();
+  m_hardware_map->init();
+  m_oi->init(m_arm_wheels, m_front_arm, m_shooter);
 
   // Add the scheduler and subsystems to the SmartDashboard
   // This lets us see the current running commands in each subsystem

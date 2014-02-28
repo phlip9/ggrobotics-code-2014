@@ -1,13 +1,17 @@
 #include "BackgroundDrive.h"
 
-#include "../Robot.h"
+#include "Joystick.h"
+
+#include "../Subsystems/Drive.h"
 #include "../Logging.h"
 
-BackgroundDrive::BackgroundDrive()
-  : Command("BackgroundDrive") {
+BackgroundDrive::BackgroundDrive(Drive *drive, Joystick *joystick)
+  : Command("BackgroundDrive"),
+    m_drive(drive),
+    m_joystick(joystick) {
 
   log_info("BackgroundDrive()");
-  Requires(Robot::drive());
+  Requires(drive);
 }
 
 BackgroundDrive::~BackgroundDrive() {}
@@ -17,17 +21,16 @@ void BackgroundDrive::Initialize() {
 }
 
 void BackgroundDrive::Execute() {
-  Joystick &drive_stick = Robot::oi()->joystick_1;
   float x, y, turn, throttle;
 
-  x = drive_stick.GetX();
-  y = drive_stick.GetY();
+  x = m_joystick->GetX();
+  y = m_joystick->GetY();
 
   // WARNING: WTF INCOMING
   // For some fucking reason, the joystick has these swapped.
   // wow    much sense    many codes    wow
-  turn = drive_stick.GetThrottle();
-  throttle = drive_stick.GetTwist();
+  turn = m_joystick->GetThrottle();
+  throttle = m_joystick->GetTwist();
 
   //log_info("DRIVE_STICK: x: %.3f, y: %.3f, turn: %.3f, throttle: %.3f",
            //x, y, turn, throttle);
@@ -43,7 +46,7 @@ void BackgroundDrive::Execute() {
   y *= throttle;
   turn *= throttle;
 
-  Robot::drive()->mecanum_drive(x, y, turn);
+  m_drive->mecanum_drive(x, y, turn);
 }
 
 bool BackgroundDrive::IsFinished() {
