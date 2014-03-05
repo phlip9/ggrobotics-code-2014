@@ -3,6 +3,7 @@
 #include "DriverStationLCD.h"
 #include "Preferences.h"
 #include "Commands/Scheduler.h"
+#include "Commands/CommandGroup.h"
 #include "Commands/PrintCommand.h"
 #include "SmartDashboard/SmartDashboard.h"
 #include "SmartDashboard/SendableChooser.h"
@@ -16,6 +17,7 @@
 #include "Subsystems/MotorSubsystem.h"
 #include "Subsystems/ShooterSubsystem.h"
 #include "Commands/AutonomousDrive.h"
+#include "Commands/MotorMove.h"
 
 const char* str_direction(Direction direction) {
   return direction == Direction::UP ? "UP" : "DOWN";
@@ -82,8 +84,20 @@ void Robot::RobotInit() {
   m_shooter = new ShooterSubsystem(&m_hardware_map->launch_solenoid_left,
                                    &m_hardware_map->launch_solenoid_right);
 
-  // Drive forward for 0.7 seconds at half power.
-  m_autonomous_command = new AutonomousDrive(m_drive, 0.7, 0.5);
+  // Drive forward and deposit the ball in autonomous
+  CommandGroup *autonomous_command = new CommandGroup("Autonomous Command");
+
+  autonomous_command->AddSequential(
+      new AutonomousDrive(m_drive,
+                          4.0,
+                          0.25));
+
+  autonomous_command->AddSequential(
+      new MotorMove("WheelMotorSpinAutonomous",
+                    m_arm_wheels,
+                    Direction::DOWN));
+
+  m_autonomous_command = (Command*) autonomous_command;
 
   // Call init after constructing everything else
   m_hardware_map->init();
