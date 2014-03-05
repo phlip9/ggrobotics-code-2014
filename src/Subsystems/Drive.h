@@ -22,7 +22,7 @@ class Drive : public Subsystem {
 
   void InitDefaultCommand() override;
 
-  void mecanum_drive(float x, float y, float turn = 0.0);
+  void drive(float x, float y, float turn = 0.0);
 
  private:
   RobotDrive robot_drive;

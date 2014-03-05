@@ -46,7 +46,7 @@ void BackgroundDrive::Execute() {
   y *= throttle;
   turn *= throttle;
 
-  m_drive->mecanum_drive(x, y, turn);
+  m_drive->drive(x, y, turn);
 }
 
 bool BackgroundDrive::IsFinished() {

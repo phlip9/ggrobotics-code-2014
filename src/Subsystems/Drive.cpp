@@ -39,7 +39,7 @@ void Drive::InitDefaultCommand() {
   SetDefaultCommand(&m_default_command);
 }
 
-void Drive::mecanum_drive(float x, float y, float turn) {
+void Drive::drive(float x, float y, float turn) {
   // If we need to add a gyro, put the gyro code here.
   // You can look at commits before
   //  commit ef2d3eac7d40373c06639e7fc46fcb8eebb8e304
@@ -50,6 +50,6 @@ void Drive::mecanum_drive(float x, float y, float turn) {
   //
   // for semi-working gyro code.
 
-  robot_drive.MecanumDrive_Cartesian(x, y, turn);
+  robot_drive.ArcadeDrive(y, turn);
 }
 
