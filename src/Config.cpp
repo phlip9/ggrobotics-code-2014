@@ -5,7 +5,7 @@
 #include "Preferences.h"
 
 float CONFIG::ArmWheelPower() {
-  return Preferences::GetInstance()->GetFloat("ArmWheelPower", 0.50);
+  return Preferences::GetInstance()->GetFloat("ArmWheelPower", 1.0);
 }
 
 float CONFIG::FrontArmPowerUp() {
@@ -13,5 +13,5 @@ float CONFIG::FrontArmPowerUp() {
 }
 
 float CONFIG::FrontArmPowerDown() {
-  return Preferences::GetInstance()->GetFloat("FrontArmPowerDown", 0.50);
+  return Preferences::GetInstance()->GetFloat("FrontArmPowerDown", 0.80);
 }

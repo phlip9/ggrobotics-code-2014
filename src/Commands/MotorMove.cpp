@@ -2,7 +2,6 @@
 
 #include "../Subsystems/MotorSubsystem.h"
 
-#include "../Config.h"
 #include "../Robot.h"
 #include "../Logging.h"
 
@@ -16,9 +15,9 @@ MotorMove::MotorMove(const char* name, MotorSubsystem *subsystem, Direction dire
   Requires(subsystem);
 }
 
-MotorMove::~MotorMove() {}
+MotorMove::~MotorMove() { }
 
-void MotorMove::Initialize() {}
+void MotorMove::Initialize() { }
 
 void MotorMove::Execute() {
   m_subsystem->move(m_direction);

@@ -43,5 +43,7 @@ void AutonomousDrive::End() {
 
 void AutonomousDrive::Interrupted() {
   log_info("Interrupted()");
+  m_timer.Stop();
+  m_timer.Reset();
 }
 

@@ -20,8 +20,6 @@ Drive::Drive(Talon *front_left, Talon *rear_left, Talon *front_right,
       m_default_command(this, joystick) {
 
   robot_drive.SetExpiration(0.5);
-  robot_drive.SetInvertedMotor(RobotDrive::kFrontLeftMotor, true);
-  robot_drive.SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 
   log_info("Drive()");
 }
