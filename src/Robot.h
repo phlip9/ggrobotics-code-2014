@@ -59,6 +59,10 @@ class Robot : public IterativeRobot {
   void TestInit() override;
   void TestPeriodic() override;
 
+  // This function gets called periodically to place the current
+  // motor/actuator/joystick values on the SmartDashboard.
+  void UpdateSmartDashboard();
+
  private:
   // Maps hardware modules to software objects.
   HardwareMap* m_hardware_map;

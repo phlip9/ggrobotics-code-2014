@@ -1,6 +1,6 @@
 #include "HardwareMap.h"
 
-#include "SensorBase.h"
+#include "SmartDashboard/SmartDashboard.h"
 #include "LiveWindow/LiveWindow.h"
 #include "Compressor.h"
 
@@ -17,7 +17,7 @@ HardwareMap::HardwareMap()
     launch_solenoid_right(CONFIG::HARDWARE::launch_solenoid_right),
     launch_solenoid_left(CONFIG::HARDWARE::launch_solenoid_left),
     compressor(CONFIG::HARDWARE::compressor_switch,
-               CONFIG::HARDWARE::compressor_relay){
+               CONFIG::HARDWARE::compressor_relay) {
 
   log_info("HardwareMap()");
 }
@@ -31,19 +31,29 @@ void HardwareMap::init() {
 
   // Add hardware to the live window
   // You can then debug each hardware object in the driver station test mode
-  // and the smart dashboard.
+  // on the smart dashboard.
 
-  LiveWindow *live_window = LiveWindow::GetInstance();
+  LiveWindow *lw = LiveWindow::GetInstance();
 
-  live_window->AddActuator("Drive", "Front Left Motor", &front_left_motor);
-  live_window->AddActuator("Drive", "Rear Left Motor", &rear_left_motor);
-  live_window->AddActuator("Drive", "Front Right Motor", &front_right_motor);
-  live_window->AddActuator("Drive", "Rear Right Motor", &rear_right_motor);
+  lw->AddActuator("Drive", "Front Left Motor", &front_left_motor);
+  lw->AddActuator("Drive", "Rear Left Motor", &rear_left_motor);
+  lw->AddActuator("Drive", "Front Right Motor", &front_right_motor);
+  lw->AddActuator("Drive", "Rear Right Motor", &rear_right_motor);
 
-  live_window->AddActuator("Arm", "Front Arm Motor", &front_arm_motor);
-  live_window->AddActuator("Arm", "Wheel Motor", &wheel_motor);
+  lw->AddActuator("Arm", "Front Arm Motor", &front_arm_motor);
+  lw->AddActuator("Arm", "Wheel Motor", &wheel_motor);
 
-  live_window->AddActuator("Shooter", "Left Launch Solenoid", &launch_solenoid_left);
-  live_window->AddActuator("Shooter", "Right Launch Solenoid", &launch_solenoid_right);
-  live_window->AddSensor("Shooter", "Compressor", &compressor);
+  lw->AddActuator("Shooter", "Left Launch Solenoid", &launch_solenoid_left);
+  lw->AddActuator("Shooter", "Right Launch Solenoid", &launch_solenoid_right);
+  lw->AddSensor("Shooter", "Compressor", &compressor);
+}
+
+void HardwareMap::UpdateSmartDashboard() {
+  SmartDashboard::PutNumber("Front Left Motor", front_left_motor.Get());
+  SmartDashboard::PutNumber("Rear Left Motor", rear_left_motor.Get());
+  SmartDashboard::PutNumber("Front Right Motor", front_right_motor.Get());
+  SmartDashboard::PutNumber("Rear Right Motor", rear_right_motor.Get());
+
+  SmartDashboard::PutNumber("Front Arm Motor", front_arm_motor.Get());
+  SmartDashboard::PutNumber("Wheel Motor", wheel_motor.Get());
 }

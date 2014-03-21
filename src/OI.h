@@ -14,12 +14,16 @@ class ShooterSubsystem;
 #include "Buttons/JoystickButton.h"
 
 class OI {
-
  public:
   OI();
   ~OI();
 
+  // Wires the buttons, joysticks, and SmartDashboard controls to their
+  // respective commands.
   void init(MotorSubsystem *arm_wheel, MotorSubsystem *front_arm, ShooterSubsystem *shooter);
+
+  // Puts the current joystick values on the SmartDashboard.
+  void UpdateSmartDashboard();
 
   Joystick joystick_1;
 

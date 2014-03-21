@@ -117,11 +117,13 @@ void Robot::AutonomousInit() {
     m_autonomous_command->Start();
   }
 
-  m_hardware_map->compressor.Start();
+  //m_hardware_map->compressor.Start();
 }
 
 void Robot::AutonomousPeriodic() {
   Scheduler::GetInstance()->Run();
+  DriverStationLCD::GetInstance()->UpdateLCD();
+  UpdateSmartDashboard();
 }
 
 void Robot::TeleopInit() {
@@ -132,12 +134,13 @@ void Robot::TeleopInit() {
     m_autonomous_command->Cancel();
   }
 
-  m_hardware_map->compressor.Start();
+  //m_hardware_map->compressor.Start();
 }
 
 void Robot::TeleopPeriodic() {
   Scheduler::GetInstance()->Run();
   DriverStationLCD::GetInstance()->UpdateLCD();
+  UpdateSmartDashboard();
 }
 
 void Robot::TestInit() {
@@ -147,6 +150,14 @@ void Robot::TestInit() {
 
 void Robot::TestPeriodic() {
   LiveWindow::GetInstance()->Run();
+}
+
+void Robot::UpdateSmartDashboard() {
+  float battery_voltage = DriverStation::GetInstance()->GetBatteryVoltage();
+  SmartDashboard::PutNumber("Battery Voltage", battery_voltage);
+
+  m_hardware_map->UpdateSmartDashboard();
+  m_oi->UpdateSmartDashboard();
 }
 
 // !! DO NOT REMOVE !!

@@ -41,3 +41,10 @@ void OI::init(MotorSubsystem *arm_wheel, MotorSubsystem *front_arm, ShooterSubsy
 
   button_shoot.WhenReleased(new Shoot(shooter));
 }
+
+void OI::UpdateSmartDashboard() {
+  SmartDashboard::PutNumber("Joystick 1 X Axis", joystick_1.GetX());
+  SmartDashboard::PutNumber("Joystick 1 Y Axis", joystick_1.GetY());
+  SmartDashboard::PutNumber("Joystick 1 Twist", joystick_1.GetThrottle());
+  SmartDashboard::PutNumber("Joystick 1 Throttle", joystick_1.GetTwist());
+}

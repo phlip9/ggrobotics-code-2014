@@ -14,7 +14,11 @@ class HardwareMap {
   HardwareMap();
   ~HardwareMap();
 
+  // Adds the motors to the live window for use in test mode.
   void init();
+
+  // Puts the current motor values on the SmartDashboard.
+  void UpdateSmartDashboard();
 
   // Drive motors
   Talon front_left_motor;
