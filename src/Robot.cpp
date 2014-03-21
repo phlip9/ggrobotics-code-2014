@@ -81,20 +81,7 @@ void Robot::RobotInit() {
   m_shooter = new ShooterSubsystem(&m_hardware_map->launch_solenoid_left,
                                    &m_hardware_map->launch_solenoid_right);
 
-  // Drive forward and deposit the ball in autonomous
-  CommandGroup *autonomous_command = new CommandGroup("Autonomous Command");
-
-  autonomous_command->AddSequential(
-      new AutonomousDrive(m_drive,
-                          4.0,
-                          0.25));
-
-  autonomous_command->AddSequential(
-      new MotorMove("WheelMotorSpinAutonomous",
-                    m_arm_wheels,
-                    Direction::DOWN));
-
-  m_autonomous_command = (Command*) autonomous_command;
+  m_autonomous_command = new AutonomousCommand(m_drive, m_arm_wheels, m_front_arm);
 
   // Call init after constructing everything else
   m_hardware_map->init();
