@@ -27,13 +27,6 @@ enum class Direction {UP, DOWN};
 #include "RobotBase.h"
 #include "IterativeRobot.h"
 
-#include "HardwareMap.h"
-#include "OI.h"
-
-#include "Subsystems/Drive.h"
-#include "Subsystems/MotorSubsystem.h"
-#include "Subsystems/ShooterSubsystem.h"
-
 const char* str_direction(Direction direction);
 
 class Robot : public IterativeRobot {

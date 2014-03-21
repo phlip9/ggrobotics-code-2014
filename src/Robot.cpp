@@ -1,12 +1,10 @@
 #include "Robot.h"
 
+#include "DriverStation.h"
 #include "DriverStationLCD.h"
 #include "Preferences.h"
 #include "Commands/Scheduler.h"
-#include "Commands/CommandGroup.h"
-#include "Commands/PrintCommand.h"
 #include "SmartDashboard/SmartDashboard.h"
-#include "SmartDashboard/SendableChooser.h"
 #include "LiveWindow/LiveWindow.h"
 
 #include "Logging.h"
@@ -16,8 +14,7 @@
 #include "Subsystems/Drive.h"
 #include "Subsystems/MotorSubsystem.h"
 #include "Subsystems/ShooterSubsystem.h"
-#include "Commands/AutonomousDrive.h"
-#include "Commands/MotorMove.h"
+#include "Commands/AutonomousCommand.h"
 
 const char* str_direction(Direction direction) {
   return direction == Direction::UP ? "UP" : "DOWN";

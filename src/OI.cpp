@@ -4,7 +4,7 @@
 
 #include "OI.h"
 
-#include "Commands/Command.h"
+#include "SmartDashboard/SmartDashboard.h"
 
 #include "Commands/MotorMove.h"
 #include "Commands/Shoot.h"
