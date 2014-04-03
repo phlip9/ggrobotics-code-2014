@@ -18,7 +18,7 @@ OI::OI()
     button_wheel_spin_backward(&joystick_1, CONFIG::INPUT::arm_wheel_backward),
     button_front_arm_up(&joystick_1, CONFIG::INPUT::front_arm_up),
     button_front_arm_down(&joystick_1, CONFIG::INPUT::front_arm_down),
-    button_shoot(&joystick_1, CONFIG::INPUT::shoot){
+    button_shoot(&joystick_1, CONFIG::INPUT::shoot) {
 
   log_info("OI()");
 }

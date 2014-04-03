@@ -81,7 +81,8 @@ void Robot::RobotInit() {
   m_shooter = new ShooterSubsystem(&m_hardware_map->launch_solenoid_left,
                                    &m_hardware_map->launch_solenoid_right);
 
-  m_autonomous_command = new AutonomousCommand(m_drive, m_arm_wheels, m_front_arm);
+  //m_autonomous_command = new AutonomousCommand(m_drive, m_arm_wheels, m_front_arm);
+  m_autonomous_command = new AutonomousDrive(drive, 2.0, 0.50);
 
   // Call init after constructing everything else
   m_hardware_map->init();

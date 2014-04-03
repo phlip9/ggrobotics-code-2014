@@ -46,6 +46,9 @@ namespace CONFIG {
     const int shoot = 4;
   } // namespace INPUT
 
+  // permanent throttle on speed to counteract dillon's road rage
+  const float dillon_constant = 1.0;
+
   // ## Preferences (Can be edited on the SmartDashboard)
 
   // How fast the wheel on the arm should spin.

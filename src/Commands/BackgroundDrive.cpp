@@ -3,6 +3,7 @@
 #include "Joystick.h"
 
 #include "../Subsystems/Drive.h"
+#include "../Config.h"
 #include "../Logging.h"
 
 BackgroundDrive::BackgroundDrive(Drive *drive, Joystick *joystick)
@@ -38,6 +39,12 @@ void BackgroundDrive::Execute() {
   // Add 1 to shift up (from [-1, 1] to [0, 2])
   // Divide by 2 to scale down (from [0, 2] to [0, 1])
   throttle = (-throttle + 1.0) / 2.0;
+
+  // cube the throttle to give slower acceleration but same max speed.
+  throttle = throttle * throttle * throttle;
+
+  // permanent throttle on speed to counteract dillon's road rage
+  throttle *= CONFIG::dillon_constant;
 
   // The X axis seems to be reversed;
   x = -x;
